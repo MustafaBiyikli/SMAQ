@@ -15,3 +15,8 @@
 
 ![](https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png)
 ![](https://github.com/MustafaBiyikli/SMAQ/blob/master/StraightGIF.gif)
+
+## Developers:
+- Alexandros Charitonidis
+- Mustafa Biyikli
+- Katarzyna Lenard
