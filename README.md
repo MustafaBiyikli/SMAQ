@@ -1,5 +1,9 @@
 # SMAQ
-## Smart monitoring of air quality
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png" width="550">
+</p>
+
+## Smart Monitoring of Air Quality
 * Temperature
 * Pressure
 * Humidity
@@ -14,7 +18,6 @@
 * Iso-butane C4H10 >1000ppm
 
 <p align="center">
-<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png" width="550">
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/StraightGIF.gif" width="550">
 </p>
 
