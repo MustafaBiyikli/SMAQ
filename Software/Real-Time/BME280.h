@@ -1,8 +1,10 @@
 #ifndef __BME280_H__
 #define __BME280_H__
 
+/** Device ID */
 #define BME280_ADDRESS 0x77
 
+/** Registers */
 #define BME280_REGISTER_DIG_T1 0x88
 #define BME280_REGISTER_DIG_T2 0x8A
 #define BME280_REGISTER_DIG_T3 0x8C
@@ -33,11 +35,11 @@
 #define BME280_REGISTER_TEMPDATA 0xFA
 #define BME280_REGISTER_HUMIDDATA 0xFD
 
+/** Mean sea level pressure */
 #define MEAN_SEA_LEVEL_PRESSURE 1013
 
-/*
-* Immutable calibration data read from bme280
-*/
+/** Immutable calibration data read from bme280 */
+
 typedef struct
 {
     uint16_t dig_T1;
@@ -62,9 +64,8 @@ typedef struct
     int8_t dig_H6;
 } bme280_calib_data;
 
-/*
-* Raw sensor measurement data from bme280
-*/
+/** Raw sensor measurement data from bme280 */
+
 typedef struct
 {
     uint8_t pmsb;
@@ -84,12 +85,12 @@ typedef struct
 
 } bme280_raw_data;
 
-void readCalibrationData(int fd, bme280_calib_data *cal);
+void readCalibrationData(int fd_BME280, bme280_calib_data *cal);
 int32_t getTemperatureCalibration(bme280_calib_data *cal, int32_t adc_T);
 float compensateTemperature(int32_t t_fine);
 float compensatePressure(int32_t adc_P, bme280_calib_data *cal, int32_t t_fine);
 float compensateHumidity(int32_t adc_H, bme280_calib_data *cal, int32_t t_fine);
-void getRawData(int fd, bme280_raw_data *raw);
+void getRawData(int fd_BME280, bme280_raw_data *raw);
 float getAltitude(float pressure);
 
 #endif

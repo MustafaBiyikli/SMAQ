@@ -6,42 +6,67 @@
 #include <sstream>
 #include "wiringPiI2C.h"
 #include "BME280.h"
+#include "VCNL4010.h"
+
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
 int main()
 {
 
-    int fd = wiringPiI2CSetup(BME280_ADDRESS);
-    if (fd < 0)
-    {
-        cout << "Device not found" << endl;
-        return -1;
-    }
+    int fd_BME280 = wiringPiI2CSetup(BME280_ADDRESS);
+    int fd_VCNL4010 = wiringPiI2CSetup(VCNL4010_ADDRESS);
 
+    /** BME280 */
     bme280_calib_data cal;
-    readCalibrationData(fd, &cal);
+    readCalibrationData(fd_BME280, &cal);
 
-    wiringPiI2CWriteReg8(fd, 0xf2, 0x01); // humidity oversampling x 1
-    wiringPiI2CWriteReg8(fd, 0xf4, 0x25); // pressure and temperature oversampling x 1, mode normal
-
-    bme280_raw_data raw;
-    getRawData(fd, &raw);
-
-    int32_t t_fine = getTemperatureCalibration(&cal, raw.temperature);
-    float t = compensateTemperature(t_fine);                        // C
-    float p = compensatePressure(raw.pressure, &cal, t_fine) / 100; // hPa
-    float h = compensateHumidity(raw.humidity, &cal, t_fine);       // %
-    float a = getAltitude(p);                                       // meters
+    wiringPiI2CWriteReg8(fd_BME280, 0xf2, 0x01); // humidity oversampling x 1
+    wiringPiI2CWriteReg8(fd_BME280, 0xf4, 0x25); // pressure and temperature oversampling x 1, mode normal
 
     time_t timeStamp = time(0);
     char* dt = ctime(&timeStamp);
 
+    bme280_raw_data rawBME280;
+    getRawData(fd_BME280, &rawBME280);
+
+    int32_t t_fine = getTemperatureCalibration(&cal, rawBME280.temperature);
+    float t = compensateTemperature(t_fine);                        // C
+    float p = compensatePressure(rawBME280.pressure, &cal, t_fine) / 100; // hPa
+    float h = compensateHumidity(rawBME280.humidity, &cal, t_fine);       // %
+    float a = getAltitude(p);                                       // meters
+
+    /** VCNL4010 */
+    wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_PROXRATE, 0x00); // Set PROXRATE to 125samples/s
+    wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_IRLED, 20);; // set IR LED current to 200mA;
+
+    // For testing purposes ONLY!
+    while (1) {
+        uint16_t proximity = getProximity(fd_VCNL4010);
+        uint16_t ambientLight = getAmbientLight(fd_VCNL4010);
+
+        cout << "temperature: " << t << " C" << endl;
+        cout << "pressure: " << p << " hPa" << endl;
+        cout << "humidity: " << h << " %" << endl;
+        cout << "proximity: " << proximity << " unit" << endl;
+        cout << "ambientLight: " << ambientLight << " lx" << endl;
+        cout << "-------------------------" << endl;
+
+        if (proximity > 2400) {
+            break;
+        }
+
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
+
     /*-------------------JSON---------------------*/
 
     // Proximity & Gas sensor data to be added
+    /**
     ostringstream json;
-    json << "SMAQ:{\n"
+    json << "SMAQ:[\n"
         "  \"timeStamp\":" << timeStamp << ",\n"
         "  \"BME280\":{\n"
         "    \"temperature\":" << t << ",\n"
@@ -50,8 +75,8 @@ int main()
         "    \"altitude\":" << a << "\n"
         "  },\n"
         "  \"LTR559\":{\n"
-        "    \"lightLevel\":" << "low" << ",\n"
-        "    \"distance\":" << "10.245" << "\n"
+        "    \"lightLevel\":" << ambientLight << ",\n"
+        "    \"distance\":" << proximty << "\n"
         "  },\n"
         "  \"MICS6814\":{\n"
         "    \"CO\":" << "1-1000ppm" << ",\n"
@@ -63,13 +88,16 @@ int main()
         "    \"C3H8\":" << ">1000ppm" << ",\n"
         "    \"C4H10\":" << ">1000ppm" << "\n"
         "  }\n"
-        "}\n";
+        "]\n";
     string smaqOut = json.str();
 
     cout << smaqOut << endl;
+    */
 
     return 0;
 }
+
+/**-------------------BME-280-FUNCTIONS--------------------*/
 
 int32_t getTemperatureCalibration(bme280_calib_data *cal, int32_t adc_T)
 {
@@ -86,28 +114,28 @@ int32_t getTemperatureCalibration(bme280_calib_data *cal, int32_t adc_T)
     return var1 + var2;
 }
 
-void readCalibrationData(int fd, bme280_calib_data *data)
+void readCalibrationData(int fd_BME280, bme280_calib_data *data)
 {
-    data->dig_T1 = (uint16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_T1);
-    data->dig_T2 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_T2);
-    data->dig_T3 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_T3);
+    data->dig_T1 = (uint16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_T1);
+    data->dig_T2 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_T2);
+    data->dig_T3 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_T3);
 
-    data->dig_P1 = (uint16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P1);
-    data->dig_P2 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P2);
-    data->dig_P3 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P3);
-    data->dig_P4 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P4);
-    data->dig_P5 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P5);
-    data->dig_P6 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P6);
-    data->dig_P7 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P7);
-    data->dig_P8 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P8);
-    data->dig_P9 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_P9);
+    data->dig_P1 = (uint16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P1);
+    data->dig_P2 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P2);
+    data->dig_P3 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P3);
+    data->dig_P4 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P4);
+    data->dig_P5 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P5);
+    data->dig_P6 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P6);
+    data->dig_P7 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P7);
+    data->dig_P8 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P8);
+    data->dig_P9 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_P9);
 
-    data->dig_H1 = (uint8_t)wiringPiI2CReadReg8(fd, BME280_REGISTER_DIG_H1);
-    data->dig_H2 = (int16_t)wiringPiI2CReadReg16(fd, BME280_REGISTER_DIG_H2);
-    data->dig_H3 = (uint8_t)wiringPiI2CReadReg8(fd, BME280_REGISTER_DIG_H3);
-    data->dig_H4 = (wiringPiI2CReadReg8(fd, BME280_REGISTER_DIG_H4) << 4) | (wiringPiI2CReadReg8(fd, BME280_REGISTER_DIG_H4 + 1) & 0xF);
-    data->dig_H5 = (wiringPiI2CReadReg8(fd, BME280_REGISTER_DIG_H5 + 1) << 4) | (wiringPiI2CReadReg8(fd, BME280_REGISTER_DIG_H5) >> 4);
-    data->dig_H6 = (int8_t)wiringPiI2CReadReg8(fd, BME280_REGISTER_DIG_H6);
+    data->dig_H1 = (uint8_t)wiringPiI2CReadReg8(fd_BME280, BME280_REGISTER_DIG_H1);
+    data->dig_H2 = (int16_t)wiringPiI2CReadReg16(fd_BME280, BME280_REGISTER_DIG_H2);
+    data->dig_H3 = (uint8_t)wiringPiI2CReadReg8(fd_BME280, BME280_REGISTER_DIG_H3);
+    data->dig_H4 = (wiringPiI2CReadReg8(fd_BME280, BME280_REGISTER_DIG_H4) << 4) | (wiringPiI2CReadReg8(fd_BME280, BME280_REGISTER_DIG_H4 + 1) & 0xF);
+    data->dig_H5 = (wiringPiI2CReadReg8(fd_BME280, BME280_REGISTER_DIG_H5 + 1) << 4) | (wiringPiI2CReadReg8(fd_BME280, BME280_REGISTER_DIG_H5) >> 4);
+    data->dig_H6 = (int8_t)wiringPiI2CReadReg8(fd_BME280, BME280_REGISTER_DIG_H6);
 }
 
 float compensateTemperature(int32_t t_fine)
@@ -159,34 +187,34 @@ float compensateHumidity(int32_t adc_H, bme280_calib_data *cal, int32_t t_fine)
     return h / 1024.0;
 }
 
-void getRawData(int fd, bme280_raw_data *raw)
+void getRawData(int fd_BME280, bme280_raw_data *rawBME280)
 {
-    wiringPiI2CWrite(fd, 0xf7);
+    wiringPiI2CWrite(fd_BME280, 0xf7);
 
-    raw->pmsb = wiringPiI2CRead(fd);
-    raw->plsb = wiringPiI2CRead(fd);
-    raw->pxsb = wiringPiI2CRead(fd);
+    rawBME280->pmsb = wiringPiI2CRead(fd_BME280);
+    rawBME280->plsb = wiringPiI2CRead(fd_BME280);
+    rawBME280->pxsb = wiringPiI2CRead(fd_BME280);
 
-    raw->tmsb = wiringPiI2CRead(fd);
-    raw->tlsb = wiringPiI2CRead(fd);
-    raw->txsb = wiringPiI2CRead(fd);
+    rawBME280->tmsb = wiringPiI2CRead(fd_BME280);
+    rawBME280->tlsb = wiringPiI2CRead(fd_BME280);
+    rawBME280->txsb = wiringPiI2CRead(fd_BME280);
 
-    raw->hmsb = wiringPiI2CRead(fd);
-    raw->hlsb = wiringPiI2CRead(fd);
+    rawBME280->hmsb = wiringPiI2CRead(fd_BME280);
+    rawBME280->hlsb = wiringPiI2CRead(fd_BME280);
 
-    raw->temperature = 0;
-    raw->temperature = (raw->temperature | raw->tmsb) << 8;
-    raw->temperature = (raw->temperature | raw->tlsb) << 8;
-    raw->temperature = (raw->temperature | raw->txsb) >> 4;
+    rawBME280->temperature = 0;
+    rawBME280->temperature = (rawBME280->temperature | rawBME280->tmsb) << 8;
+    rawBME280->temperature = (rawBME280->temperature | rawBME280->tlsb) << 8;
+    rawBME280->temperature = (rawBME280->temperature | rawBME280->txsb) >> 4;
 
-    raw->pressure = 0;
-    raw->pressure = (raw->pressure | raw->pmsb) << 8;
-    raw->pressure = (raw->pressure | raw->plsb) << 8;
-    raw->pressure = (raw->pressure | raw->pxsb) >> 4;
+    rawBME280->pressure = 0;
+    rawBME280->pressure = (rawBME280->pressure | rawBME280->pmsb) << 8;
+    rawBME280->pressure = (rawBME280->pressure | rawBME280->plsb) << 8;
+    rawBME280->pressure = (rawBME280->pressure | rawBME280->pxsb) >> 4;
 
-    raw->humidity = 0;
-    raw->humidity = (raw->humidity | raw->hmsb) << 8;
-    raw->humidity = (raw->humidity | raw->hlsb);
+    rawBME280->humidity = 0;
+    rawBME280->humidity = (rawBME280->humidity | rawBME280->hmsb) << 8;
+    rawBME280->humidity = (rawBME280->humidity | rawBME280->hlsb);
 }
 
 float getAltitude(float pressure)
@@ -200,3 +228,52 @@ float getAltitude(float pressure)
 
     return 44330.0 * (1.0 - pow(pressure / MEAN_SEA_LEVEL_PRESSURE, 0.190294957));
 }
+
+/**-------------------VCNL-4010-FUNCTIONS--------------------*/
+
+uint16_t getProximity(int fd_VCNL4010) {
+
+    uint8_t interruptStatus = wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_INTSTAT);
+    interruptStatus &= ~0x80;
+    wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_INTSTAT, interruptStatus);
+
+    wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_COMMAND, VCNL4010_MEASUREPROXIMITY);
+
+    while (1) {
+        uint8_t result = wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_COMMAND);
+        if(result & VCNL4010_PROXIMITYREADY) {
+            uint16_t distance_mm = (wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_PROXIMITYDATA) << 8 | wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_PROXIMITYDATA + 1));
+            return distance_mm;
+        }
+    }
+}
+
+uint16_t getAmbientLight(int fd_VCNL4010) {
+
+    uint8_t interruptStatus = wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_INTSTAT);
+    interruptStatus &= ~0x40;
+    wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_INTSTAT, interruptStatus);
+
+    wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_COMMAND, VCNL4010_MEASUREAMBIENT);
+
+    while (1) {
+        uint8_t result = wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_COMMAND);
+        if(result & VCNL4010_AMBIENTREADY) {
+            uint16_t distance_mm = (wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_AMBIENTDATA) << 8 | wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_AMBIENTDATA + 1));
+            return distance_mm;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
