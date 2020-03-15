@@ -13,10 +13,21 @@
 * Propane C3H8 >1000ppm
 * Iso-butane C4H10 >1000ppm
 
-![](https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png | width=100)
-![](https://github.com/MustafaBiyikli/SMAQ/blob/master/StraightGIF.gif)
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png" width="550">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/StraightGIF.gif" width="550">
+</p>
+
+## Hardware - Main Components
+- Raspberry Pi 3 Model B
+- Homemade PCB:
+  - BME280 (Temperature, Pressure and Humidity Sensor)
+  - VCLN4010 (Proximity Sensor)
+  - SSH1106 (OLED Screen)
+  - MICS6814 (Gas Sensor)
+  - ADS1115 (ADC)
 
 ## Developers:
-- Alexandros Charitonidis
-- Mustafa Biyikli
-- Katarzyna Lenard
+- [Alexandros Charitonidis](https://github.com/Alexandros-Charitonidis) :four_leaf_clover:
+- [Mustafa Biyikli](https://github.com/MustafaBiyikli) :sunny:
+- [Katarzyna Lenard](https://github.com/KasiaLenard) :snowflake:
