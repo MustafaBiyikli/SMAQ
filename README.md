@@ -27,7 +27,7 @@
   - MICS6814 (Gas Sensor)
   - ADS1115 (ADC)
 
-## Developers:
+## Developers
 - [Alexandros Charitonidis](https://github.com/Alexandros-Charitonidis) :four_leaf_clover:
 - [Mustafa Biyikli](https://github.com/MustafaBiyikli) :sunny:
 - [Katarzyna Lenard](https://github.com/KasiaLenard) :snowflake:
