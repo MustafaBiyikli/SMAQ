@@ -13,7 +13,7 @@
 * Propane C3H8 >1000ppm
 * Iso-butane C4H10 >1000ppm
 
-![](https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png)
+![](https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png | width=100)
 ![](https://github.com/MustafaBiyikli/SMAQ/blob/master/StraightGIF.gif)
 
 ## Developers:
