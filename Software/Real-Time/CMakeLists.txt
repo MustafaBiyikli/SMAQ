@@ -20,5 +20,5 @@ target_link_libraries(${PROJECT_NAME} ${wiringPi_LIB})
 
 # Run tests after building
 add_custom_command(TARGET unit_test
-		   POST_BUILD
-		   COMMAND ctest --output-on-failure)
+		   	POST_BUILD
+			COMMAND ctest --output-on-failure)
