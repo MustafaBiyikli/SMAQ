@@ -9,6 +9,7 @@
 #include "BME280.h"
 #include "VCNL4010.h"
 #include "ADS1115.h"
+#include "SH1106.h"
 
 #include <chrono>
 #include <thread>
@@ -22,6 +23,7 @@ int main()
     int fd_BME280 = wiringPiI2CSetup(BME280_ADDRESS);
     int fd_VCNL4010 = wiringPiI2CSetup(VCNL4010_ADDRESS);
     int fd_ADS1115 = wiringPiI2CSetup(ADS1115_ADDRESS);
+    int fd_SH1106 = wiringPiI2CSetup(SH1106_ADDRESS);
 
     /**-------------------TimeStamp---------------------*/
 
@@ -60,6 +62,17 @@ int main()
     uint16_t NO2 = read_ADS1115_Channel(fd_ADS1115, 2);        // MICS6814 (Nitrogen Dioxide)
     uint16_t CO = read_ADS1115_Channel(fd_ADS1115, 3);         // MICS6814 (Carbon Monoxide)
 
+    /**-------------------SH1106---------------------*/
+    sh1106_init(fd_SH1106);
+    sh1106_display(fd_SH1106);
+    sh1106_clearDisplay();
+    this_thread::sleep_for(chrono::microseconds(5000));
+
+    sh1106_drawString("Let's see if that works");
+    sh1106_display(fd_SH1106);
+    sh1106_clearDisplay();
+    this_thread::sleep_for(chrono::microseconds(5000));
+
     /** Sampling wrapper for testing purposes ONLY! */
     // while (1)
     // {
@@ -71,28 +84,28 @@ int main()
     // Proximity & Gas sensor data to be added
 
     ostringstream json;
-    json << "SMAQ:[\n"
-        "  \"timeStamp\":" << timeStamp << ",\n"
-        "  \"BME280\":{\n"
-        "    \"temperature\":" << t << ",\n"
-        "    \"pressure\":" << p << ",\n"
-        "    \"humidity\":" << h << ",\n"
-        "    \"altitude\":" << a << "\n"
-        "  },\n"
-        "  \"LTR559\":{\n"
-        "    \"lightLevel\":" << ambientLight << ",\n"
-        "    \"distance\":" << proximity << "\n"
-        "  },\n"
-        "  \"MICS6814\":{\n"
-        "    \"CO\":" << CO << ",\n"
-        "    \"NO2\":" << NO2 << ",\n"
-        "    \"NH3\":" << NH3 << ",\n"
-        "  },\n"
-        "  \"MICROPHONE\":{\n"
-        "    \"soundLevel\":" << microphone << "\n"
-        "  }\n"
-        "]\n";
-    string smaqOut = json.str();
+    // json << "SMAQ:[\n"
+    //     "  \"timeStamp\":" << timeStamp << ",\n"
+    //     "  \"BME280\":{\n"
+    //     "    \"temperature\":" << t << ",\n"
+    //     "    \"pressure\":" << p << ",\n"
+    //     "    \"humidity\":" << h << ",\n"
+    //     "    \"altitude\":" << a << "\n"
+    //     "  },\n"
+    //     "  \"LTR559\":{\n"
+    //     "    \"lightLevel\":" << ambientLight << ",\n"
+    //     "    \"distance\":" << proximity << "\n"
+    //     "  },\n"
+    //     "  \"MICS6814\":{\n"
+    //     "    \"CO\":" << CO << ",\n"
+    //     "    \"NO2\":" << NO2 << ",\n"
+    //     "    \"NH3\":" << NH3 << ",\n"
+    //     "  },\n"
+    //     "  \"MICROPHONE\":{\n"
+    //     "    \"soundLevel\":" << microphone << "\n"
+    //     "  }\n"
+    //     "]\n";
+    // string smaqOut = json.str();
 
     cout << smaqOut << endl;
 
@@ -332,10 +345,10 @@ uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel)
     {
         result = wiringPiI2CReadReg16(fd_ADS1115, ADS1115_POINTER_CONFIG);
         result = (result >> 8) | (result << 8);
-        if ((result & ADS1115_OS_MASK) != 0) {
+        if ((result & ADS1115_OS_MASK) != 0)
+        {
             break;
         }
-        
     }
 
     result = read_ADS1115_Register(fd_ADS1115, ADS1115_POINTER_CONVERSION);
@@ -348,5 +361,168 @@ uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel)
     else
     {
         return result;
+    }
+}
+
+/**-------------------SH-1106-FUNCTIONS--------------------*/
+int cursor_x = 0;
+int cursor_y = 0;
+int textsize = 1;
+int wrap = 1;
+
+#define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+
+#define sh1106_swap(a, b) { int t = a; a = b; b = t; }
+
+void sh1106_init(int fd_SH1106)
+{
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYOFF);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETDISPLAYCLOCKDIV);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x80); // Suggested Ratio
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETMULTIPLEX);
+    wiringPiI2CWriteReg8(fd_SH1106, control, HEIGHT - 1);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETDISPLAYOFFSET);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x0);                       // No Offest
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETSTARTLINE | 0x0); // Line 0
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_CHARGEPUMP);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x10); // For internal VCC: 0x14
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SEGREMAP | 0x1);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_COMSCANDEC);
+
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETCOMPINS);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x12);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETCONTRAST);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x9F); // For internal VCC: 0xCF
+
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETPRECHARGE);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x22); // For internal VCC: 0xF1
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETVCOMDETECT);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x40);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYALLON_RESUME);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_NORMALDISPLAY);
+
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYON); // Finally switch the display ON
+}
+
+void sh1106_display(int fd_SH1106)
+{
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_COLUMNADDR);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x0);       // reset
+    wiringPiI2CWriteReg8(fd_SH1106, control, WIDTH - 1); // reset
+
+    /** This bit is skechy - Look here if it doesn't work */
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_PAGEADDR_1); // start
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_PAGEADDR_8); // end
+
+    for (int i; i < (WIDTH * HEIGHT / 8); i++)
+    {
+        wiringPiI2CWriteReg8(fd_SH1106, 0x40, buffer[i]);
+    }
+}
+
+void sh1106_clearDisplay()
+{
+    memset(buffer, 0, (WIDTH * HEIGHT / 8) * sizeof(int));
+    cursor_y = 0;
+    cursor_x = 0;
+}
+
+void sh1106_setTextSize(int s)
+{
+    textsize = (s > 0) ? s : 1;
+}
+
+void sh1106_drawPixel(int x, int y, unsigned int color)
+{
+    if ((x < 0) || (x > WIDTH) || (y < 0) || (y > HEIGHT))
+    {
+        runtime_error("Pixels out of bounds");
+    }
+    // Check rotation - Move pixel if necessary
+    switch (rotation)
+    {
+    case 1:
+        sh1106_swap(x, y);
+        x = WIDTH - x - 1;
+        break;
+    case 2:
+        x = WIDTH - x - 1;
+        y = HEIGHT - y - 1;
+        break;
+    case 3:
+        sh1106_swap(x, y);
+        y = HEIGHT - y - 1;
+        break;
+    }
+    // Check which column x is
+    switch (color)
+    {
+    case WHITE:
+        buffer[x + (y / 8) * WIDTH] |= (1 << (y & 7));
+        break;
+    case BLACK:
+        buffer[x + (y / 8) * WIDTH] &= ~(1 << (y & 7));
+        break;
+    case INVERSE:
+        buffer[x + (y / 8) * WIDTH] ^= (1 << (y & 7));
+        break;
+    }
+}
+
+void sh1106_write(int c)
+{
+    if (c == '\n')
+    {
+        cursor_y += textsize * 8;
+        cursor_x = 0;
+    }
+    else if (c == '\r')
+    {
+        // do nothing
+    }
+    else
+    {
+        sh1106_drawChar(cursor_x, cursor_y, c, WHITE, textsize);
+        cursor_x += textsize * 6;
+        if (wrap && (cursor_x > (WIDTH - textsize * 6)))
+        {
+            cursor_y += textsize * 8;
+            cursor_x = 0;
+        }
+    }
+}
+
+void sh1106_drawString(string str)
+{
+    int i, len;
+    len = str.length();
+    for (i = 0; i < len; i++)
+    {
+        sh1106_write(str[i]);
+    }
+}
+
+void sh1106_drawChar(int x, int y, unsigned char c, int color)
+{
+
+    if ((x >= WIDTH) ||             // Clip right
+        (y >= HEIGHT) ||            // Clip bottom
+        ((x + 6 * size - 1) < 0) || // Clip left
+        ((y + 8 * size - 1) < 0))   // Clip top
+        return;
+    int i, j;
+    for (i = 0; i < 6; i++)
+    {
+        int line;
+        if (i == 5)
+            line = 0x0;
+        else
+            line = pgm_read_byte(font + (c * 5) + i);
+        for (j = 0; j < 8; j++)
+        {
+            if (line & 0x1)
+                sh1106_drawPixel(x + i, y + j, color);
+            line >>= 1;
+        }
     }
 }
