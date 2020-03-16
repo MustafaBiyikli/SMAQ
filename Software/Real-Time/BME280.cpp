@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <ctime>
 #include <cstring>
+#include <string>
 #include <cmath>
 #include <sstream>
 #include <stdexcept>
@@ -11,6 +12,7 @@
 #include "VCNL4010.h"
 #include "ADS1115.h"
 #include "SH1106.h"
+#include "OLED_FONTS.h"
 
 #include <chrono>
 #include <thread>
