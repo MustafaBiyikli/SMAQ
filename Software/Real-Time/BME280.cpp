@@ -332,8 +332,11 @@ uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel)
     {
         result = wiringPiI2CReadReg16(fd_ADS1115, ADS1115_POINTER_CONFIG);
         result = (result >> 8) | (result & 0xFF);
-        if ((result & ADS1115_OS_MASK) != 0)
+        cout << ADS1115_OS_MASK << endl;
+        if ((result & ADS1115_OS_MASK) != 0) {
             break;
+        }
+        
     }
 
     result = read_ADS1115_Register(fd_ADS1115, ADS1115_POINTER_CONVERSION);
