@@ -1,7 +1,7 @@
 # SMAQ
 
 <p align="center">
-<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png" width="550">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/SMAQLogo.png" width="400">
 </p>
 
 ## Smart Monitoring of Air Quality
@@ -20,7 +20,7 @@
 -   Iso-butane C4H10 >1000ppm
 
 <p align="center">
-<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/StraightGIF.gif" width="550">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/StraightGIF.gif" width="650">
 </p>
 
 ## Hardware - Main Components
