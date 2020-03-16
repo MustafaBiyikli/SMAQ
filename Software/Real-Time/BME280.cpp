@@ -324,15 +324,14 @@ uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel)
     // Start single conversion
     config |= ADS1115_OS_SINGLE;
 
-    wiringPiI2CWriteReg16(fd_ADS1115, ADS1115_POINTER_CONFIG, ((config >> 8) | (config & 0xFF)));
+    wiringPiI2CWriteReg16(fd_ADS1115, ADS1115_POINTER_CONFIG, ((config >> 8) | (config << 8)));
 
     // Now, wait for the conversion to complete
     uint16_t result;
     while (1)
     {
         result = wiringPiI2CReadReg16(fd_ADS1115, ADS1115_POINTER_CONFIG);
-        result = (result >> 8) | (result & 0xFF);
-        cout << ADS1115_OS_MASK << endl;
+        result = (result >> 8) | (result << 8);
         if ((result & ADS1115_OS_MASK) != 0) {
             break;
         }
