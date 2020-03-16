@@ -4,6 +4,7 @@
 #include "BME280.h"
 #include "VCNL4010.h"
 #include "ADS1115.h"
+#include "SH1106.h"
 
 using namespace std;
 
@@ -43,9 +44,22 @@ int testI2Ccommunication_ADS1115()
     return 0;
 }
 
+int testI2Ccommunication_SH1106()
+{
+    int fd_SH1106 = wiringPiI2CSetup(SH1106_ADDRESS);
+    if (fd_SH1106 < 0)
+    {
+        throw runtime_error("SH1106 communication failed");
+        return -1;
+    }
+
+    return 0;
+}
+
 int main()
 {
     testI2Ccommunication_BME280();
     testI2Ccommunication_VCNL4010();
     testI2Ccommunication_ADS1115();
+    testI2Ccommunication_SH1106();
 }
