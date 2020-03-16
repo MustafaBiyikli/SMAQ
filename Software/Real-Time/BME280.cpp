@@ -4,9 +4,11 @@
 #include <ctime>
 #include <cmath>
 #include <sstream>
+#include <stdexcept>
 #include "wiringPiI2C.h"
 #include "BME280.h"
 #include "VCNL4010.h"
+#include "ADS1115.h"
 
 #include <chrono>
 #include <thread>
@@ -15,56 +17,59 @@ using namespace std;
 
 int main()
 {
+    /**-------------------Init-Sensors--------------------*/
 
     int fd_BME280 = wiringPiI2CSetup(BME280_ADDRESS);
     int fd_VCNL4010 = wiringPiI2CSetup(VCNL4010_ADDRESS);
+    int fd_ADS1115 = wiringPiICSetup(ADS1115_ADDRESS);
 
-    /** BME280 */
+    /**-------------------TimeStamp---------------------*/
+
+    time_t timeStamp = time(0);
+    char *dt = ctime(&timeStamp);
+
+    /**-------------------BME280---------------------*/
+
     bme280_calib_data cal;
     readCalibrationData(fd_BME280, &cal);
 
     wiringPiI2CWriteReg8(fd_BME280, 0xf2, 0x01); // humidity oversampling x 1
     wiringPiI2CWriteReg8(fd_BME280, 0xf4, 0x25); // pressure and temperature oversampling x 1, mode normal
 
-    time_t timeStamp = time(0);
-    char* dt = ctime(&timeStamp);
-
     bme280_raw_data rawBME280;
     getRawData(fd_BME280, &rawBME280);
 
     int32_t t_fine = getTemperatureCalibration(&cal, rawBME280.temperature);
-    float t = compensateTemperature(t_fine);                        // C
+    float t = compensateTemperature(t_fine);                              // C
     float p = compensatePressure(rawBME280.pressure, &cal, t_fine) / 100; // hPa
     float h = compensateHumidity(rawBME280.humidity, &cal, t_fine);       // %
-    float a = getAltitude(p);                                       // meters
+    float a = getAltitude(p);                                             // meters
 
-    /** VCNL4010 */
+    /**-------------------VCNL4010---------------------*/
+
     wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_PROXRATE, 0x00); // Set PROXRATE to 125samples/s
-    wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_IRLED, 20);; // set IR LED current to 200mA;
+    wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_IRLED, 20);      // set IR LED current to 200mA;
 
-    // For testing purposes ONLY!
-    while (1) {
-        uint16_t proximity = getProximity(fd_VCNL4010);
-        uint16_t ambientLight = getAmbientLight(fd_VCNL4010);
+    uint16_t proximity = getProximity(fd_VCNL4010);
+    uint16_t ambientLight = getAmbientLight(fd_VCNL4010);
 
-        cout << "temperature: " << t << " C" << endl;
-        cout << "pressure: " << p << " hPa" << endl;
-        cout << "humidity: " << h << " %" << endl;
-        cout << "proximity: " << proximity << " unit" << endl;
-        cout << "ambientLight: " << ambientLight << " lx" << endl;
-        cout << "-------------------------" << endl;
+    /**-------------------ADS1115---------------------*/
 
-        if (proximity > 2400) {
-            break;
-        }
+    uint16_t microphone = read_ADS1115_Channel(fd_ADS1115, 0); // Microphone
+    uint16_t NH3 = read_ADS1115_Channel(fd_ADS1115, 1);        // MICS6814 (Ammonia)
+    uint16_t NO2 = read_ADS1115_Channel(fd_ADS1115, 2);        // MICS6814 (Nitrogen Dioxide)
+    uint16_t CO = read_ADS1115_Channel(fd_ADS1115, 3);         // MICS6814 (Carbon Monoxide)
 
-        this_thread::sleep_for(chrono::milliseconds(100));
-    }
+    /** Sampling wrapper for testing purposes ONLY! */
+    // while (1)
+    // {
+    //     this_thread::sleep_for(chrono::milliseconds(100));
+    // }
 
-    /*-------------------JSON---------------------*/
+    /*-------------------JSON-OUTPUT--------------------*/
 
     // Proximity & Gas sensor data to be added
-    /**
+
     ostringstream json;
     json << "SMAQ:[\n"
         "  \"timeStamp\":" << timeStamp << ",\n"
@@ -76,23 +81,20 @@ int main()
         "  },\n"
         "  \"LTR559\":{\n"
         "    \"lightLevel\":" << ambientLight << ",\n"
-        "    \"distance\":" << proximty << "\n"
+        "    \"distance\":" << proximity << "\n"
         "  },\n"
         "  \"MICS6814\":{\n"
-        "    \"CO\":" << "1-1000ppm" << ",\n"
-        "    \"NO2\":" << "0.05-10ppm" << ",\n"
-        "    \"C2H5OH\":" << "10-500ppm" << ",\n"
-        "    \"H2\":" << "1-1000ppm" << ",\n"
-        "    \"NH3\":" << "1-500ppm" << ",\n"
-        "    \"CH4\":" << ">1000ppm" << ",\n"
-        "    \"C3H8\":" << ">1000ppm" << ",\n"
-        "    \"C4H10\":" << ">1000ppm" << "\n"
+        "    \"CO\":" << CO << ",\n"
+        "    \"NO2\":" << NO2 << ",\n"
+        "    \"NH3\":" << NH3 << ",\n"
+        "  },\n"
+        "  \"MICROPHONE\":{\n"
+        "    \"soundLevel\":" << microphone << "\n"
         "  }\n"
         "]\n";
     string smaqOut = json.str();
 
     cout << smaqOut << endl;
-    */
 
     return 0;
 }
@@ -177,7 +179,10 @@ float compensateHumidity(int32_t adc_H, bme280_calib_data *cal, int32_t t_fine)
 
     v_x1_u32r = (((((adc_H << 14) - (((int32_t)cal->dig_H4) << 20) - (((int32_t)cal->dig_H5) * v_x1_u32r)) + ((int32_t)16384)) >> 15) *
                  (((((((v_x1_u32r * ((int32_t)cal->dig_H6)) >> 10) * (((v_x1_u32r * ((int32_t)cal->dig_H3)) >> 11) + ((int32_t)32768))) >> 10) +
-                    ((int32_t)2097152)) * ((int32_t)cal->dig_H2) + 8192) >> 14));
+                    ((int32_t)2097152)) *
+                       ((int32_t)cal->dig_H2) +
+                   8192) >>
+                  14));
 
     v_x1_u32r = (v_x1_u32r - (((((v_x1_u32r >> 15) * (v_x1_u32r >> 15)) >> 7) * ((int32_t)cal->dig_H1)) >> 4));
 
@@ -231,7 +236,8 @@ float getAltitude(float pressure)
 
 /**-------------------VCNL-4010-FUNCTIONS--------------------*/
 
-uint16_t getProximity(int fd_VCNL4010) {
+uint16_t getProximity(int fd_VCNL4010)
+{
 
     uint8_t interruptStatus = wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_INTSTAT);
     interruptStatus &= ~0x80;
@@ -239,16 +245,19 @@ uint16_t getProximity(int fd_VCNL4010) {
 
     wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_COMMAND, VCNL4010_MEASUREPROXIMITY);
 
-    while (1) {
+    while (1)
+    {
         uint8_t result = wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_COMMAND);
-        if(result & VCNL4010_PROXIMITYREADY) {
+        if (result & VCNL4010_PROXIMITYREADY)
+        {
             uint16_t distance_mm = (wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_PROXIMITYDATA) << 8 | wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_PROXIMITYDATA + 1));
             return distance_mm;
         }
     }
 }
 
-uint16_t getAmbientLight(int fd_VCNL4010) {
+uint16_t getAmbientLight(int fd_VCNL4010)
+{
 
     uint8_t interruptStatus = wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_INTSTAT);
     interruptStatus &= ~0x40;
@@ -256,24 +265,86 @@ uint16_t getAmbientLight(int fd_VCNL4010) {
 
     wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_COMMAND, VCNL4010_MEASUREAMBIENT);
 
-    while (1) {
+    while (1)
+    {
         uint8_t result = wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_COMMAND);
-        if(result & VCNL4010_AMBIENTREADY) {
+        if (result & VCNL4010_AMBIENTREADY)
+        {
             uint16_t distance_mm = (wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_AMBIENTDATA) << 8 | wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_AMBIENTDATA + 1));
             return distance_mm;
         }
     }
 }
 
+/**-------------------ADS-1115-FUNCTIONS--------------------*/
 
+uint16_t read_ADS1115_Register(int fd_ADS1115, uint8_t register)
+{
+    wiringPiI2CWrite(fd_ADS1115, ADS1115_POINTER_CONVERSION);
 
+    uint16_t reading = wiringPiI2CReadReg16(fd_ADS1115, register);
 
+    reading = (reading >> 8) | (reading << 8); // yes, wiringPi did not assemble the bytes as we want
 
+    return reading;
+}
 
+uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel)
+{
+    (channel > 3) ? channel = 3 : channel = channel;
 
+    //	Set PGA/voltage range -> GAIN=1
+    uint16_t config = ADS1115_DEFAULT;
+    config &= ~ADS1115_PGA_MASK;
+    config |= ADS1115_PGA_4_096V;
 
+    //	Set sample speed -> 128 samples/second
+    config &= ~ADS1115_DR_MASK;
+    config |= ADS1115_DR_128SPS;
 
+    //	Set single-ended channel or differential mode
+    config &= ~ADS1115_MUX_MASK;
 
+    switch (channel)
+    {
+    case 0:
+        config |= ADS1115_MUX_SINGLE_0;
+        break;
+    case 1:
+        config |= ADS1115_MUX_SINGLE_1;
+        break;
+    case 2:
+        config |= ADS1115_MUX_SINGLE_2;
+        break;
+    case 3:
+        config |= ADS1115_MUX_SINGLE_3;
+        break;
+    }
 
+    // Start single conversion
+    config |= ADS1115_OS_SINGLE;
 
+    wiringPiI2CWriteReg16(fd_ADS1115, ADS1115_POINTER_CONFIG, ((config >> 8) | (config & 0xFF)));
 
+    // Now, wait for the conversion to complete
+    uint16_t result;
+    while (1)
+    {
+        result = wiringPiI2CReadReg16(fd_ADS1115, ADS1115_POINTER_CONFIG);
+        result = (result >> 8) | (result & 0xFF);
+        if ((result & ADS1115_OS_MASK) != 0)
+            break;
+    }
+
+    result = read_ADS1115_Register(fd_ADS1115, ADS1115_POINTER_CONVERSION);
+
+    if ((channel < 4) && (result < 0))
+    {
+        throw runtime_error("ADS1115 read error");
+        return 0;
+    }
+    else
+    {
+        return result;
+    }
+}
