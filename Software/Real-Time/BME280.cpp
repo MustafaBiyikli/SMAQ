@@ -21,7 +21,7 @@ int main()
 
     int fd_BME280 = wiringPiI2CSetup(BME280_ADDRESS);
     int fd_VCNL4010 = wiringPiI2CSetup(VCNL4010_ADDRESS);
-    int fd_ADS1115 = wiringPiICSetup(ADS1115_ADDRESS);
+    int fd_ADS1115 = wiringPiI2CSetup(ADS1115_ADDRESS);
 
     /**-------------------TimeStamp---------------------*/
 
@@ -278,11 +278,11 @@ uint16_t getAmbientLight(int fd_VCNL4010)
 
 /**-------------------ADS-1115-FUNCTIONS--------------------*/
 
-uint16_t read_ADS1115_Register(int fd_ADS1115, uint8_t register)
+uint16_t read_ADS1115_Register(int fd_ADS1115, uint8_t reg)
 {
     wiringPiI2CWrite(fd_ADS1115, ADS1115_POINTER_CONVERSION);
 
-    uint16_t reading = wiringPiI2CReadReg16(fd_ADS1115, register);
+    uint16_t reading = wiringPiI2CReadReg16(fd_ADS1115, reg);
 
     reading = (reading >> 8) | (reading << 8); // yes, wiringPi did not assemble the bytes as we want
 
