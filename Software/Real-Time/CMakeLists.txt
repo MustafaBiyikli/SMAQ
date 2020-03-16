@@ -4,11 +4,11 @@ cmake_minimum_required(VERSION 3.10)
 project(BME280)
 
 # Add executable
-add_executable(${PROJECT_NAME} BME280.cpp BME280.h VCNL4010.h ADS1115.h)
+add_executable(${PROJECT_NAME} BME280.cpp BME280.h VCNL4010.h ADS1115.h SH1106.h)
 
 # Unit tests
 enable_testing()
-add_executable(unit_test unitTest.cpp BME280.h VCNL4010.h ADS1115.h)
+add_executable(unit_test unitTest.cpp BME280.h VCNL4010.h ADS1115.h SH1106.h)
 add_test(test_result unit_test)
 
 # Locate libraries and headers
