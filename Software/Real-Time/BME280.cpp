@@ -2,6 +2,7 @@
 #include <cerrno>
 #include <cstdint>
 #include <ctime>
+#include <cstring>
 #include <cmath>
 #include <sstream>
 #include <stdexcept>
@@ -83,7 +84,7 @@ int main()
 
     // Proximity & Gas sensor data to be added
 
-    ostringstream json;
+    // ostringstream json;
     // json << "SMAQ:[\n"
     //     "  \"timeStamp\":" << timeStamp << ",\n"
     //     "  \"BME280\":{\n"
@@ -107,7 +108,7 @@ int main()
     //     "]\n";
     // string smaqOut = json.str();
 
-    cout << smaqOut << endl;
+    // cout << smaqOut << endl;
 
     return 0;
 }
@@ -502,7 +503,7 @@ void sh1106_drawString(string str)
     }
 }
 
-void sh1106_drawChar(int x, int y, unsigned char c, int color)
+void sh1106_drawChar(int x, int y, unsigned char c, int color, int size = 1)
 {
 
     if ((x >= WIDTH) ||             // Clip right
