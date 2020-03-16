@@ -85,6 +85,7 @@ typedef struct
 
 } bme280_raw_data;
 
+/** Declare Functions */
 void readCalibrationData(int fd_BME280, bme280_calib_data *cal);
 int32_t getTemperatureCalibration(bme280_calib_data *cal, int32_t adc_T);
 float compensateTemperature(int32_t t_fine);

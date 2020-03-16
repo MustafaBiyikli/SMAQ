@@ -68,6 +68,7 @@
 
 #define ADS1115_DEFAULT 0x8583 // From the datasheet
 
+/** Declare Functions */
 uint16_t read_ADS1115_Register(int fd_ADS1115, uint8_t register);
 uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel);
 

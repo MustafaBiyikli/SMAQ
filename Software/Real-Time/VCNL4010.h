@@ -25,6 +25,7 @@
 #define VCNL4010_PROXIMITYREADY   0x20  // Read-only - Value = 1 when proximity measurement data is available
 #define VCNL4010_AMBIENTREADY     0x40  // Read-only - Value = 1 when ambient light measurement data is available
 
+/** Declare Functions */
 uint16_t getProximity(int fd_VCNL4010);
 uint16_t getAmbientLight(int fd_VCNL4010);
 
