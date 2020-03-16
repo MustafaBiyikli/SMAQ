@@ -57,32 +57,14 @@
 #define SH1106_EXTERNALVCC 0x1
 #define SH1106_SWITCHCAPVCC 0x2
 
-void ssd1306_begin(unsigned int switchvcc, unsigned int i2caddr); //switchvcc should be SH1106_SWITCHCAPVCC
-void ssd1306_command(unsigned int c);
-
-void ssd1306_clearDisplay(void);
-void ssd1306_invertDisplay(unsigned int i);
-void ssd1306_display();
-
-void ssd1306_startscrollright(unsigned int start, unsigned int stop);
-void ssd1306_startscrollleft(unsigned int start, unsigned int stop);
-
-void ssd1306_startscrolldiagright(unsigned int start, unsigned int stop);
-void ssd1306_startscrolldiagleft(unsigned int start, unsigned int stop);
-void ssd1306_stopscroll(void);
-
-void ssd1306_dim(unsigned int dim);
-
-void ssd1306_drawPixel(int x, int y, unsigned int color);
-
-void ssd1306_drawFastVLine(int x, int y, int h, unsigned int color);
-void ssd1306_drawFastHLine(int x, int y, int w, unsigned int color);
-
-void ssd1306_fillRect(int x, int y, int w, int h, int fillcolor);
-
-void ssd1306_setTextSize(int s);
-void ssd1306_drawString(char *str);
-void ssd1306_drawChar(int x, int y, unsigned char c, int color, int size);
+void sh1106_init(int fd_SH1106);
+void sh1106_display(int fd_SH1106);
+void sh1106_clearDisplay();
+void sh1106_setTextSize(int s);
+void sh1106_drawPixel(int x, int y, unsigned int color);
+void sh1106_write(int c);
+void sh1106_drawString(string str);
+void sh1106_drawChar(int x, int y, unsigned char c, int color);
 
 int buffer[WIDTH * HEIGHT / 8] =
     {
