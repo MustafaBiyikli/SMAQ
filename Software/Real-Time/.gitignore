@@ -5,3 +5,4 @@ CTestTestfile.cmake
 Makefile
 Testing
 unit_test
+BME280
