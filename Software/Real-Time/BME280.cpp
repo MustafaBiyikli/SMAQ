@@ -95,9 +95,9 @@ int main()
     ostringstream sensorData;
     sensorData << " Date:" << formatted_date << "\n Time:" << formatted_time << "\n"
                << " --------------------\n"
-               << " " << t << " C | " << round(p) << "hPa\n" // will need to add rounding functions
+               << " " << round(t * 10) / 10 << " C | " << round(p * 10) / 10 << "hPa\n" // will need to add rounding functions
                << " --------------------\n"
-               << " " << h << "% | " << a << "m";
+               << " " << round(h * 10) / 10 << "% | " << round(a * 10) / 10 << "m";
     string sensorDataOut = sensorData.str();
     sh1106_drawString(sensorDataOut);
     sh1106_display(fd_SH1106);
