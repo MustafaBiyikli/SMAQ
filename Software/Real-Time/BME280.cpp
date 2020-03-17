@@ -95,7 +95,7 @@ int main()
     ostringstream sensorData;
     sensorData << " Date:" << formatted_date << "\n Time:" << formatted_time << "\n"
                << " --------------------\n"
-               << " " << t << " C | " << p << "hPa\n"
+               << " " << t << " C | " << round(p) << "hPa\n" // will need to add rounding functions
                << " --------------------\n"
                << " " << h << "% | " << a << "m";
     string sensorDataOut = sensorData.str();
