@@ -4,15 +4,18 @@
 #include <ctime>
 #include <cstring>
 #include <string>
-#include <cmath>
 #include <sstream>
+#include <iterator>
+#include <vector>
+#include <cmath>
 #include <stdexcept>
+
 #include "wiringPiI2C.h"
 #include "BME280.h"
 #include "VCNL4010.h"
 #include "ADS1115.h"
 #include "SH1106.h"
-#include "OLED_FONTS.h"
+#include "fonts.h"
 
 #include <chrono>
 #include <thread>
@@ -31,7 +34,18 @@ int main()
     /**-------------------TimeStamp---------------------*/
 
     time_t timeStamp = time(0);
-    char *dt = ctime(&timeStamp);
+    string dt = ctime(&timeStamp);
+    istringstream iss(dt);
+
+    vector<string> date_buffer;
+    copy(istream_iterator<string>(iss),
+         istream_iterator<string>(),
+         back_inserter(date_buffer));
+    ostringstream dateToFormat;
+    dateToFormat << date_buffer[2] << " " << date_buffer[1] << " " << date_buffer[4];
+
+    string formatted_date = dateToFormat.str();
+    string formatted_time = date_buffer[3];
 
     /**-------------------BME280---------------------*/
 
@@ -66,20 +80,38 @@ int main()
     uint16_t CO = read_ADS1115_Channel(fd_ADS1115, 3);         // MICS6814 (Carbon Monoxide)
 
     /**-------------------SH1106---------------------*/
+    // FOR TESTING ONLY
+    string userInput1;
+    string userInput2;
+    string userInput3;
     sh1106_init(fd_SH1106);
     sh1106_display(fd_SH1106);
-    sh1106_clearDisplay();
-    this_thread::sleep_for(chrono::microseconds(5000));
+    cout << "Press ENTER to clear screen and continue";
+    getline(cin, userInput1);
+    sh1106_clearDisplay(fd_SH1106);
 
-    sh1106_drawString("Let's see if that works");
+    cout << "Press ENTER to show sensor data";
+    getline(cin, userInput2);
+    ostringstream sensorData;
+    sensorData << " Date:" << formatted_date << "\n Time:" << formatted_time << "\n"
+               << " --------------------\n"
+               << " " << t << " C | " << p << "hPa\n"
+               << " --------------------\n"
+               << " " << h << "% | " << a << "m";
+    string sensorDataOut = sensorData.str();
+    sh1106_drawString(sensorDataOut);
     sh1106_display(fd_SH1106);
-    sh1106_clearDisplay();
-    this_thread::sleep_for(chrono::microseconds(5000));
+
+    cout << "Press ENTER to switch off";
+    getline(cin, userInput3);
+    sh1106_clearDisplay(fd_SH1106);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYOFF);
+    // END OF TESTING
 
     /** Sampling wrapper for testing purposes ONLY! */
     // while (1)
     // {
-    //     this_thread::sleep_for(chrono::milliseconds(100));
+    //     this_thread::sleep_for(chrono::microseconds(1000));
     // }
 
     /*-------------------JSON-OUTPUT--------------------*/
@@ -375,32 +407,43 @@ int wrap = 1;
 
 #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
 
-#define sh1106_swap(a, b) { int t = a; a = b; b = t; }
+#define sh1106_swap(a, b) \
+    {                     \
+        int t = a;        \
+        a = b;            \
+        b = t;            \
+    }
 
 void sh1106_init(int fd_SH1106)
 {
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYOFF);
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETDISPLAYCLOCKDIV);
-    wiringPiI2CWriteReg8(fd_SH1106, control, 0x80); // Suggested Ratio
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0xF0); // Suggested Ratio
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETMULTIPLEX);
-    wiringPiI2CWriteReg8(fd_SH1106, control, HEIGHT - 1);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x3f);
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETDISPLAYOFFSET);
-    wiringPiI2CWriteReg8(fd_SH1106, control, 0x0);                       // No Offest
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x00);                      // No Offest
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETSTARTLINE | 0x0); // Line 0
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_CHARGEPUMP);
-    wiringPiI2CWriteReg8(fd_SH1106, control, 0x10); // For internal VCC: 0x14
-    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SEGREMAP | 0x1);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x10); // internal VCC: 0x14 | external VCC: 0x10
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_MEMORYMODE);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x00);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0xB0); // page 0
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_COMSCANDEC);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETLOWCOLUMN);
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETHIGHCOLUMN);
 
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETCOMPINS);
     wiringPiI2CWriteReg8(fd_SH1106, control, 0x12);
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETCONTRAST);
-    wiringPiI2CWriteReg8(fd_SH1106, control, 0x9F); // For internal VCC: 0xCF
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x9F); // internal VCC: 0xCF | external VCC: 0x9F
 
+    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SEGREMAP);
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETPRECHARGE);
-    wiringPiI2CWriteReg8(fd_SH1106, control, 0x22); // For internal VCC: 0xF1
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x22); // internal VCC: 0xF1 | external VCC: 0x22
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETVCOMDETECT);
-    wiringPiI2CWriteReg8(fd_SH1106, control, 0x40);
+    wiringPiI2CWriteReg8(fd_SH1106, control, 0x20);
+
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYALLON_RESUME);
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_NORMALDISPLAY);
 
@@ -409,35 +452,30 @@ void sh1106_init(int fd_SH1106)
 
 void sh1106_display(int fd_SH1106)
 {
-    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_COLUMNADDR);
-    wiringPiI2CWriteReg8(fd_SH1106, control, 0x0);       // reset
-    wiringPiI2CWriteReg8(fd_SH1106, control, WIDTH - 1); // reset
-
-    /** This bit is skechy - Look here if it doesn't work */
-    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_PAGEADDR_1); // start
-    wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_PAGEADDR_8); // end
-
-    for (int i; i < (WIDTH * HEIGHT / 8); i++)
+    for (unsigned short page = 0; page < 8; page++)
     {
-        wiringPiI2CWriteReg8(fd_SH1106, 0x40, buffer[i]);
+        wiringPiI2CWriteReg8(fd_SH1106, control, 0x00);
+        wiringPiI2CWriteReg8(fd_SH1106, control, 0x10);
+        wiringPiI2CWriteReg8(fd_SH1106, control, 0xB0 | (page & 0x0F));
+
+        for (int i = 0; i < 128; i++)
+        {
+            wiringPiI2CWriteReg8(fd_SH1106, 0x40, buffer[page * 128 + i]);
+        }
     }
 }
 
-void sh1106_clearDisplay()
+void sh1106_clearDisplay(int fd_SH1106)
 {
     memset(buffer, 0, (WIDTH * HEIGHT / 8) * sizeof(int));
     cursor_y = 0;
     cursor_x = 0;
-}
-
-void sh1106_setTextSize(int s)
-{
-    textsize = (s > 0) ? s : 1;
+    sh1106_display(fd_SH1106);
 }
 
 void sh1106_drawPixel(int x, int y, unsigned int color)
 {
-    if ((x < 0) || (x > WIDTH) || (y < 0) || (y > HEIGHT))
+    if ((x < 0) || (x >= WIDTH) || (y < 0) || (y >= HEIGHT))
     {
         runtime_error("Pixels out of bounds");
     }
@@ -505,9 +543,8 @@ void sh1106_drawString(string str)
     }
 }
 
-void sh1106_drawChar(int x, int y, unsigned char c, int color, int size = 1)
+void sh1106_drawChar(int x, int y, unsigned char c, int color, int size)
 {
-
     if ((x >= WIDTH) ||             // Clip right
         (y >= HEIGHT) ||            // Clip bottom
         ((x + 6 * size - 1) < 0) || // Clip left
