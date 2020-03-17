@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 project(BME280)
 
 # Add executable
-add_executable(${PROJECT_NAME} BME280.cpp BME280.h VCNL4010.h ADS1115.h SH1106.h)
+add_executable(${PROJECT_NAME} BME280.cpp BME280.h VCNL4010.h ADS1115.h SH1106.h fonts.h)
 
 # Unit tests
 enable_testing()
