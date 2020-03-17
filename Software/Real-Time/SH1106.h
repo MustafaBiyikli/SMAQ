@@ -1,6 +1,10 @@
 #ifndef __SH1106_H__
 #define __SH1106_H__
 
+#include <string>
+#include <iostream>
+using namespace std;
+
 #define rotation 0
 #define BLACK 0
 #define WHITE 1
@@ -12,7 +16,7 @@
 #define WIDTH 128
 #define HEIGHT 64
 
-#define control 0x00
+#define control 0x80
 
 #define SH1106_SETCONTRAST 0x81
 #define SH1106_DISPLAYALLON_RESUME 0xA4
@@ -37,35 +41,22 @@
 
 #define SH1106_SETSTARTLINE 0x40 // from 0x40 to 0x7f
 
-#define SH1106_COLUMNADDR 0x00 // from 0x00 to 0x83
-#define SH1106_PAGEADDR_1 0xB0
-#define SH1106_PAGEADDR_2 0xB1
-#define SH1106_PAGEADDR_3 0xB2
-#define SH1106_PAGEADDR_4 0xB3
-#define SH1106_PAGEADDR_5 0xB4
-#define SH1106_PAGEADDR_6 0xB5
-#define SH1106_PAGEADDR_7 0xB6
-#define SH1106_PAGEADDR_8 0xB7
+#define SH1106_COLUMNADDR 0x21 // from 0x00 to 0x83
+#define SH1106_PAGEADDR 0x22
 
 #define SH1106_COMSCANINC 0xC0
 #define SH1106_COMSCANDEC 0xC8
 
-#define SH1106_SEGREMAP 0xA0 // 0xA0 to 0xA1
+#define SH1106_SEGREMAP 0xA1 // 0xA0 to 0xA1
 
-#define SH1106_CHARGEPUMP 0x8B
+#define SH1106_CHARGEPUMP 0x8D
+
+#define SH1106_MEMORYMODE 0x20
 
 #define SH1106_EXTERNALVCC 0x1
 #define SH1106_SWITCHCAPVCC 0x2
 
-void sh1106_init(int fd_SH1106);
-void sh1106_display(int fd_SH1106);
-void sh1106_clearDisplay();
-void sh1106_setTextSize(int s);
-void sh1106_drawPixel(int x, int y, unsigned int color);
-void sh1106_write(int c);
-void sh1106_drawString(string str);
-void sh1106_drawChar(int x, int y, unsigned char c, int color);
-
+/** SMAQ logo bmp buffer */
 int buffer[WIDTH * HEIGHT / 8] =
     {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -139,5 +130,14 @@ int buffer[WIDTH * HEIGHT / 8] =
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+/** Declare Functions */
+void sh1106_init(int fd_SH1106);
+void sh1106_display(int fd_SH1106);
+void sh1106_clearDisplay(int fd_SH1106);
+void sh1106_drawPixel(int x, int y, unsigned int color);
+void sh1106_write(int c);
+void sh1106_drawString(string str);
+void sh1106_drawChar(int x, int y, unsigned char c, int color, int size = 1);
 
 #endif
