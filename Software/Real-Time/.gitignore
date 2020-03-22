@@ -1,8 +1,6 @@
 CMakeFiles
 CMakeCache.txt
-cmake_install.cmake
-CTestTestfile.cmake
 Makefile
 Testing
-unit_test
-BME280
+*.cmake
+*.exe
