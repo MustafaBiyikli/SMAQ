@@ -131,13 +131,17 @@ int buffer[WIDTH * HEIGHT / 8] =
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-/** Declare Functions */
-void sh1106_init(int fd_SH1106);
-void sh1106_display(int fd_SH1106);
-void sh1106_clearDisplay(int fd_SH1106);
-void sh1106_drawPixel(int x, int y, unsigned int color);
-void sh1106_write(int c);
-void sh1106_drawString(string str);
-void sh1106_drawChar(int x, int y, unsigned char c, int color, int size = 1);
+class SH1106
+{
+public:
+    /** Declare Functions */
+    void sh1106_init(int fd_SH1106);
+    void sh1106_display(int fd_SH1106);
+    void sh1106_clearDisplay(int fd_SH1106);
+    void sh1106_drawPixel(int x, int y, unsigned int color);
+    void sh1106_write(int c);
+    void sh1106_drawString(string str);
+    void sh1106_drawChar(int x, int y, unsigned char c, int color, int size = 1);
+}
 
 #endif
