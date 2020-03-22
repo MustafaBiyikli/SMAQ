@@ -11,12 +11,6 @@
 /** The multiplexor */
 #define ADS1115_MUX_MASK 0x7000
 
-/** Single-ended modes */
-#define ADS1115_MUX_SINGLE_0 0x4000 // AIN0
-#define ADS1115_MUX_SINGLE_1 0x5000 // AIN1
-#define ADS1115_MUX_SINGLE_2 0x6000 // AIN2
-#define ADS1115_MUX_SINGLE_3 0x7000 // AIN3
-
 /** Programmable Gain Amplifier */
 #define ADS1115_PGA_MASK 0x0E00
 #define ADS1115_PGA_6_144V 0x0000 // +/-6.144V range = Gain 2/3
@@ -29,14 +23,8 @@
 #define ADS1115_MODE 0x0100 // 0 is continuous, 1 is single-shot default
 
 /** Data Rate */
-#define ADS1115_DR_MASK 0x00E0
-#define ADS1115_DR_8SPS 0x0000   //   8 samples per second
-#define ADS1115_DR_16SPS 0x0020  //  16 samples per second
-#define ADS1115_DR_32SPS 0x0040  //  32 samples per second
-#define ADS1115_DR_64SPS 0x0060  //  64 samples per second
-#define ADS1115_DR_128SPS 0x0080 // 128 samples per second default
-#define ADS1115_DR_475SPS 0x00A0 // 475 samples per second
-#define ADS1115_DR_860SPS 0x00C0 // 860 samples per second
+// 0:8Hz, 1:16Hz, 2:32Hz, 3:64Hz, 4:128Hz, 5:250Hz, 6:475Hz, 7:860Hz
+#define ADS1115_DR_MASK 0x00E0 // Resets Samplingconfig for change
 
 /** Pointer Registers */
 #define ADS1115_POINTER_CONVERSION 0x00
@@ -68,8 +56,19 @@
 
 #define ADS1115_DEFAULT 0x8583 // From the datasheet
 
-/** Declare Functions */
-uint16_t read_ADS1115_Register(int fd_ADS1115, uint8_t register);
-uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel);
+class ADS1115
+{
+public:
+    /** Declare Functions */
+    void ADS1115config(int fd_ADS1115, int samplingRate);
+    uint16_t read_ADS1115_Register(int fd_ADS1115, uint8_t reg);
+    uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel);
+
+    // Used fot the channel variable in read_ADS1115_Channel fn
+    int MICROPHONE = 0;
+    int NH3 = 1;
+    int NO2 = 2;
+    int CO = 3;
+};
 
 #endif
