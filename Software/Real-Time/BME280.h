@@ -85,13 +85,25 @@ typedef struct
 
 } bme280_raw_data;
 
-/** Declare Functions */
-void readCalibrationData(int fd_BME280, bme280_calib_data *cal);
-int32_t getTemperatureCalibration(bme280_calib_data *cal, int32_t adc_T);
-float compensateTemperature(int32_t t_fine);
-float compensatePressure(int32_t adc_P, bme280_calib_data *cal, int32_t t_fine);
-float compensateHumidity(int32_t adc_H, bme280_calib_data *cal, int32_t t_fine);
-void getRawData(int fd_BME280, bme280_raw_data *raw);
-float getAltitude(float pressure);
+class BME280
+{
+public:
+    /** Declare Functions */
+    void BME280config(int fd_BME280, int samplingRate);
+    void readCalibrationData(int fd_BME280, bme280_calib_data *cal);
+    int32_t getTemperatureCalibration(bme280_calib_data *cal, int32_t adc_T);
+    float compensateTemperature(int32_t t_fine);
+    float compensatePressure(int32_t adc_P, bme280_calib_data *cal, int32_t t_fine);
+    float compensateHumidity(int32_t adc_H, bme280_calib_data *cal, int32_t t_fine);
+    void getRawData(int fd_BME280, bme280_raw_data *raw);
+    float getAltitude(float pressure);
+    float extractData(int fd_BME280, int whichOutput);
+
+    // Used for whichoutput variable in extractData fn
+    int TEMPERATURE = 0;
+    int PRESSURE = 1;
+    int HUMIDITY = 2;
+    int ALTITUDE = 3;
+};
 
 #endif
