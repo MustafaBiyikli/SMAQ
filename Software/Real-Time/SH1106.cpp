@@ -29,7 +29,7 @@ int wrap = 1;
         b = t;            \
     }
 
-void sh1106_init(int fd_SH1106)
+void SH1106::sh1106_init(int fd_SH1106)
 {
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYOFF);
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_SETDISPLAYCLOCKDIV);
@@ -65,7 +65,7 @@ void sh1106_init(int fd_SH1106)
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYON); // Finally switch the display ON
 }
 
-void sh1106_display(int fd_SH1106)
+void SH1106::sh1106_display(int fd_SH1106)
 {
     for (unsigned short page = 0; page < 8; page++)
     {
@@ -80,7 +80,7 @@ void sh1106_display(int fd_SH1106)
     }
 }
 
-void sh1106_clearDisplay(int fd_SH1106)
+void SH1106::sh1106_clearDisplay(int fd_SH1106)
 {
     memset(buffer, 0, (WIDTH * HEIGHT / 8) * sizeof(int));
     cursor_y = 0;
@@ -88,7 +88,7 @@ void sh1106_clearDisplay(int fd_SH1106)
     sh1106_display(fd_SH1106);
 }
 
-void sh1106_drawPixel(int x, int y, unsigned int color)
+void SH1106::sh1106_drawPixel(int x, int y, unsigned int color)
 {
     if ((x < 0) || (x >= WIDTH) || (y < 0) || (y >= HEIGHT))
     {
@@ -125,7 +125,7 @@ void sh1106_drawPixel(int x, int y, unsigned int color)
     }
 }
 
-void sh1106_write(int c)
+void SH1106::sh1106_write(int c)
 {
     if (c == '\n')
     {
@@ -148,7 +148,7 @@ void sh1106_write(int c)
     }
 }
 
-void sh1106_drawString(string str)
+void SH1106::sh1106_drawString(string str)
 {
     int i, len;
     len = str.length();
@@ -158,7 +158,7 @@ void sh1106_drawString(string str)
     }
 }
 
-void sh1106_drawChar(int x, int y, unsigned char c, int color, int size)
+void SH1106::sh1106_drawChar(int x, int y, unsigned char c, int color, int size)
 {
     if ((x >= WIDTH) ||             // Clip right
         (y >= HEIGHT) ||            // Clip bottom
