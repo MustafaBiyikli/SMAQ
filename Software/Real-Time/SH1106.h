@@ -142,6 +142,6 @@ public:
     void sh1106_write(int c);
     void sh1106_drawString(string str);
     void sh1106_drawChar(int x, int y, unsigned char c, int color, int size = 1);
-}
+};
 
 #endif
