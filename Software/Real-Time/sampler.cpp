@@ -69,18 +69,6 @@ void Communicate::run(Communicate *communicate)
             uint16_t no2 = ads1115->read_ADS1115_Channel(communicate->fd_ADS1115, ads1115->NO2);
             uint16_t co = ads1115->read_ADS1115_Channel(communicate->fd_ADS1115, ads1115->CO);
 
-            communicate->count += 1;
-            if (proximity > 2500)
-            {
-                communicate->count = 0;
-                sh1106->sh1106_displayData(communicate->fd_SH1106, temperature, pressure, humidity, ambientLight);
-            }
-
-            if (communicate->count > 10)
-            {
-                sh1106->sh1106_clearDisplay(communicate->fd_SH1106);
-                sh1106->sh1106_displayLogo(communicate->fd_SH1106);
-            }
             // STORE RESULTS
             communicate->callback->hasSample(timeStamp, ambientLight, proximity, temperature, pressure, humidity, altitude,
                                              microphone, nh3, no2, co);
@@ -107,7 +95,7 @@ void Communicate::start(int samplingRate)
 
     // SH1106 configure and display SMAQ logo
     sh1106->sh1106_init(fd_SH1106);
-    sh1106->sh1106_displayLogo(fd_SH1106);
+    sh1106->sh1106_display(fd_SH1106);
 
     Thread = new thread(run, this);
 }
