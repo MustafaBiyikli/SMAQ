@@ -61,7 +61,6 @@ class SH1106
 public:
     /** Declare Functions */
     void sh1106_init(int fd_SH1106);
-    void sh1106_displayLogo(int fd_SH1106);
     void sh1106_display(int fd_SH1106);
     void sh1106_clearDisplay(int fd_SH1106);
     void sh1106_displayOFF(int fd_SH1106);
@@ -77,8 +76,7 @@ public:
     int TIME = 1;
 
     /** SMAQ logo bmp buffer */
-    int buffer[WIDTH * HEIGHT / 8] = {0x00};
-    int buffer_logo[WIDTH * HEIGHT / 8] =
+    int buffer[WIDTH * HEIGHT / 8] =
         {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
