@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.10)
 project(sampleData)
 
 # Add executable
-add_executable(${PROJECT_NAME} demo.cpp sampler.cpp BME280.cpp VCNL4010.cpp ADS1115.cpp)
+add_executable(${PROJECT_NAME} demo.cpp sampler.cpp BME280.cpp VCNL4010.cpp ADS1115.cpp SH1106.cpp)
 
 # Unit tests
 enable_testing()
