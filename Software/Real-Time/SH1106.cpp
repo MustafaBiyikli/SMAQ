@@ -67,24 +67,6 @@ void SH1106::sh1106_init(int fd_SH1106)
     wiringPiI2CWriteReg8(fd_SH1106, control, SH1106_DISPLAYON); // Finally switch the display ON
 }
 
-void SH1106::sh1106_displayLogo(int fd_SH1106)
-{
-    for (int i = 0; i < WIDTH * HEIGHT / 8; i++)
-        buffer[i] = buffer_logo[i];
-
-    for (unsigned short page = 0; page < 8; page++)
-    {
-        wiringPiI2CWriteReg8(fd_SH1106, control, 0x00);
-        wiringPiI2CWriteReg8(fd_SH1106, control, 0x10);
-        wiringPiI2CWriteReg8(fd_SH1106, control, 0xB0 | (page & 0x0F));
-
-        for (int i = 0; i < 128; i++)
-        {
-            wiringPiI2CWriteReg8(fd_SH1106, 0x40, buffer[page * 128 + i]);
-        }
-    }
-}
-
 void SH1106::sh1106_display(int fd_SH1106)
 {
     for (unsigned short page = 0; page < 8; page++)
@@ -105,7 +87,6 @@ void SH1106::sh1106_clearDisplay(int fd_SH1106)
     memset(buffer, 0, (WIDTH * HEIGHT / 8) * sizeof(int));
     cursor_y = 0;
     cursor_x = 0;
-    sh1106_display(fd_SH1106);
 }
 
 void SH1106::sh1106_displayOFF(int fd_SH1106)
@@ -236,7 +217,6 @@ string SH1106::getDateTime(int date_or_time)
 void SH1106::sh1106_displayData(int fd_SH1106, int t, int p, int h, int lux)
 {
     sh1106_clearDisplay(fd_SH1106);
-
     string formatted_date = getDateTime(DATE);
     string formatted_time = getDateTime(TIME);
 
