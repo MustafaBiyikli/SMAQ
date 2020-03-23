@@ -52,7 +52,6 @@ private:
     uint8_t interruptStatus = 0;
 
     int running = 0;
-    int count = 0;
     int fd_VCNL4010 = 0;
     int fd_BME280 = 0;
     int fd_ADS1115 = 0;
