@@ -1,11 +1,13 @@
 #include <iostream>
 #include <thread>
 #include <ostream>
+#include <ctime>
 
 #include "sampler.h"
 #include "VCNL4010.h"
 #include "BME280.h"
 #include "ADS1115.h"
+#include "SH1106.h"
 #include "wiringPiI2C.h"
 
 using namespace std;
@@ -13,6 +15,7 @@ using namespace std;
 BME280 *bme280 = new BME280();
 VCNL4010 *vcnl4010 = new VCNL4010();
 ADS1115 *ads1115 = new ADS1115();
+SH1106 *sh1106 = new SH1106();
 
 Communicate::Communicate()
 {
@@ -43,6 +46,9 @@ void Communicate::run(Communicate *communicate)
         communicate->interruptStatus = wiringPiI2CReadReg8(communicate->fd_VCNL4010, VCNL4010_COMMAND);
         if (communicate->interruptStatus & VCNL4010_AMBIENTREADY)
         {
+            // timeStamp
+            time_t timeStamp = time(0);
+
             // VCNL4010
             uint16_t ambientLight = vcnl4010->getAmbient(communicate->fd_VCNL4010);
             uint16_t proximity = vcnl4010->getProximity(communicate->fd_VCNL4010);
@@ -60,7 +66,7 @@ void Communicate::run(Communicate *communicate)
             uint16_t co = ads1115->read_ADS1115_Channel(communicate->fd_ADS1115, ads1115->CO);
 
             // STORE RESULTS
-            communicate->callback->hasSample(ambientLight, proximity, temperature, pressure, humidity, altitude,
+            communicate->callback->hasSample(timeStamp, ambientLight, proximity, temperature, pressure, humidity, altitude,
                                              microphone, nh3, no2, co);
         }
     }
