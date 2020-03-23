@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <thread>
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ class Callback
 {
 public:
     /** Called after sample has arrived **/
-    virtual void hasSample(int ambientLight, int proximity, float temperature, float pressure, float humidity, float altitude,
+    virtual void hasSample(time_t timeStamp, int ambientLight, int proximity, float temperature, float pressure, float humidity, float altitude,
                            int microphone, int NH3, int NO2, int CO) = 0;
 };
 
