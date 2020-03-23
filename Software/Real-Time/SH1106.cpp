@@ -181,3 +181,28 @@ void SH1106::sh1106_drawChar(int x, int y, unsigned char c, int color, int size)
         }
     }
 }
+
+string SH1106::getDateTime(int date_or_time)
+{
+    // Can add additional formats in the future
+    time_t timeStamp = time(0);
+    string dt = ctime(&timeStamp);
+    istringstream iss(dt);
+
+    vector<string> date_buffer;
+    copy(istream_iterator<string>(iss),
+         istream_iterator<string>(),
+         back_inserter(date_buffer));
+    ostringstream dateToFormat;
+    dateToFormat << date_buffer[2] << " " << date_buffer[1] << " " << date_buffer[4];
+
+    switch (date_or_time)
+    {
+    case 0:
+        return dateToFormat.str();
+    case 1:
+        return date_buffer[3];
+    };
+
+    return 0;
+}
