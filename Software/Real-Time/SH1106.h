@@ -142,6 +142,11 @@ public:
     void sh1106_write(int c);
     void sh1106_drawString(string str);
     void sh1106_drawChar(int x, int y, unsigned char c, int color, int size = 1);
+    string getDateTime(int date_or_time);
+
+    // Used for date_or_time in getDateTime fn
+    int DATE = 0;
+    int TIME = 1;
 };
 
 #endif
