@@ -16,7 +16,6 @@ class printCallback : public Callback
         cout << "NH3: " << nh3 << endl;
         cout << "NO2: " << no2 << endl;
         cout << "CO: " << co << endl;
-
         cout << "---------------------------------------" << endl;
     }
 };
@@ -26,7 +25,7 @@ int main(int argc, char *argv[])
     Communicate *communicate = new Communicate();
     printCallback printcallback;
     communicate->setCallBack(&printcallback);
-    communicate->start(Communicate::_4HZ);
+    communicate->start(Communicate::_2HZ);
 
     // Press ENTER to stop execution
     getchar();
