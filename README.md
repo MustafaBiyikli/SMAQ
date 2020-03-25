@@ -1,9 +1,9 @@
 # SMAQ
 
 <p align="center">
-<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/IntroGIF.gif" width="600" (https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q?disable_polymer=true)>
+<a href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q"><img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/IntroGIF.gif" width="600">
 </p>
-
+    
 ## Smart Monitoring of Air Quality
 | Measurements       | Range         | Units  |
 |------------------- |:-------------:|:------:|
