@@ -23,7 +23,7 @@
 | Sound Levels| -40 ... +85| ppm|
 
 <p align="center">
-<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/StraightGIF.gif" width="650">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="650">
 </p>
 
 ## Hardware - Main Components
