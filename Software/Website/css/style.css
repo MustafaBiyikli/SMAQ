@@ -7,6 +7,17 @@ body {
     margin: 0;
 }
 
+#div1_g,
+#div2_g,
+#div3_g,
+#div4_g,
+#div5_g,
+#div6_g {
+    width: 95%;
+    height: 400px;
+    margin-bottom: 50px;
+}
+
 .container {
     width: 80%;
     margin: auto;
