@@ -1,55 +1,56 @@
 <html>
-    <head>
-        <title>My Test Website</title>
-        <link rel="stylesheet" type="text/css" href="../css/style.css" />
-    </head>
+     <head>
+          <script
+               type="text/javascript"
+               src="./node_modules/dygraphs/dist/dygraph.js"
+          ></script>
+          <script
+               type="text/javascript"
+               src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+          ></script>
 
-    <body>
-        <header id="main-header">
-            <div class="container">
-                <h1>My Test Website</h1>
-            </div>
-        </header>
-        <nav id="navbar">
-            <div class="container">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
+          <title>SMAQ | Your Sensors 🌞</title>
 
-        <section id="showcase">
-            <div class="container">
-                <h1>
-                    Sama development presents: SMAQ
-                </h1>
-            </div>
-        </section>
+          <link rel="stylesheet" type="text/css" href="../css/style.css" />
+     </head>
 
-        <div class="container">
-            <section id="main">
-                <h1>Welcome</h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Velit voluptatum ullam dolorem iusto maxime animi odio culpa
-                    ipsum at, illum doloribus consequuntur recusandae voluptate
-                    suscipit excepturi, neque quod sed magni.
-                </p>
-            </section>
+     <body>
+          <header id="main-header">
+               <div class="container">
+                    <h1>SMAQ Data</h1>
+               </div>
+          </header>
+          <nav id="navbar">
+               <div class="container">
+                    <ul>
+                         <li><a href="#">Home</a></li>
+                         <li><a href="#">About</a></li>
+                         <li><a href="#">Services</a></li>
+                         <li><a href="#">Contact</a></li>
+                    </ul>
+               </div>
+          </nav>
 
-            <aside id="sidebar">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
-                porro modi dolores sapiente et sint repudiandae doloremque vel
-                sunt quas magnam perferendis dolore cumque possimus quos esse,
-                quidem amet nihil.
-            </aside>
-        </div>
+          <section id="showcase">
+               <div class="container">
+                    <h1>
+                         SMAQ: Smart Monitoring of Air Quality!
+                    </h1>
+               </div>
+          </section>
 
-        <footer id="main-footer">
-            <p>Copyright &copy; 2020 Sama Development</p>
-        </footer>
-    </body>
+          <div class="container">
+               <div id="div1_g"></div>
+               <div id="div2_g"></div>
+               <div id="div3_g"></div>
+               <div id="div4_g"></div>
+               <div id="div5_g"></div>
+               <div id="div6_g"></div>
+               <script type="text/javascript" src="../plot.js"></script>
+          </div>
+
+          <footer id="main-footer">
+               <p>Copyright &copy; 2020 Sama Development</p>
+          </footer>
+     </body>
 </html>

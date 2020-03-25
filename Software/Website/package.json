@@ -1,0 +1,11 @@
+{
+     "name": "smaq",
+     "version": "1.0.0",
+     "description": "smart monitoring of air quality",
+     "main": "app.js",
+     "scripts": {
+          "test": "echo \"Error: no test specified\" && exit 1"
+     },
+     "author": "Mustafa Biyikli & Kasia Lenard",
+     "license": "ISC"
+}
