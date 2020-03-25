@@ -8,7 +8,8 @@ $(document).ready(function() {
 
     var g1 = new Dygraph(document.getElementById("div1_g"), data1, {
         drawPoints: false,
-        showRoller: true,
+        showRoller: false,
+        title: "Temperature [\u2103]",
         //valueRange: [35, 35],
         labels: ["Time", "Temperature [\u2103]"],
         legend: true
@@ -19,7 +20,8 @@ $(document).ready(function() {
 
     var g2 = new Dygraph(document.getElementById("div2_g"), data2, {
         drawPoints: false,
-        showRoller: true,
+        showRoller: false,
+        title: "Humidity [%]",
         labels: ["Time", "Humidity [%]"]
     });
     window.intervalId = setInterval(function() {
@@ -28,7 +30,8 @@ $(document).ready(function() {
 
     var g3 = new Dygraph(document.getElementById("div3_g"), data3, {
         drawPoints: false,
-        showRoller: true,
+        showRoller: false,
+        title: "Ambient Light [lux]",
         labels: ["Time", "Ambient Light [lux]"]
     });
     window.intervalId = setInterval(function() {
@@ -37,7 +40,8 @@ $(document).ready(function() {
 
     var g4 = new Dygraph(document.getElementById("div4_g"), data4, {
         drawPoints: false,
-        showRoller: true,
+        showRoller: false,
+        title: "Pressure [hPa]",
         labels: ["Time", "Pressure [hPa]"]
     });
     window.intervalId = setInterval(function() {
@@ -46,7 +50,8 @@ $(document).ready(function() {
 
     var g5 = new Dygraph(document.getElementById("div5_g"), data5, {
         drawPoints: false,
-        showRoller: true,
+        showRoller: false,
+        title: "Microphone",
         labels: ["Time", "Microphone"]
     });
     window.intervalId = setInterval(function() {
@@ -55,7 +60,8 @@ $(document).ready(function() {
 
     var g6 = new Dygraph(document.getElementById("div6_g"), data6, {
         drawPoints: false,
-        showRoller: true,
+        showRoller: false,
+        title: "GASSES [NH3, NO2, CO]",
         labels: ["Time", "Ammonia", "Nitrogen Dioxide", "Carbon Monoxide"]
     });
     window.intervalId = setInterval(function() {
