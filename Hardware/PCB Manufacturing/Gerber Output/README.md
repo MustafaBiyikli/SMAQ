@@ -1,5 +1,6 @@
 # Gerber Output
-## Gerber file extensions are:
+*These files can be sent directly to the PCB house*
+### Gerber file extensions are:
 |Extension| Description|
 |---------|------------|
 |GBL| Bottom Silkscreen|
