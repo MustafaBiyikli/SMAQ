@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=ALERT Pin=HDR1-31
+Removed Pin From Net: NetName=GND Pin=HDR1-34
+Removed Pin From Net: NetName=GND Pin=HDR1-39
+Removed Pin From Net: NetName=VCNL_INT Pin=HDR1-40
+Added Pin To Net: NetName=VCNL_INT Pin=HDR1-26
+Added Pin To Net: NetName=ALERT Pin=HDR1-29
