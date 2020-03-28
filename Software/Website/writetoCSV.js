@@ -11,7 +11,7 @@ exports.clearCSV = url => {
 };
 
 exports.writeFormatData = (url, data, maxLength, counter) => {
-    fs.appendFile(url, `${data}\n`, err => {
+    fs.appendFile(url, `${new Date().getTime()},${data}\n`, err => {
         if (err) throw err;
     });
 
