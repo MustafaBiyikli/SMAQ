@@ -4,7 +4,7 @@ const fs = require("fs");
 //       instead, shift data within the timeframe (if within timeframe)
 
 exports.clearCSV = url => {
-    for (var i = 0; url.length; i++) {
+    for (var i = 0; i < url.length; i++) {
         if (fs.readFileSync(url[i], "utf-8").length != 0)
             fs.writeFileSync(url[i], "", "utf-8");
     }
