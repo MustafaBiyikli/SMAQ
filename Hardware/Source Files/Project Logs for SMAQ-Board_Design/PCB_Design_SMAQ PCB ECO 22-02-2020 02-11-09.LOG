@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=ALERT Pin=HDR1-7
+Added Pin To Net: NetName=ALERT Pin=HDR1-31
+Change Net Color : Old Net Color=RGB(222, 79, 22) New Net Color=Default
+Change Net Color : Old Net Color=RGB(253, 241, 1) New Net Color=Default
+Change Net Color : Old Net Color=RGB(161, 0, 106) New Net Color=Default
+Change Net Color : Old Net Color=RGB(48, 0, 123) New Net Color=Default
+Added Member To Class: ClassName=A2_Full_Schematic Member=Component OLED I2C OLED Screen
+Added Room: Name=A2_Full_Schematic

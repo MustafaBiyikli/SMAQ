@@ -1,9 +1,9 @@
 # SMAQ
 
 <p align="center">
-<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/IntroGIF.gif" width="600" (https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q?disable_polymer=true)>
+<a href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q"><img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/IntroGIF.gif" width="600">
 </p>
-
+    
 ## Smart Monitoring of Air Quality
 | Measurements       | Range         | Units  |
 |------------------- |:-------------:|:------:|
@@ -12,15 +12,15 @@
 | Humidity| 0 ... 100| %|
 | Light| 0.25 ... 16383| lx|
 | Proximity| 1 ... 200| mm|
-| Carbon Monoxide [Co]| -40 ... +85| ppm|
-| Nitrogen Dioxide [NO2]| -40 ... +85| ppm|
-| Ethanol [C2H5OH]| -40 ... +85| ppm|
-| Hydrogen [H2]| -40 ... +85| ppm|
-| Ammonia[NH3]| -40 ... +85| ppm|
-| Methane [CH4]| -40 ... +85| ppm|
-| Propane [C3H8]| -40 ... +85| ppm|
-| Iso-Butane| -40 ... +85| ppm|
-| Sound Levels| -40 ... +85| ppm|
+| Carbon Monoxide [Co]| 1 ... 1000| ppm|
+| Nitrogen Dioxide [NO2]| 0.05 ... 10| ppm|
+| Ethanol [C2H5OH]| 10 ... 500| ppm|
+| Hydrogen [H2]| 1 ... 1000| ppm|
+| Ammonia[NH3]| 1 ... 500| ppm|
+| Methane [CH4]| > 1000| ppm|
+| Propane [C3H8]| > 1000| ppm|
+| Iso-Butane| > 1000| ppm|
+| Sound Levels| -| -|
 
 <p align="center">
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="650">

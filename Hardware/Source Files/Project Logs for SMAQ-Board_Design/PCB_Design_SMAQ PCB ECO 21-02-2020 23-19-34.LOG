@@ -1,0 +1,7 @@
+Added Component: Designator=OLED(OLED_I2C_0.96")
+Added Pin To Net: NetName=+3V3 Pin=OLED-1
+Added Pin To Net: NetName=GND Pin=OLED-2
+Added Pin To Net: NetName=I2C_SCL Pin=OLED-3
+Added Pin To Net: NetName=I2C_SDA Pin=OLED-4
+Added Member To Class: ClassName=A2_Full_Schematic Member=Component OLED I2C OLED Screen
+Added Room: Name=A2_Full_Schematic
