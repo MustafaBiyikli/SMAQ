@@ -9,34 +9,101 @@
             type="text/javascript"
             src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
         ></script>
-
-        <title>SMAQ | Your Sensors 🌞</title>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script type="text/javascript" src="../plot.js"></script>
 
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
+
+        <title>SMAQ | Your Sensors 🌞</title>
     </head>
 
     <body>
-        <header id="main-header">
-            <div class="container">
-                <h1>SMAQ Data</h1>
-            </div>
-        </header>
         <nav id="navbar">
             <div class="container">
-                <ul>
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+                <a href="https://github.com/MustafaBiyikli/SMAQ">
+                    <img id="navbar-logo" src="../img/logo.png"
+                /></a>
+                <a href="/dashboard">Dashboard</a>
+                <a href="#">Alerts</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Api</a>
             </div>
         </nav>
 
         <section id="showcase">
             <div class="container">
                 <h1>
-                    SMAQ: Smart Monitoring of Air Quality!
+                    SMAQ: Your Data
                 </h1>
+            </div>
+        </section>
+
+        <section class="left">
+            <div class="card">
+                <div class="gauge-title-container">
+                    <h4><b>Temperature</b></h4>
+                </div>
+                <figure
+                    id="container-temperature"
+                    class="chart-container"
+                ></figure>
+            </div>
+            <div class="card">
+                <div class="gauge-title-container">
+                    <h4><b>Ambient Light</b></h4>
+                </div>
+                <figure
+                    id="container-ambient-light"
+                    class="chart-container"
+                ></figure>
+            </div>
+        </section>
+
+        <section class="center">
+            <div class="card">
+                <div class="gauge-title-container">
+                    <h4><b>Humidity</b></h4>
+                </div>
+                <figure
+                    id="container-humidity"
+                    class="chart-container"
+                ></figure>
+            </div>
+            <div class="card">
+                <div class="gauge-title-container">
+                    <h4><b>Sound Levels</b></h4>
+                </div>
+                <figure
+                    id="container-sound-levels"
+                    class="chart-container"
+                ></figure>
+            </div>
+        </section>
+
+        <section class="right">
+            <div class="card">
+                <div class="gauge-title-container">
+                    <h4><b>Pressure</b></h4>
+                </div>
+                <figure
+                    id="container-pressure"
+                    class="chart-container"
+                ></figure>
+            </div>
+            <div class="card">
+                <div class="gauge-title-container">
+                    <h4><b>Air Quality</b></h4>
+                </div>
+                <figure
+                    id="container-air-quality"
+                    class="chart-container"
+                ></figure>
             </div>
         </section>
 
@@ -47,11 +114,10 @@
             <div id="div4_g"></div>
             <div id="div5_g"></div>
             <div id="div6_g"></div>
-            <script type="text/javascript" src="../plot.js"></script>
         </div>
 
         <footer id="main-footer">
-            <p>Copyright &copy; 2020 Sama Development</p>
+            <p>Copyright &copy; 2020 Team-34 Development</p>
         </footer>
     </body>
 </html>
