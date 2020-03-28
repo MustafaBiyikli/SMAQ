@@ -8,7 +8,7 @@ router.get("/", function(req, res) {
     res.sendFile(path.join(__dirname + "/html/index.html"));
 });
 
-router.get("/home", function(req, res) {
+router.get("/dashboard", function(req, res) {
     res.sendFile(path.join(__dirname + "/html/index.html"));
 });
 
