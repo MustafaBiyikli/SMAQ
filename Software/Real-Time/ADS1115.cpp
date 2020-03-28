@@ -98,7 +98,8 @@ float ADS1115::get_ADS1115_Converted(int fd_ADS1115, uint8_t channel)
     {
     case 0: // Microphone
     {
-        c = ((float)gasValue * 100) / (32768);
+        float per = ((float)gasValue * 100) / (65536);
+        c = pow(per, 0.43) * 13.8;
         break;
     }
     case 1: // NH3
