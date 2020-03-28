@@ -63,6 +63,7 @@ public:
     void ADS1115config(int fd_ADS1115, int samplingRate);
     uint16_t read_ADS1115_Register(int fd_ADS1115, uint8_t reg);
     uint16_t read_ADS1115_Channel(int fd_ADS1115, uint8_t channel);
+    float get_ADS1115_Converted(int fd_ADS1115, uint8_t channel);
 
     // Used fot the channel variable in read_ADS1115_Channel fn
     int MICROPHONE = 0;
