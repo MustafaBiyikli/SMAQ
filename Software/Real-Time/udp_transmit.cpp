@@ -41,7 +41,7 @@ public:
     {
         char buffer[256];
 
-        sprintf(buffer, "%ti,%d,%d,%f,%f,%f,%f,%d,%d,%d,%d",
+        sprintf(buffer, "%ti,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f",
                 timeStamp, ambientLight, proximity, temperature, pressure, humidity, altitude, microphone, nh3, no2, co);
         sendto(udpSocket, buffer, strlen(buffer) + 1, 0,
                (const struct sockaddr *)&clientAddr,
