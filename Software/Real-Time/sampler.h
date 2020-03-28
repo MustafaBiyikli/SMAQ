@@ -19,7 +19,7 @@ class Callback
 public:
     /** Called after sample has arrived **/
     virtual void hasSample(time_t timeStamp, int ambientLight, int proximity, float temperature, float pressure, float humidity, float altitude,
-                           int microphone, int NH3, int NO2, int CO) = 0;
+                           float microphone, float NH3, float NO2, float CO) = 0;
 };
 
 class Communicate

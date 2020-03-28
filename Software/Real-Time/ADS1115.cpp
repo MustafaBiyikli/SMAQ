@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include "ADS1115.h"
 #include "wiringPiI2C.h"
@@ -72,4 +73,56 @@ uint16_t ADS1115::read_ADS1115_Channel(int fd_ADS1115, uint8_t channel)
     {
         return result;
     }
+}
+
+float ADS1115::get_ADS1115_Converted(int fd_ADS1115, uint8_t channel)
+{
+
+    uint16_t gasValue = read_ADS1115_Channel(fd_ADS1115, channel);
+
+    int ADC_reading = gasValue * 1000 / pow(2, 16);
+    float Rs = 56 * ADC_reading / (1023 - ADC_reading);
+
+    float ratio;
+    float c = 0;
+
+    // Resistance in clean air
+    float nh3_r0 = 860;
+    nh3_r0 = nh3_r0 / (1023 - nh3_r0);
+    float no2_r0 = 555;
+    no2_r0 = no2_r0 / (1023 - no2_r0);
+    float co_r0 = 800;
+    co_r0 = co_r0 / (1023 - co_r0);
+
+    switch (channel)
+    {
+    case 0: // Microphone
+    {
+        float per = ((float)gasValue * 100) / (65536);
+        c = pow(per, 0.43) * 13.8;
+        break;
+    }
+    case 1: // NH3
+    {
+        ratio = Rs / nh3_r0;
+        c = pow(ratio, -1.903) * 0.6151;
+        break;
+    }
+    case 2: // NO2
+    {
+        ratio = Rs / 1000 / no2_r0;
+        c = pow(ratio, 0.9979) * 0.1516;
+        break;
+    }
+    case 3: // CO
+    {
+        ratio = Rs / co_r0;
+        c = pow(ratio, -1.177) * 4.4638;
+        break;
+    }
+    default:
+        break;
+    }
+
+    return isnan(c) ? -3 : c;
 }

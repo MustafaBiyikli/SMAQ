@@ -64,10 +64,10 @@ void Communicate::run(Communicate *communicate)
             float altitude = bme280->extractData(communicate->fd_BME280, bme280->ALTITUDE);
 
             // ADS1115
-            uint16_t microphone = ads1115->read_ADS1115_Channel(communicate->fd_ADS1115, ads1115->MICROPHONE);
-            uint16_t nh3 = ads1115->read_ADS1115_Channel(communicate->fd_ADS1115, ads1115->NH3);
-            uint16_t no2 = ads1115->read_ADS1115_Channel(communicate->fd_ADS1115, ads1115->NO2);
-            uint16_t co = ads1115->read_ADS1115_Channel(communicate->fd_ADS1115, ads1115->CO);
+            float microphone = ads1115->get_ADS1115_Converted(communicate->fd_ADS1115, ads1115->MICROPHONE);
+            float nh3 = ads1115->get_ADS1115_Converted(communicate->fd_ADS1115, ads1115->NH3);
+            float no2 = ads1115->get_ADS1115_Converted(communicate->fd_ADS1115, ads1115->NO2);
+            float co = ads1115->get_ADS1115_Converted(communicate->fd_ADS1115, ads1115->CO);
 
             // STORE RESULTS
             communicate->callback->hasSample(timeStamp, ambientLight, proximity, temperature, pressure, humidity, altitude,

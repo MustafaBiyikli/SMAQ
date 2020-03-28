@@ -37,7 +37,7 @@ public:
     }
 
     virtual void hasSample(time_t timeStamp, int ambientLight, int proximity, float temperature, float pressure, float humidity, float altitude,
-                           int microphone, int nh3, int no2, int co)
+                           float microphone, float nh3, float no2, float co)
     {
         char buffer[256];
 
