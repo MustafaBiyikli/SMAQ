@@ -22,105 +22,109 @@
     </head>
 
     <body>
-        <script type="text/javascript" src="../gauge.js"></script>
-        <nav id="navbar">
-            <div class="container">
-                <a href="https://github.com/MustafaBiyikli/SMAQ">
-                    <img id="navbar-logo" src="../img/logo.png"
-                /></a>
-                <a href="/dashboard">Dashboard</a>
-                <a href="#">Alerts</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-                <a href="#">Api</a>
+        <div id="page-container">
+            <script type="text/javascript" src="../gauge.js"></script>
+            <nav id="navbar">
+                <div class="container">
+                    <a href="https://github.com/MustafaBiyikli/SMAQ">
+                        <img id="navbar-logo" src="../img/logo.png"
+                    /></a>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="#">Alerts</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Api</a>
+                </div>
+            </nav>
+
+            <section id="showcase">
+                <div class="container">
+                    <h1>
+                        SMAQ: Your Data
+                    </h1>
+                </div>
+            </section>
+
+            <div id="content-wrapper">
+                <section class="left">
+                    <a href="/temperature">
+                        <div class="card">
+                            <div class="gauge-title-container">
+                                <h4><b>Temperature</b></h4>
+                            </div>
+                            <figure
+                                id="container-temperature"
+                                class="chart-container"
+                            ></figure>
+                        </div>
+                    </a>
+                    <a href="/ambient-light">
+                        <div class="card">
+                            <div class="gauge-title-container">
+                                <h4><b>Ambient Light</b></h4>
+                            </div>
+                            <figure
+                                id="container-ambient-light"
+                                class="chart-container"
+                            ></figure>
+                        </div>
+                    </a>
+                </section>
+
+                <section class="center">
+                    <a href="/humidity">
+                        <div class="card">
+                            <div class="gauge-title-container">
+                                <h4><b>Humidity</b></h4>
+                            </div>
+                            <figure
+                                id="container-humidity"
+                                class="chart-container"
+                            ></figure>
+                        </div>
+                    </a>
+                    <a href="/sound-level">
+                        <div class="card">
+                            <div class="gauge-title-container">
+                                <h4><b>Sound Level</b></h4>
+                            </div>
+                            <figure
+                                id="container-sound-level"
+                                class="chart-container"
+                            ></figure>
+                        </div>
+                    </a>
+                </section>
+
+                <section class="right">
+                    <a href="/pressure">
+                        <div class="card">
+                            <div class="gauge-title-container">
+                                <h4><b>Pressure</b></h4>
+                            </div>
+                            <figure
+                                id="container-pressure"
+                                class="chart-container"
+                            ></figure>
+                        </div>
+                    </a>
+                    <a href="/air-quality">
+                        <div class="card">
+                            <div class="gauge-title-container">
+                                <h4><b>Air Quality</b></h4>
+                            </div>
+                            <figure
+                                id="container-air-quality"
+                                class="chart-container"
+                            ></figure>
+                        </div>
+                    </a>
+                </section>
             </div>
-        </nav>
 
-        <section id="showcase">
-            <div class="container">
-                <h1>
-                    SMAQ: Your Data
-                </h1>
-            </div>
-        </section>
-
-        <section class="left">
-            <a href="/temperature">
-                <div class="card">
-                    <div class="gauge-title-container">
-                        <h4><b>Temperature</b></h4>
-                    </div>
-                    <figure
-                        id="container-temperature"
-                        class="chart-container"
-                    ></figure>
-                </div>
-            </a>
-            <a href="/ambient-light">
-                <div class="card">
-                    <div class="gauge-title-container">
-                        <h4><b>Ambient Light</b></h4>
-                    </div>
-                    <figure
-                        id="container-ambient-light"
-                        class="chart-container"
-                    ></figure>
-                </div>
-            </a>
-        </section>
-
-        <section class="center">
-            <a href="/humidity">
-                <div class="card">
-                    <div class="gauge-title-container">
-                        <h4><b>Humidity</b></h4>
-                    </div>
-                    <figure
-                        id="container-humidity"
-                        class="chart-container"
-                    ></figure>
-                </div>
-            </a>
-            <a href="/sound-level">
-                <div class="card">
-                    <div class="gauge-title-container">
-                        <h4><b>Sound Level</b></h4>
-                    </div>
-                    <figure
-                        id="container-sound-level"
-                        class="chart-container"
-                    ></figure>
-                </div>
-            </a>
-        </section>
-
-        <section class="right">
-            <a href="/pressure">
-                <div class="card">
-                    <div class="gauge-title-container">
-                        <h4><b>Pressure</b></h4>
-                    </div>
-                    <figure
-                        id="container-pressure"
-                        class="chart-container"
-                    ></figure>
-                </div>
-            </a>
-            <a href="/air-quality">
-                <div class="card">
-                    <div class="gauge-title-container">
-                        <h4><b>Air Quality</b></h4>
-                    </div>
-                    <figure
-                        id="container-air-quality"
-                        class="chart-container"
-                    ></figure>
-                </div>
-            </a>
-        </section>
-
-        <footer id="main-footer">
-            <p>Copyright &copy; 2020 Team-7 Development</p>
-        </footer>
+            <footer id="main-footer">
+                <p>Copyright &copy; 2020 Team-7 Development</p>
+            </footer>
+        </div>
     </body>
 </html>
