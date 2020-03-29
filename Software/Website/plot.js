@@ -7,14 +7,35 @@ $(document).ready(function() {
     var data6 = "./csv/gas.csv";
 
     /**
-     * @param {*} graphID Dygraph object. var g1;
-     * @param {string} divID #div from HTML
-     * @param {string} CSVdata path to CSV file
-     * @param {number} valueMinMax [min, max]
-     * @param {string} labelsXY ["label X", "label Y", "label Y2", "label Yn"]
+     * @param graphID graphID of master plot
+     * @param {string} divIDplot div_id of plot from HTML
+     * @param {string} CSVdata path to CSV data
+     * @param {number} rangeMinMax min max values to display on gauge i.e: [0, 40]
+     * @param {string} labelY i.e: "Temperature [\u2103]"
+     * @param {string} divIDGauge div_id of gauge from HTML
+     * @param {string} seriesName name and title of gauge
+     * @param {number} angleStartEnd number array i.e: [-90, 90]
+     * @param {string} backgroundColor hex color i.e: #FFF
+     * @param {string} radiusInOut percentage inner outer ["60%", "100%"]
+     * @param {string} colorRange string buffer of 3 colors for min max i.e: ["#1601D4", "#FFD000", "#DF5353"]
+     * @param {string} valueUnit unit to display i.e: "\u2103" for degrees celcius
      */
-    function addPlot(graphID, divID, CSVdata, valueMinMax, labelsXY) {
-        graphID = new Dygraph(document.getElementById(divID), CSVdata, {
+
+    function addPlot_and_Gauge(
+        graphID,
+        divIDplot,
+        CSVdata,
+        rangeMinMax,
+        labelY,
+        divIDGauge,
+        seriesName,
+        angleStartEnd,
+        valueUnit,
+        backgroundColor = "#FFF",
+        radiusInOut = ["60%", "100%"],
+        colorRange = ["#1601D4", "#FFD000", "#DF5353"]
+    ) {
+        graphID = new Dygraph(document.getElementById(divIDplot), CSVdata, {
             axes: {
                 x: {
                     valueFormatter: function(ms) {
@@ -34,41 +55,13 @@ $(document).ready(function() {
                 }
             },
             showRangeSelector: true,
-            valueRange: valueMinMax,
-            labels: labelsXY
+            valueRange: rangeMinMax,
+            labels: ["Time [UTC]", labelY]
         });
-        window.intervalId = setInterval(function() {
-            graphID.updateOptions({ file: CSVdata });
-        }, 1000);
-    }
 
-    /**
-     * @param graphID graphID of master plot
-     * @param {string} divID div_id from HTML
-     * @param {string} seriesName name and title of gauge
-     * @param {string} type type of gauge "see Highcharts wepage"
-     * @param {number} angleStartEnd number array i.e: [-90, 90]
-     * @param {string} backgroundColor hex color i.e: #FFF
-     * @param {string} radiusInOut percentage inner outer ["60%", "100%"]
-     * @param {string} colorRange string buffer of 3 colors for min max i.e: ["#1601D4", "#FFD000", "#DF5353"]
-     * @param {number} rangeMinMax min max values to display on gauge i.e: [0, 40]
-     * @param {string} valueUnit unit to display i.e: "\u2103" for degrees celcius
-     */
-    function addGauge(
-        graphID,
-        divID,
-        seriesName,
-        type,
-        angleStartEnd,
-        backgroundColor,
-        radiusInOut,
-        colorRange,
-        rangeMinMax,
-        valueUnit
-    ) {
         var gaugeOptions = {
             chart: {
-                type: type,
+                type: "solidgauge",
                 height: "350px",
                 margin: 20,
                 backgroundColor: "#FFF"
@@ -92,7 +85,6 @@ $(document).ready(function() {
             tooltip: {
                 enabled: false
             },
-            // the value axis
             yAxis: {
                 stops: [
                     [0.3, colorRange[0]], // green
@@ -118,9 +110,8 @@ $(document).ready(function() {
             }
         };
 
-        // The speed gauge
         var myGauge = Highcharts.chart(
-            divID,
+            divIDGauge,
             Highcharts.merge(gaugeOptions, {
                 yAxis: {
                     min: rangeMinMax[0],
@@ -150,9 +141,8 @@ $(document).ready(function() {
             })
         );
 
-        // Bring life to the dials
         setInterval(function() {
-            // Speed
+            graphID.updateOptions({ file: CSVdata });
             var point;
             if (myGauge) {
                 point = myGauge.series[0].points[0];
@@ -165,114 +155,99 @@ $(document).ready(function() {
         }, 1000);
     }
 
-    // Add Plots
     var g1;
-    addPlot(
+    addPlot_and_Gauge(
         g1,
         "div1_g",
         data1,
         [0, 40],
-        ["Time [UTC]", "Temperature [\u2103]"]
+        "Temperature [\u2103]",
+        "container-temperature",
+        "Temperature",
+        [-90, 90],
+        "\u2103"
     );
 
     var g2;
-    addPlot(g2, "div2_g", data2, [20, 60], ["Time [UTC]", "Humidity [%]"]);
+    addPlot_and_Gauge(
+        g2,
+        "div2_g",
+        data2,
+        [0, 100],
+        "Humidity [%]",
+        "container-humidity",
+        "Humidity",
+        [-90, 90],
+        "%"
+    );
 
     var g3;
-    addPlot(
+    addPlot_and_Gauge(
         g3,
         "div3_g",
         data3,
         [0, 1000],
-        ["Time [UTC]", "Ambient Light [lux]"]
-    );
-
-    var g4;
-    addPlot(g4, "div4_g", data4, [850, 1100], ["Time [UTC]", "Pressure [hPa]"]);
-
-    var g5;
-    addPlot(
-        g5,
-        "div5_g",
-        data5,
-        [0, Math.pow(2, 16)],
-        ["Time [UTC]", "Sound Level [dB]"]
-    );
-
-    var g6;
-    addPlot(
-        g6,
-        "div6_g",
-        data6,
-        [0, Math.pow(2, 16)],
-        ["Time [UTC]", "NH3", "NO2", "CO"]
-    );
-
-    // Add Gauges
-    addGauge(
-        g1,
-        "container-temperature",
-        "Temperature",
-        "solidgauge",
-        [-90, 90],
-        "#AAA",
-        ["60%", "100%"],
-        ["#1601D4", "#FFD000", "#DF5353"],
-        [0, 40],
-        "\u2103"
-    );
-
-    addGauge(
-        g4,
-        "container-pressure",
-        "Pressure",
-        "solidgauge",
-        [-90, 90],
-        "#AAA",
-        ["60%", "100%"],
-        ["#1601D4", "#FFD000", "#DF5353"],
-        [850, 1100],
-        "hPa"
-    );
-
-    addGauge(
-        g2,
-        "container-humidity",
-        "Humidity",
-        "solidgauge",
-        [-90, 90],
-        "#AAA",
-        ["60%", "100%"],
-        ["#1601D4", "#FFD000", "#DF5353"],
-        [20, 60],
-        "%"
-    );
-
-    addGauge(
-        g3,
+        "Ambient Light [lux]",
         "container-ambient-light",
         "ambientLight",
-        "solidgauge",
         [-90, 90],
-        "#AAA",
-        ["60%", "100%"],
-        ["#1601D4", "#FFD000", "#DF5353"],
-        [0, 1000],
         "lux"
     );
 
-    addGauge(
-        g5,
-        "container-sound-levels",
-        "soundLevels",
-        "solidgauge",
-        [-45, 45],
-        "#FFF",
-        ["90%", "100%"],
-        ["#1601D4", "#FFD000", "#DF5353"],
-        [0, 100],
-        "%"
+    var g4;
+    addPlot_and_Gauge(
+        g4,
+        "div4_g",
+        data4,
+        [900, 1100],
+        "Pressure [hPa]",
+        "container-pressure",
+        "Pressure",
+        [-90, 90],
+        "hPa"
     );
+
+    var g5;
+    addPlot_and_Gauge(
+        g5,
+        "div5_g",
+        data5,
+        [0, 100],
+        "Sound Level [%]",
+        "container-sound-level",
+        "soundLevel",
+        [-45, 45],
+        "%",
+        null,
+        ["80%", "100%"]
+    );
+
+    var g6 = new Dygraph(document.getElementById("div6_g"), data6, {
+        axes: {
+            x: {
+                valueFormatter: function(ms) {
+                    var currentTime = new Date(ms)
+                        .toString()
+                        .split(" ")
+                        .slice(0, 5)
+                        .join(" ");
+                    return `${currentTime} `;
+                },
+                axisLabelFormatter: function(ms) {
+                    var currentTime = `${
+                        new Date(ms).toString().split(" ")[4]
+                    }`;
+                    return currentTime;
+                }
+            }
+        },
+        showRangeSelector: true,
+        valueRange: [0, Math.pow(2, 16)],
+        labels: ["Time [UTC]", "NH3", "NO2", "CO"]
+    });
+    window.intervalId = setInterval(function() {
+        g6.updateOptions({ file: data6 });
+    }, 1000);
 
     var gasGaugeOptions = {
         chart: {
@@ -398,7 +373,7 @@ $(document).ready(function() {
                             color: Highcharts.getOptions().colors[1],
                             radius: "84%",
                             innerRadius: "70%",
-                            y: 1
+                            y: 50
                         }
                     ]
                 },
@@ -409,7 +384,7 @@ $(document).ready(function() {
                             color: Highcharts.getOptions().colors[2],
                             radius: "69%",
                             innerRadius: "55%",
-                            y: 2
+                            y: 50
                         }
                     ]
                 }
