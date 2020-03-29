@@ -15,14 +15,14 @@
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-        <script type="text/javascript" src="../plot.js"></script>
 
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
 
-        <title>SMAQ | Your Sensors 🌞</title>
+        <title>SMAQ | Your SMAQ</title>
     </head>
 
     <body>
+        <script type="text/javascript" src="../gauge.js"></script>
         <nav id="navbar">
             <div class="container">
                 <a href="https://github.com/MustafaBiyikli/SMAQ">
@@ -45,15 +45,17 @@
         </section>
 
         <section class="left">
-            <div class="card">
-                <div class="gauge-title-container">
-                    <h4><b>Temperature</b></h4>
+            <a href="/temperature">
+                <div class="card">
+                    <div class="gauge-title-container">
+                        <h4><b>Temperature</b></h4>
+                    </div>
+                    <figure
+                        id="container-temperature"
+                        class="chart-container"
+                    ></figure>
                 </div>
-                <figure
-                    id="container-temperature"
-                    class="chart-container"
-                ></figure>
-            </div>
+            </a>
             <div class="card">
                 <div class="gauge-title-container">
                     <h4><b>Ambient Light</b></h4>
@@ -107,17 +109,8 @@
             </div>
         </section>
 
-        <div class="container">
-            <div id="div1_g"></div>
-            <div id="div2_g"></div>
-            <div id="div3_g"></div>
-            <div id="div4_g"></div>
-            <div id="div5_g"></div>
-            <div id="div6_g"></div>
-        </div>
-
         <footer id="main-footer">
-            <p>Copyright &copy; 2020 Team-34 Development</p>
+            <p>Copyright &copy; 2020 Team-7 Development</p>
         </footer>
     </body>
 </html>

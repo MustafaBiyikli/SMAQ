@@ -12,6 +12,10 @@ router.get("/dashboard", function(req, res) {
     res.sendFile(path.join(__dirname + "/html/index.html"));
 });
 
+router.get("/temperature", function(req, res) {
+    res.sendFile(path.join(__dirname + "/html/temp.html"));
+});
+
 app.use(express.static(__dirname));
 
 //add the router
