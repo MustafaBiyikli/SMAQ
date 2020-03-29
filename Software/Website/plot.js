@@ -14,8 +14,8 @@ $(document).ready(function() {
      * @param {string} labelY i.e: "Temperature [\u2103]"
      */
 
-    function addPlot(divIDplot, CSVdata, rangeMinMax, labelY) {
-        var g = new Dygraph(document.getElementById(divIDplot), CSVdata, {
+    function addPlot(graphID, divIDplot, CSVdata, rangeMinMax, labelY) {
+        var graphID = new Dygraph(document.getElementById(divIDplot), CSVdata, {
             axes: {
                 x: {
                     valueFormatter: function(ms) {
@@ -39,14 +39,26 @@ $(document).ready(function() {
             labels: ["Time [UTC]", labelY]
         });
         window.intervalId = setInterval(function() {
-            g.updateOptions({ file: CSVdata });
+            graphID.updateOptions({ file: CSVdata });
         }, 1000);
     }
 
-    addPlot("div1_g", data1, [0, 40], "Temperature [\u2103]");
-    addPlot("div2_g", data2, [0, 100], "Humidity [%]");
-    addPlot("div3_g", data3, [0, 1000], "Ambient Light [lux]");
-    addPlot("div4_g", data4, [900, 1100], "Pressure [hPa]");
-    addPlot("div5_g", data5, [0, 100], "Sound Level [%]");
-    addPlot("div6_g", data6, [0, 10], "Gasses [ppm]");
+    var g1, g2, g3, g4, g5, g6;
+    if (document.getElementById("div1_g"))
+        addPlot(g1, "div1_g", data1, [0, 40], "Temperature [\u2103]");
+
+    if (document.getElementById("div2_g"))
+        addPlot(g2, "div2_g", data2, [0, 100], "Humidity [%]");
+
+    if (document.getElementById("div3_g"))
+        addPlot(g3, "div3_g", data3, [0, 1000], "Ambient Light [lux]");
+
+    if (document.getElementById("div4_g"))
+        addPlot(g4, "div4_g", data4, [900, 1100], "Pressure [hPa]");
+
+    if (document.getElementById("div5_g"))
+        addPlot(g5, "div5_g", data5, [0, 100], "Sound Level [%]");
+
+    if (document.getElementById("div6_g"))
+        addPlot(g6, "div6_g", data6, [0, 10], "Gasses [ppm]");
 });

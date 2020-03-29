@@ -12,6 +12,15 @@ body {
     padding: 0;
 }
 
+#div1_g,
+#div2_g,
+#div3_g,
+#div4_g,
+#div5_g,
+#div6_g {
+    margin-top: 100px;
+}
+
 .dygraph-legend {
     border: 2px, solid, #333;
     width: fit-content;
