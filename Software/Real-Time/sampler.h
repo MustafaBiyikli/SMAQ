@@ -18,7 +18,7 @@ class Callback
 {
 public:
     /** Called after sample has arrived **/
-    virtual void hasSample(time_t timeStamp, int ambientLight, int proximity, float temperature, float pressure, float humidity, float altitude,
+    virtual void hasSample(time_t timeStamp, float ambientLight, float proximity, float temperature, float pressure, float humidity, float altitude,
                            float microphone, float NH3, float NO2, float CO) = 0;
 };
 

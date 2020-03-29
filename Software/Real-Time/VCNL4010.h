@@ -29,8 +29,8 @@ class VCNL4010
 {
 public:
     void VCNL4010config(int fd_VCNL4010, int samplingRate);
-    uint16_t getAmbient(int fd_VCNL4010);
-    uint16_t getProximity(int fd_VCNL4010);
+    float getAmbient(int fd_VCNL4010);
+    float getProximity(int fd_VCNL4010);
 };
 
 #endif

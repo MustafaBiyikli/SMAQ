@@ -54,8 +54,8 @@ void Communicate::run(Communicate *communicate)
             time_t timeStamp = time(0);
 
             // VCNL4010
-            uint16_t ambientLight = vcnl4010->getAmbient(communicate->fd_VCNL4010);
-            uint16_t proximity = vcnl4010->getProximity(communicate->fd_VCNL4010);
+            float ambientLight = vcnl4010->getAmbient(communicate->fd_VCNL4010);
+            float proximity = vcnl4010->getProximity(communicate->fd_VCNL4010);
 
             // BME280
             float temperature = bme280->extractData(communicate->fd_BME280, bme280->TEMPERATURE);

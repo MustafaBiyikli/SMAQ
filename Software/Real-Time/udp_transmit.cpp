@@ -36,12 +36,12 @@ public:
         cout << "Transmitting on port: 65000" << endl;
     }
 
-    virtual void hasSample(time_t timeStamp, int ambientLight, int proximity, float temperature, float pressure, float humidity, float altitude,
+    virtual void hasSample(time_t timeStamp, float ambientLight, float proximity, float temperature, float pressure, float humidity, float altitude,
                            float microphone, float nh3, float no2, float co)
     {
         char buffer[256];
 
-        sprintf(buffer, "%ti,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f",
+        sprintf(buffer, "%ti,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f",
                 timeStamp, ambientLight, proximity, temperature, pressure, humidity, altitude, microphone, nh3, no2, co);
         sendto(udpSocket, buffer, strlen(buffer) + 1, 0,
                (const struct sockaddr *)&clientAddr,

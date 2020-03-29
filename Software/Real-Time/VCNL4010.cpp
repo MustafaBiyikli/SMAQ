@@ -16,12 +16,15 @@ void VCNL4010::VCNL4010config(int fd_VCNL4010, int samplingRate)
     wiringPiI2CWriteReg8(fd_VCNL4010, VCNL4010_COMMAND, VCNL4010_MEASUREBOTH); // Start Measurement
 }
 
-uint16_t VCNL4010::getAmbient(int fd_VCNL4010)
+float VCNL4010::getAmbient(int fd_VCNL4010)
 {
-    return (wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_AMBIENTDATA) << 8 | wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_AMBIENTDATA + 1));
+    uint16_t raw = (wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_AMBIENTDATA) << 8 | wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_AMBIENTDATA + 1));
+    float lux = ((16000 - 0.25) / 65536) * (float)raw + 0.25;
+    return lux;
 }
 
-uint16_t VCNL4010::getProximity(int fd_VCNL4010)
+float VCNL4010::getProximity(int fd_VCNL4010)
 {
-    return (wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_PROXIMITYDATA) << 8 | wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_PROXIMITYDATA + 1));
+    uint16_t raw = (wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_PROXIMITYDATA) << 8 | wiringPiI2CReadReg8(fd_VCNL4010, VCNL4010_PROXIMITYDATA + 1));
+    return raw * (-1) * (1 / 315.18) + 208;
 }
