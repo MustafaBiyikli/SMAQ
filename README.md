@@ -14,13 +14,8 @@
 | Proximity| 1 ... 200| mm|
 | Carbon Monoxide [Co]| 1 ... 1000| ppm|
 | Nitrogen Dioxide [NO2]| 0.05 ... 10| ppm|
-| Ethanol [C2H5OH]| 10 ... 500| ppm|
-| Hydrogen [H2]| 1 ... 1000| ppm|
 | Ammonia[NH3]| 1 ... 500| ppm|
-| Methane [CH4]| > 1000| ppm|
-| Propane [C3H8]| > 1000| ppm|
-| Iso-Butane| > 1000| ppm|
-| Sound Levels| -| -|
+| Sound Levels| 0 ... 100| %|
 
 <p align="center">
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="650">
