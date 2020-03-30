@@ -1,6 +1,6 @@
 const fs = require("fs");
 const dgram = require("dgram");
-const writetoCSV = require("./writetoCSV")();
+const writetoCSV = require("./writetoCSV");
 const ab2str = require("arraybuffer-to-string");
 
 var server = dgram.createSocket("udp4");
@@ -8,7 +8,7 @@ var server = dgram.createSocket("udp4");
 const port = 65000;
 var count = 0;
 const sampleRate = 2; // Hz;
-const maxCSVLength = (3600 * sampleRate) / 60; // 1 min worth of data
+const maxCSVLength = 30 * sampleRate; //(3600 * sampleRate); // 1 hour worth of data
 
 server.on("error", err => {
     console.log(`server error:\n${err.message}\n${err.stack}`);
@@ -19,7 +19,6 @@ server.on("listening", function() {
     var address = server.address();
 });
 
-// TODO: Improve, user loses data here. (see writetoCSV.js)
 var counter = writetoCSV.updateCSV(
     [
         "./csv/ambient.csv",
@@ -37,8 +36,6 @@ server.on("message", function(message, remote) {
     var smaqData = ab2str(message);
     let [tStamp, ALS, PR, T, P, H, A, MIC, NH3, NO2, CO] = smaqData.split(",");
 
-    console.log(counter);
-
     // Append data to CSV as received
     writetoCSV.writeFormatData("./csv/ambient.csv", ALS, maxCSVLength, counter);
     writetoCSV.writeFormatData(
@@ -55,7 +52,7 @@ server.on("message", function(message, remote) {
         if (err) throw err.message;
     });
 
-    if (counter < maxLength + 1) counter++;
+    if (counter < maxCSVLength + 1) counter++;
 });
 
 server.bind({
