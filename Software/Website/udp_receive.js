@@ -45,7 +45,9 @@ server.on("message", function(message, remote) {
     writetoCSV.writeFormatData("./csv/mic.csv", MIC, maxCSVLength, counter);
     writetoCSV.writeFormatData("./csv/press.csv", P, maxCSVLength, counter);
     writetoCSV.writeFormatData("./csv/temp.csv", T, maxCSVLength, counter);
-    fs.writeFile("./csv/api.csv", smaqData, "utf-8");
+    fs.writeFile("./csv/api.csv", smaqData, err => {
+        if (err) throw err.message;
+    });
 
     counter++;
 });
