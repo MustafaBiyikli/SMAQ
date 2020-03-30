@@ -270,7 +270,7 @@ $(document).ready(function() {
         Highcharts.merge(gasGaugeOptions, {
             yAxis: {
                 min: 0,
-                max: 100
+                max: 10
             },
             credits: {
                 enabled: false
@@ -283,7 +283,7 @@ $(document).ready(function() {
                             color: Highcharts.getOptions().colors[0],
                             radius: "100%",
                             innerRadius: "85%",
-                            y: 50
+                            y: 4
                         }
                     ]
                 },
@@ -294,7 +294,7 @@ $(document).ready(function() {
                             color: Highcharts.getOptions().colors[1],
                             radius: "84%",
                             innerRadius: "70%",
-                            y: 50
+                            y: 4
                         }
                     ]
                 },
@@ -305,7 +305,7 @@ $(document).ready(function() {
                             color: Highcharts.getOptions().colors[2],
                             radius: "69%",
                             innerRadius: "55%",
-                            y: 50
+                            y: 4
                         }
                     ]
                 }
