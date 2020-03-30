@@ -24,7 +24,7 @@ $(document).ready(function() {
         rounding,
         radiusInOut = ["60%", "100%"],
         backgroundColor = "#FFF",
-        colorRange = ["#1601D4", "#FFD000", "#DF5353"]
+        colorRange = ["#1601D4", "#FFD000", "#FF0000"]
     ) {
         var gaugeOptions = {
             chart: {

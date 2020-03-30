@@ -1,5 +1,5 @@
 body {
-    background-color: #fff;
+    background-color: white;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -16,31 +16,40 @@ section a {
     text-decoration: none;
 }
 
-#div1_g,
-#div2_g,
-#div3_g,
-#div4_g,
-#div5_g,
-#div6_g {
-    margin-top: 100px;
-}
-
 .container-graph {
+    height: 55vh;
+    width: 90%;
+    margin: auto;
 }
 
-.dygraph-legend {
-    border: 2px, solid, #333;
-    width: fit-content;
-    background-color: rgb(37, 116, 190);
-    float: right;
+.dygraph-label {
+    text-align: center;
 }
 
 .dygraph-ylabel {
     transform: rotate(-90deg);
 }
 
-.dygraph-label {
+.dygraph-legend {
+    border-radius: 10px;
+    box-shadow: 4px 8px 4px #888;
+    padding: 5px;
+    background-color: rgba(111, 168, 215, 0.2);
+    width: 220px;
+    float: right;
+}
+
+.plot-title {
     text-align: center;
+    margin-top: 30px;
+    margin-bottom: 5vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    font-size: 25px;
+    background-color: rgba(217, 114, 114, 0.2);
+    padding: 1%;
+    border-radius: 10px;
 }
 
 .container {

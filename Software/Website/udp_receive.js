@@ -8,7 +8,7 @@ var server = dgram.createSocket("udp4");
 const port = 65000;
 var counter = 0;
 const sampleRate = 2; // Hz;
-const maxCSVLength = 3600 * sampleRate; // 1 hour worth of data
+const maxCSVLength = 3600 * sampleRate * 12; // 12 hour worth of data
 
 server.on("error", err => {
     console.log(`server error:\n${err.message}\n${err.stack}`);

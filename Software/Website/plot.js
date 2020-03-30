@@ -36,7 +36,10 @@ $(document).ready(function() {
             },
             showRangeSelector: true,
             valueRange: rangeMinMax,
-            labels: ["Time [UTC]", labelY]
+            labels: ["Time [UTC]", labelY],
+            legend: "follow",
+            xlabel: "Time [UTC]",
+            ylabel: labelY
         });
         window.intervalId = setInterval(function() {
             graphID.updateOptions({ file: CSVdata });
