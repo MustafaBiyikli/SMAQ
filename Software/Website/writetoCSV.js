@@ -5,7 +5,7 @@ const fs = require("fs");
 
 exports.updateCSV = (url, maxLength, counter) => {
     for (var i = 0; i < url.length; i++) {
-        data = fs.readFileSync(url[i], "utf-8");
+        var data = fs.readFileSync(url[i], "utf-8");
         if (data.length != 0) {
             var rows = data.split("\n");
             var lastTimeStamp = rows[rows.length - 2].split(",")[0];
@@ -13,7 +13,13 @@ exports.updateCSV = (url, maxLength, counter) => {
             if (delay > (maxLength / 2) * 1000) {
                 fs.writeFileSync(url[i], "", "utf-8");
             } else {
-                counter += (delay / 1000) * 2;
+                counter += rows.length - 2 + (delay / 1000) * 2;
+                if (counter > maxLength + 1) {
+                    // delete samples at the beginning as many as delay is worth
+                    var shift = counter - maxLength + 1;
+                    var newData = rows.slice(shift, maxLength + 1).join("\n");
+                    fs.writeFileSync(url[i], newData, "utf-8");
+                }
             }
         }
     }

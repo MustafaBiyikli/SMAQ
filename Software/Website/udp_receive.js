@@ -8,7 +8,7 @@ var server = dgram.createSocket("udp4");
 const port = 65000;
 var counter = 0;
 const sampleRate = 2; // Hz;
-const maxCSVLength = (3600 * sampleRate) / 6; // 10 min worth of data
+const maxCSVLength = (3600 * sampleRate) / 60; // 1 min worth of data
 
 server.on("error", err => {
     console.log(`server error:\n${err.message}\n${err.stack}`);
@@ -36,6 +36,8 @@ writetoCSV.updateCSV(
 server.on("message", function(message, remote) {
     var smaqData = ab2str(message);
     let [tStamp, ALS, PR, T, P, H, A, MIC, NH3, NO2, CO] = smaqData.split(",");
+
+    console.log(counter);
 
     // Append data to CSV as received
     writetoCSV.writeFormatData("./csv/ambient.csv", ALS, maxCSVLength, counter);
