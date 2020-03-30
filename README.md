@@ -14,7 +14,7 @@
 | Proximity| 1 ... 200| mm|
 | Carbon Monoxide [Co]| 1 ... 1000| ppm|
 | Nitrogen Dioxide [NO2]| 0.05 ... 10| ppm|
-| Ammonia[NH3]| 1 ... 500| ppm|
+| Ammonia [NH3]| 1 ... 500| ppm|
 | Sound Levels| 0 ... 100| %|
 
 <p align="center">
