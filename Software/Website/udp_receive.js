@@ -20,7 +20,7 @@ server.on("listening", function() {
 });
 
 // TODO: Improve, user loses data here. (see writetoCSV.js)
-writetoCSV.updateCSV(
+counter = writetoCSV.updateCSV(
     [
         "./csv/ambient.csv",
         "./csv/gas.csv",
@@ -55,7 +55,7 @@ server.on("message", function(message, remote) {
         if (err) throw err.message;
     });
 
-    counter++;
+    if (counter < maxLength + 1) counter++;
 });
 
 server.bind({

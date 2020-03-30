@@ -23,6 +23,7 @@ exports.updateCSV = (url, maxLength, counter) => {
             }
         }
     }
+    return counter;
 };
 
 exports.writeFormatData = (url, data, maxLength, counter) => {
@@ -31,7 +32,6 @@ exports.writeFormatData = (url, data, maxLength, counter) => {
     });
 
     if (counter >= maxLength + 1) {
-        counter = maxLength + 1; // shouldn't keep growing
         var csvRead = fs
             .readFileSync(url, "utf-8")
             .split("\n")
