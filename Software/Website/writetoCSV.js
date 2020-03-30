@@ -3,10 +3,19 @@ const fs = require("fs");
 // TODO: improve, as it is, if udp_receive stopped, previous data in buffer will be lost
 //       instead, shift data within the timeframe (if within timeframe)
 
-exports.clearCSV = url => {
+exports.updateCSV = (url, maxLength, counter) => {
     for (var i = 0; i < url.length; i++) {
-        if (fs.readFileSync(url[i], "utf-8").length != 0)
-            fs.writeFileSync(url[i], "", "utf-8");
+        data = fs.readFileSync(url[i], "utf-8");
+        if (data.length != 0) {
+            var rows = data.split("\n");
+            var lastTimeStamp = rows[rows.length - 2].split(",")[0];
+            var delay = new Date().getTime() - lastTimeStamp;
+            if (delay > (maxLength / 2) * 1000) {
+                fs.writeFileSync(url[i], "", "utf-8");
+            } else {
+                counter += (delay / 1000) * 2;
+            }
+        }
     }
 };
 
