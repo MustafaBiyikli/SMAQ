@@ -12,9 +12,17 @@ $(document).ready(function() {
      * @param {string} CSVdata path to CSV data
      * @param {number} rangeMinMax min max values to display on plot i.e: [0, 40]
      * @param {string} labelY i.e: "Temperature [\u2103]"
+     * @param {string} seriesName i.e: "Temperature"
      */
 
-    function addPlot(graphID, divIDplot, CSVdata, rangeMinMax, labelY) {
+    function addPlot(
+        graphID,
+        divIDplot,
+        CSVdata,
+        rangeMinMax,
+        labelY,
+        seriesName = ["Time", labelY]
+    ) {
         var graphID = new Dygraph(document.getElementById(divIDplot), CSVdata, {
             axes: {
                 x: {
@@ -36,7 +44,7 @@ $(document).ready(function() {
             },
             showRangeSelector: true,
             valueRange: rangeMinMax,
-            labels: ["Time [UTC]", labelY],
+            labels: seriesName,
             legend: "follow",
             xlabel: "Time [UTC]",
             ylabel: labelY
@@ -63,5 +71,10 @@ $(document).ready(function() {
         addPlot(g5, "div5_g", data5, [0, 100], "Sound Level [%]");
 
     if (document.getElementById("div6_g"))
-        addPlot(g6, "div6_g", data6, [0, 10], "Gasses [ppm]");
+        addPlot(g6, "div6_g", data6, [0, 5], "Gasses [ppm]", [
+            "Time",
+            "NH3",
+            "NO2",
+            "CO"
+        ]);
 });
