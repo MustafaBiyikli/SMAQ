@@ -52,6 +52,65 @@ section a {
     border-radius: 10px;
 }
 
+.button-container {
+    width: 75%;
+    padding: 10px;
+    margin: auto;
+    text-align: right;
+    border-radius: 5px;
+}
+
+.btn {
+    box-shadow: 1px 2px 1px rgba(50, 50, 50, 0.4);
+    background-color: rgba(217, 114, 114, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    position: relative;
+    bottom: 1px;
+    box-shadow: 1.5px 3px 1.5px rgba(50, 50, 50, 0.4);
+    opacity: 1;
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+.active {
+    background-color: #333;
+    color: white;
+}
+
+.button-container h4 {
+    display: inline;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
+
+.button-container #auto-zoom {
+    -ms-transform: scale(2);
+    -moz-transform: scale(2);
+    -webkit-transform: scale(2);
+    -o-transform: scale(2);
+    padding: 10px;
+    margin-right: 20px;
+    position: relative;
+    top: 4.5px;
+    opacity: 0.8;
+    transition: 0.5s;
+}
+
+.button-container #auto-zoom:hover {
+    opacity: 1;
+}
+
 .container {
     width: 90%;
     margin: auto;
