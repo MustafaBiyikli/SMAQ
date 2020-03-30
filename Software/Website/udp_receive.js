@@ -1,12 +1,12 @@
 const fs = require("fs");
 const dgram = require("dgram");
-const writetoCSV = require("./writetoCSV");
+const writetoCSV = require("./writetoCSV")();
 const ab2str = require("arraybuffer-to-string");
 
 var server = dgram.createSocket("udp4");
 
 const port = 65000;
-var counter = 0;
+var count = 0;
 const sampleRate = 2; // Hz;
 const maxCSVLength = (3600 * sampleRate) / 60; // 1 min worth of data
 
@@ -20,7 +20,7 @@ server.on("listening", function() {
 });
 
 // TODO: Improve, user loses data here. (see writetoCSV.js)
-counter = writetoCSV.updateCSV(
+var counter = writetoCSV.updateCSV(
     [
         "./csv/ambient.csv",
         "./csv/gas.csv",
@@ -30,7 +30,7 @@ counter = writetoCSV.updateCSV(
         "./csv/temp.csv"
     ],
     maxCSVLength,
-    counter
+    count
 );
 
 server.on("message", function(message, remote) {
