@@ -5,6 +5,17 @@ $(document).ready(function() {
     var data4 = "./csv/press.csv";
     var data5 = "./csv/mic.csv";
     var data6 = "./csv/gas.csv";
+    var timeWindow = 3600 * 24; // default timeline to view (1 day)
+    var checkBox = document.getElementById("auto-zoom");
+    var btnContainer = document.getElementsByClassName("button-container")[0];
+    var btns = btnContainer.getElementsByClassName("btn");
+
+    function formatButton(index = null) {
+        var current = document.getElementsByClassName("active");
+        if (current.length > 0)
+            current[0].className = current[0].className.replace("active", "");
+        if (index + 1) btns[index].className += " active";
+    }
 
     /**
      * @param graphID graphID of master plot
@@ -42,17 +53,95 @@ $(document).ready(function() {
                     }
                 }
             },
-            showRangeSelector: true,
             valueRange: rangeMinMax,
             labels: seriesName,
             legend: "follow",
             xlabel: "Time [UTC]",
             ylabel: labelY
         });
+
         window.intervalId = setInterval(function() {
             graphID.updateOptions({ file: CSVdata });
+            if (checkBox.checked === true) {
+                switch (timeWindow) {
+                    case 3600:
+                        formatButton(6);
+                        break;
+                    case 3600 * 6:
+                        formatButton(5);
+                        break;
+                    case 3600 * 12:
+                        formatButton(4);
+                        break;
+                    case 3600 * 24:
+                        formatButton(3);
+                        break;
+                    case 3600 * 24 * 3:
+                        formatButton(2);
+                        break;
+                    case 3600 * 24 * 5:
+                        formatButton(1);
+                        break;
+                    case 3600 * 24 * 7:
+                        formatButton(0);
+                        break;
+                }
+                graphID.updateOptions({
+                    dateWindow: [
+                        new Date().getTime() - timeWindow * 1000,
+                        new Date().getTime()
+                    ]
+                });
+            } else {
+                formatButton();
+            }
         }, 1000);
     }
+    /*
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            if (checkBox.checked === true) {
+                var current = document.getElementsByClassName("active");
+                if (current.length > 0)
+                    current[0].className = current[0].className.replace(
+                        "active",
+                        ""
+                    );
+                this.className += " active";
+            } else {
+                alert("Please enable auto-zoom");
+            }
+        });
+    }
+    */
+
+    document.getElementById("1hour").onclick = function() {
+        if (checkBox.checked === true) timeWindow = 3600;
+    };
+
+    document.getElementById("6hours").onclick = function() {
+        if (checkBox.checked === true) timeWindow = 3600 * 6;
+    };
+
+    document.getElementById("12hours").onclick = function() {
+        if (checkBox.checked === true) timeWindow = 3600 * 12;
+    };
+
+    document.getElementById("24hours").onclick = function() {
+        if (checkBox.checked === true) timeWindow = 3600 * 24;
+    };
+
+    document.getElementById("3days").onclick = function() {
+        if (checkBox.checked === true) timeWindow = 3600 * 24 * 3;
+    };
+
+    document.getElementById("5days").onclick = function() {
+        if (checkBox.checked === true) timeWindow = 3600 * 24 * 5;
+    };
+
+    document.getElementById("1week").onclick = function() {
+        if (checkBox.checked === true) timeWindow = 3600 * 24 * 7;
+    };
 
     var g1, g2, g3, g4, g5, g6;
     if (document.getElementById("div1_g"))
