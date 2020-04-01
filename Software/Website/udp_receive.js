@@ -2,6 +2,7 @@ const fs = require("fs");
 const dgram = require("dgram");
 const writetoCSV = require("./writetoCSV");
 const ab2str = require("arraybuffer-to-string");
+const writetoAlert = require("./writetoAlerts");
 
 var server = dgram.createSocket("udp4");
 
@@ -51,6 +52,9 @@ server.on("message", function(message, remote) {
     fs.writeFile("./csv/api.csv", smaqData, err => {
         if (err) throw err.message;
     });
+
+    // Check for alerts
+    writetoAlert.alertHandler(tStamp, T, P, H, NH3, NO2, CO);
 
     if (counter < maxCSVLength + 1) counter++;
 });

@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 
 const router = express.Router();
 
@@ -37,6 +38,40 @@ router.get("/air-quality", function(req, res) {
 
 router.get("/alerts", function(req, res) {
     res.sendFile(path.join(__dirname + "/html/alerts.html"));
+});
+
+router.get("/api", function(req, res) {
+    fs.readFile("./csv/api.csv", (err, data) => {
+        if (err) throw err.message;
+        var [
+            timeStamp,
+            ALS,
+            PR,
+            T,
+            P,
+            H,
+            A,
+            MIC,
+            NH3,
+            NO2,
+            CO
+        ] = data.toString().split(",");
+        res.status(200).json({
+            timeStamp,
+            ambientLight: ALS,
+            proximity: PR,
+            temperature: T,
+            pressure: P,
+            humidity: H,
+            altitude: A,
+            microphone: MIC,
+            gasses: {
+                NH3,
+                NO2,
+                CO
+            }
+        });
+    });
 });
 
 module.exports = router;
