@@ -13,3 +13,20 @@
 * [Source Files](https://github.com/MustafaBiyikli/SMAQ/tree/master/Hardware/Source%20Files)
 |Custom made Libraries, Schematics and PCB documents made with Altium Designer 20.0.13
 * [Schematics]() Coming soon
+
+### You can have a look on the files above or follow the [full board design]() documentation where all the above information is gathered in one place
+
+
+## The design of the PCB
+The Pcb design process is discussed below in summary explaining vital choices that are made and the component selection process.
+Since the idea of constructing an Air Quality Monitoring was established a thorough search on available technologies was conducted in order to find the most compatible sensors available. The main focus was on finding robust accurate and up to date Environmental sensors with regards to Temperature sensing and Hazardous gas detection.
+Sensors from high-end companies like Bosch and Sensortech were chosen. To add extra capabilities to our product a proximity and light intensity sensor from VISHAY was chosen. All Sensors except the Gas Sensor are digital and accomodate the I2C protocol. Lasyl, an OLED screen, an class D audio amplifier and an analogue microphone circuitry was realised to accomodate user interaction facilities.
+
+The library for the parts used in the SMAQ are custom made to fit the needs of our product. All parts were carefully chosen according to recommendations from the sensor companies and to the highest possible quality. Companies like Panasonic, Kemet, TDK and Texas Instruments were considered in our design.
+
+A list of all components can be found [here](). The function of our board is to regularly scan the environmental conditions of a room (Temperature, Pressure, Humidity, various Gases etc.) and output them to a website and when prompted to the screen. Therefore a single double-sided PCB was accomplished and schematics were made with appropriate connections and protection circuits. The software used for the design process is Altium Designer.
+
+Here is the PCB layout sent to the services to be printed.
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/UofG-Board-etching-FRONT.png" width="350"/> <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/UofG-Board-etching-BACK.png" width="350"/> 
+</p>
