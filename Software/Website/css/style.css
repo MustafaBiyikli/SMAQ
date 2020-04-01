@@ -5,7 +5,7 @@ body {
     background-size: cover;
     opacity: 0.8;
     color: #333;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Georgia;
     font-size: 16px;
     line-height: 1.6em;
     margin: 0;
@@ -169,6 +169,94 @@ section a {
     margin-right: 0;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+}
+
+#warning {
+    border-left: 10px solid #ffbb00;
+    background-color: #ffbb0022;
+}
+
+#warning a {
+    background-color: #ffbb0066;
+}
+
+#error {
+    border-left: 10px solid #ff0000;
+    background-color: #ff000022;
+}
+
+#error a {
+    background-color: #ff000066;
+}
+
+#info {
+    border-left: 10px solid #00bbff;
+    background-color: #00bbff22;
+}
+
+#info a {
+    background-color: #00bbff66;
+}
+
+#success {
+    border-left: 10px solid #00bb00;
+    background-color: #00bb0022;
+}
+
+#success a {
+    background-color: #00bb0066;
+}
+
+.alerts {
+    width: 80%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.alerts a {
+    box-sizing: border-box;
+    float: right;
+    margin-top: 15px;
+    margin-right: 20px;
+    box-shadow: 2px 4px 6px #33333355;
+    opacity: 0;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.alerts:hover a {
+    opacity: 1;
+}
+
+.alerts:hover {
+    position: relative;
+    width: 82%;
+}
+
+.alerts img {
+    box-sizing: border-box;
+    float: left;
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.alerts h3 {
+    font-size: 1.25em;
+    margin-left: 75px;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+.alerts p {
+    margin-left: 75px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #navbar {
