@@ -35,4 +35,8 @@ router.get("/air-quality", function(req, res) {
     res.sendFile(path.join(__dirname + "/html/gas.html"));
 });
 
+router.get("/alerts", function(req, res) {
+    res.sendFile(path.join(__dirname + "/html/alerts.html"));
+});
+
 module.exports = router;
