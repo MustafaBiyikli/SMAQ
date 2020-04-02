@@ -31,7 +31,7 @@ exports.writeFormatData = (url, data, maxLength, counter) => {
         if (err) throw err;
     });
 
-    if (counter >= maxLength + 1) {
+    if (counter >= maxLength) {
         var csvRead = fs.readFileSync(url, "utf-8");
         var oldestTime = csvRead.split("\n")[0].split(",")[0];
         var maxLenTime = (maxLength / 2) * 1000;
