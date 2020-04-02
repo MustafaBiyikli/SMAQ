@@ -86,9 +86,13 @@ node app.js &
 ```
 Killing the process follows the same logic as <b>Killing the process</b>
 
-<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="450" align="right"/>
+## Hardware - Main Components 
 
-## Hardware - Main Components
+See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
+
+<p>
+    <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="200" align="right"/>
+</p>
 
 -   Raspberry Pi 3 Model B
 -   PCB including:
