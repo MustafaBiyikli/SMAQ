@@ -5,14 +5,17 @@ var alertedLow = [0, 0, 0, 0, 0, 0];
 var alertedHighTime = [0, 0, 0, 0, 0, 0];
 var alertedLowTime = [0, 0, 0, 0, 0, 0];
 
-var errorAlert = 0;
+var errorAlert = [0, 0];
+var errorAlertTime = [0, 0];
+
+var refreshTime = 3600;
 
 /**
- * @param {number} id id of parameter, assign from 0 in ascending order (different id for each parameter)
- * @param {number} parameter parameter to check from api
- * @param {number} value value of parameter as an array [low, high]
+ * @param {Number} id id of parameter, assign from 0 in ascending order (different id for each parameter)
+ * @param {Number} parameter parameter to check from api
+ * @param {Number} value value of parameter as an array [low, high]
  * @param {String} message message to display array [low message, high message]
- * @param {number} tStamp timeStamp from api
+ * @param {String} tStamp timeStamp from api
  */
 function checkWarning(id, parameter, value, message, tStamp) {
     parameter = parseFloat(parameter);
@@ -30,26 +33,90 @@ function checkWarning(id, parameter, value, message, tStamp) {
         }
     }
     // allow same alerts after 1 hour
-    if (new Date().getTime() - alertedHighTime[id] > 3600 * 1000)
+    if (new Date().getTime() - alertedHighTime[id] > refreshTime * 1000)
         alertedHigh[id] = 0;
-    if (new Date().getTime() - alertedLowTime[id] > 3600 * 1000)
+    if (new Date().getTime() - alertedLowTime[id] > refreshTime * 1000)
         alertedLow[id] = 0;
 }
 
-function checkError(tStamp) {
+/**
+ * @param {Number} id id of the alert
+ * @param {String} tStamp time stamp from api
+ */
+function checkError(id, tStamp) {
     tStamp = parseInt(tStamp);
-    // Can not update user profile
+    // Hardware error
     var currentTime = new Date().getTime();
     if (currentTime - tStamp > 2000 && errorAlert === 0) {
         writeAlert(1, "Hardware error, try restarting SMAQ", currentTime);
-        errorAlert = 1;
+        errorAlert[id] = 1;
+        errorAlertTime[id] = currentTime;
+    }
+
+    // Can not update user profile
+
+    // Allow same alert afer 1 hour
+    if (new Date().getTime() - errorAlertTime[id] > refreshTime * 1000)
+        errorAlert[id] = 0;
+}
+
+function removeAlert() {
+    // Get existing HTML
+    var [header, alerts, footer] = fs
+        .readFileSync("./html/alerts.html", "utf-8")
+        .toString()
+        .split("<!--SPLIT-->");
+
+    var HTML = "";
+    var toDelete = 0;
+
+    var contentAlerts = alerts.split("<div");
+    for (i = 0; i < contentAlerts.length; i++) {
+        if (contentAlerts[i].length > 14) {
+            var part = contentAlerts[i].split("a>")[1];
+            var [date, rest] = part.split(" |");
+            var hour = rest.split("</")[0];
+
+            var fullDate = date.concat(hour);
+            var oldTimeStamp = Date.parse(fullDate);
+            var currentTime = new Date().getTime();
+
+            if (currentTime - oldTimeStamp > 40 * 1000) {
+                contentAlerts[i] = "";
+                toDelete = 1;
+            }
+            if (contentAlerts[i] === "") {
+                HTML = HTML.concat(contentAlerts[i]);
+            } else {
+                HTML = HTML.concat("\n\t\t\t<div", contentAlerts[i]);
+            }
+        } else if (alerts.length === 14) {
+            writeAlert(
+                2,
+                "You are fine. There are no warnings to be concerned about.",
+                new Date().getTime()
+            );
+        }
+    }
+
+    if (toDelete === 1) {
+        // Merge html
+        var fullHTML = header.concat(
+            "<!--SPLIT-->",
+            HTML,
+            "\n\t\t\t<!--SPLIT-->",
+            footer
+        );
+
+        // Write html
+        fs.writeFileSync("./html/alerts.html", fullHTML, "utf-8");
     }
 }
 
 /**
- * @param {number} status 0:Warning, 1:Error, 2:Info or 3:Success
- * @param {string} message Warning message
- * @param {timeStamp} tStamp Date of the event in time stamp
+ * @param {Number} status 0:Warning, 1:Error, 2:Info or 3:Success
+ * @param {String} message Warning message
+ * @param {String} tStamp Date of the event in time stamp
  */
 function writeAlert(status, message, tStamp) {
     tStamp = parseInt(tStamp);
@@ -96,7 +163,7 @@ function writeAlert(status, message, tStamp) {
                 </p>
             </div>`;
 
-    // merge html
+    // Merge html
     var fullHTML = header.concat(
         "<!--SPLIT-->",
         alerts,
@@ -152,4 +219,6 @@ exports.alertHandler = function(tStamp, T, P, H, NH3, NO2, CO) {
         ["", "High Carbon Monoxide[CO] detected, evacaute."],
         tStamp
     );
+
+    removeAlert();
 };
