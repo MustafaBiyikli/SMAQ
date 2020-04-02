@@ -32,11 +32,21 @@ function checkWarning(id, parameter, value, message, tStamp) {
             alertedLowTime[id] = new Date().getTime();
         }
     }
-    // allow same alerts after 1 hour
+    // Allow same alerts after 1 hour
     if (new Date().getTime() - alertedHighTime[id] > refreshTime * 1000)
         alertedHigh[id] = 0;
     if (new Date().getTime() - alertedLowTime[id] > refreshTime * 1000)
         alertedLow[id] = 0;
+}
+
+function checkSuccess(tStamp) {
+    // Check if there was a hardware error and connection is back
+    tStamp = parseInt(tStamp);
+    var currentTime = new Date().getTime();
+    if (errorAlert[0] === 1 && currentTime - tStamp < 2000) {
+        writeAlert(3, "Connection established!", tStamp);
+        errorAlert[0] = 0;
+    }
 }
 
 /**
@@ -53,14 +63,20 @@ function checkError(id, tStamp) {
         errorAlertTime[id] = currentTime;
     }
 
-    // Can not update user profile
-
     // Allow same alert afer 1 hour
     if (new Date().getTime() - errorAlertTime[id] > refreshTime * 1000)
         errorAlert[id] = 0;
 }
 
+function checkUserUpdate() {
+    // Cannot update user profile
+    // Check if settings were updated successfully
+}
+
 function removeAlert() {
+    // Set reset time in seconds
+    var resetTime = 3600 * 24 * 7;
+
     // Get existing HTML
     var [header, alerts, footer] = fs
         .readFileSync("./html/alerts.html", "utf-8")
@@ -81,7 +97,7 @@ function removeAlert() {
             var oldTimeStamp = Date.parse(fullDate);
             var currentTime = new Date().getTime();
 
-            if (currentTime - oldTimeStamp > 40 * 1000) {
+            if (currentTime - oldTimeStamp > resetTime * 1000) {
                 contentAlerts[i] = "";
                 toDelete = 1;
             }
@@ -177,8 +193,11 @@ function writeAlert(status, message, tStamp) {
 }
 
 exports.alertHandler = function(tStamp, T, P, H, NH3, NO2, CO) {
-    checkError(tStamp);
+    // Check for hardware error
+    checkError(0, tStamp);
+    checkSuccess(tStamp);
 
+    // Check for data warnings
     checkWarning(
         0,
         T,
@@ -220,5 +239,6 @@ exports.alertHandler = function(tStamp, T, P, H, NH3, NO2, CO) {
         tStamp
     );
 
+    // Remove outdated alerts
     removeAlert();
 };
