@@ -42,8 +42,9 @@ cmake .
 make
 ```
 Cmake will automatically check the I2C communication and run the necesarry tests when building the project. Test your harware by running a test.
-
-```./demo```
+```
+./demo
+```
 
 This will start printing the sensor data onto your terminal. Press ```Enter``` to stop execution.
 
