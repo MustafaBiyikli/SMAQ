@@ -4,13 +4,20 @@
 <a href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q"><img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/SMAQLogoOld.png" width="400">
 </p>
 
-<p align="center">
-    <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/measurements.png" width="300"/>
-</p>
 
-<p align="center">
-    <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="600"/>
-</p>
+| Measurements       | Range         | Units  |
+|------------------- |:-------------:|:------:|
+| Temperature| -40 ... +85| C|
+| Pressure| 300 ... 1250| hPa|
+| Humidity| 0 ... 100| %|
+| Light| 0.25 ... 16383| lx|
+| Proximity| 1 ... 200| mm|
+| Sound Levels| -40 ... +85| ppm|
+| Carbon Monoxide [Co]| -40 ... +85| ppm|
+| Nitrogen Dioxide [NO2]| -40 ... +85| ppm|
+| Ammonia[NH3]| -40 ... +85| ppm|
+
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="450" align="right"/>
 
 -   Raspberry Pi 3 Model B
 -   Handmade PCB:
