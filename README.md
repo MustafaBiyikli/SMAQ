@@ -114,7 +114,7 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 
 <p align="center">
     <a href="">
-        <img src="https://lh3.googleusercontent.com/proxy/Aknfg2Z6ps2gjaX1CIqbLo6x3zdvB0ZzkiswxI75zA1vKo1jj-3FYHqbR4JZO0YKNxtMnUomDg8hgN7XPVpsLqFouTCtIlA8V47GQP9ERInNe-_FkX_4pA" height="40"/>
+        <img src="https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512" height="40"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
     <a href="">
