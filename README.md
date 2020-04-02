@@ -88,11 +88,11 @@ Killing the process follows the same logic as <b>Killing the process</b>
 
 ## Hardware - Main Components 
 
-See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
-
 <p>
-    <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="200" align="right"/>
+    <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="500" align="right"/>
 </p>
+
+See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 
 -   Raspberry Pi 3 Model B
 -   PCB including:
