@@ -1,7 +1,7 @@
 # SMAQ
 
 <p align="center">
-<a href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q"><img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/SMAQLogoOld.png" width="400">
+<a href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q"><img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/SMAQLogoOld.png" width="400"></a>
 </p>
 
 
