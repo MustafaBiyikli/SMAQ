@@ -89,7 +89,7 @@ Killing the process follows the same logic as <b>Killing the process</b>
 ## Hardware - Main Components 
 
 <p>
-    <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="500" align="right"/>
+    <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="450" align="right"/>
 </p>
 
 See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
