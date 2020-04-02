@@ -112,7 +112,7 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 
 ## Follow us on Social Media
 
-<p align="left">
+<p align="center">
     <a href="">
         <img src="https://lh3.googleusercontent.com/proxy/Aknfg2Z6ps2gjaX1CIqbLo6x3zdvB0ZzkiswxI75zA1vKo1jj-3FYHqbR4JZO0YKNxtMnUomDg8hgN7XPVpsLqFouTCtIlA8V47GQP9ERInNe-_FkX_4pA" height="40"/>
     </a>
