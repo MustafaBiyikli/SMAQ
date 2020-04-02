@@ -86,19 +86,18 @@ node app.js &
 ```
 Killing the process follows the same logic as <b>Killing the process</b>
 
-## Smart Monitoring of Air Quality
-
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="450" align="right"/>
 
 ## Hardware - Main Components
 
 -   Raspberry Pi 3 Model B
--   Handmade PCB:
+-   PCB including:
     -   BME280 (Temperature, Pressure and Humidity Sensor)
     -   VCLN4010 (Proximity Sensor)
     -   SSH1106 (OLED Screen)
     -   MICS6814 (Gas Sensor)
     -   ADS1115 (ADC)
+- 3D-printed casing and LED pipes
 
 ## Developers
 
