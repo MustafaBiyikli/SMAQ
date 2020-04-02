@@ -109,3 +109,24 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 -   [Alexandros Charitonidis](https://github.com/Alexandros-Charitonidis)
 -   [Mustafa Biyikli](https://github.com/MustafaBiyikli)
 -   [Katarzyna Lenard](https://github.com/KasiaLenard)
+
+## Follow us on Social Media
+
+<p align="left">
+    <a href="">
+        <img src="https://lh3.googleusercontent.com/proxy/Aknfg2Z6ps2gjaX1CIqbLo6x3zdvB0ZzkiswxI75zA1vKo1jj-3FYHqbR4JZO0YKNxtMnUomDg8hgN7XPVpsLqFouTCtIlA8V47GQP9ERInNe-_FkX_4pA" height="40"/>
+    </a>
+    &nbsp;  &nbsp;  &nbsp;  
+    <a href="">
+        <img src="https://i.pinimg.com/originals/4f/01/49/4f0149647a160a47217615866f5469c4.png" height="40"/>
+    </a>
+    &nbsp;  &nbsp;  &nbsp;  
+    <a href="">
+        <img src="https://www.aps.edu/sapr/images/pnglot.comtwitterbirdlogopng139932.png/image" height="40"/>
+    </a>
+    &nbsp;  &nbsp;  &nbsp;  
+    <a href="">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_of_YouTube_%282015-2017%29.svg/1200px-Logo_of_YouTube_%282015-2017%29.svg.png" height="40" />
+    </a>
+</p>
+
