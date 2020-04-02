@@ -4,6 +4,7 @@
 <a href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q"><img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/SMAQLogoOld.png" width="400"></a>
 </p>
 
+## Smart Monitoring of Air Quality
 
 | Measurements       | Range         | Units  |
 |------------------- |:-------------:|:------:|
@@ -18,6 +19,8 @@
 | Ammonia[NH3]| -40 ... +85| ppm|
 
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/StraightGIF.gif" width="450" align="right"/>
+
+## Hardware - Main Components
 
 -   Raspberry Pi 3 Model B
 -   Handmade PCB:
