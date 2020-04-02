@@ -40,6 +40,18 @@ router.get("/alerts", function(req, res) {
     res.sendFile(path.join(__dirname + "/html/alerts.html"));
 });
 
+router.get("/about", function(req, res) {
+    res.sendFile(path.join(__dirname + "/html/about.html"));
+});
+
+router.get("/contact", function(req, res) {
+    res.sendFile(path.join(__dirname + "/html/contact.html"));
+});
+
+router.get("/settings", function(req, res) {
+    res.sendFile(path.join(__dirname + "/html/settings.html"));
+});
+
 router.get("/api", function(req, res) {
     fs.readFile("./csv/api.csv", (err, data) => {
         if (err) throw err.message;
