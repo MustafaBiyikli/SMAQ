@@ -54,3 +54,12 @@ After the board was etched a surface clean up and board oultine shaping commence
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/ONE.png" width="328"/> 
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/BoardGIF.gif" width="400"/> <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/Finished.png" width="350"/> 
 </p>
+
+
+
+In order to protect the board from oxidation and help the component soldering a UV curable solder mask was applied. Using transparencies of the top and bottom layout approximately 4ml of UV solder resist was dispensed on each side. After curing the paint for 20 seconds the transperencies were removed and the uncured pattern was cleaned. Afterwards the solder mask was fully cured under the UV lamp for three minutes.
+
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/MakingProcess.gif"/>
+</p>
+
