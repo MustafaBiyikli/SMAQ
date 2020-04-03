@@ -30,3 +30,27 @@ Here is the PCB layout sent to the services to be printed.
 <p align="center">
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/UofG-Board-etching-FRONT.png" width="350"/> <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/UofG-Board-etching-BACK.png" width="350"/> 
 </p>
+
+
+After ordering the components a small prototype was made with some components to test them. Due to the nature of the small packages that were chosen  a full scale protoype was not applicable.
+
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/ArduinoSMAQPrototype.png"/>
+</p>
+
+
+Also some images showing the manufacturing process of our board can be found on this section.
+The fabrication process of the PCB was done through the Tech Services of the School Of Engineering on University of Glasgow.
+
+
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/FrontSideBoard.png" width="320"/> <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/BackSideBoard.png" width="350"/> 
+</p>
+
+
+After the board was etched a surface clean up and board oultine shaping commenced resulting to the finished shape of the board.
+
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/ONE.png" width="328"/> 
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/BoardGIF.gif" width="400"/> <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/Finished.png" width="350"/> 
+</p>
