@@ -14,27 +14,20 @@ $(document).ready(function() {
         var current = document.getElementsByClassName("active");
         if (current.length > 0)
             current[0].className = current[0].className.replace("active", "");
-        if (index + 1) btns[index].className += " active";
+        if (index != null) btns[index].className += " active";
     }
 
     /**
      * @param graphID graphID of master plot
      * @param {string} divIDplot div_id of plot from HTML
      * @param {string} CSVdata path to CSV data
-     * @param {number} rangeMinMax min max values to display on plot i.e: [0, 40]
      * @param {string} labelY i.e: "Temperature [\u2103]"
-     * @param {string} seriesName i.e: "Temperature"
+     * @param {string} highlight region to highlight on x-axis i.e: "[x1, x2]"
      */
 
-    function addPlot(
-        graphID,
-        divIDplot,
-        CSVdata,
-        rangeMinMax,
-        labelY,
-        seriesName = ["Time", labelY]
-    ) {
-        var graphID = new Dygraph(document.getElementById(divIDplot), CSVdata, {
+    function addPlot(graphID, divIDplot, CSVdata, labelY, highlight = [0, 0]) {
+        var seriesName = ["Time", labelY];
+        graphID = new Dygraph(document.getElementById(divIDplot), CSVdata, {
             axes: {
                 x: {
                     valueFormatter: function(ms) {
@@ -53,12 +46,41 @@ $(document).ready(function() {
                     }
                 }
             },
-            valueRange: rangeMinMax,
+            animatedZooms: true,
             labels: seriesName,
             legend: "follow",
             xlabel: "Time [UTC]",
-            ylabel: labelY
+            ylabel: labelY,
+            fillGraph: true,
+            underlayCallback: function(canvas, area, graphID) {
+                highlight = getHighlight(
+                    graphID.getValue(graphID.numRows() - 1, 1),
+                    graphID.getValue(graphID.numRows() - 1, 0),
+                    graphID.getValue(graphID.numRows() - 2, 0)
+                );
+                var bottom_left = graphID.toDomCoords(highlight[0], -20);
+                var top_right = graphID.toDomCoords(highlight[1], 20);
+                var left = bottom_left[0];
+                var right = top_right[0];
+
+                canvas.fillStyle = "rgba(255, 255, 0, 0.2)";
+                canvas.fillRect(left, area.y, right - left, area.h);
+            }
         });
+
+        /** 
+        highlight = [
+            graphID.getValue(graphID.numRows() - 11, 0),
+            graphID.getValue(graphID.numRows() - 1, 0)
+        ];*/
+
+        function getHighlight(value, newPoint, prevPoint) {
+            if (value > 25.5) {
+                highlight = [newPoint, prevPoint];
+            }
+
+            return highlight;
+        }
 
         window.intervalId = setInterval(function() {
             graphID.updateOptions({ file: CSVdata });
@@ -145,22 +167,22 @@ $(document).ready(function() {
 
     var g1, g2, g3, g4, g5, g6;
     if (document.getElementById("div1_g"))
-        addPlot(g1, "div1_g", data1, [0, 40], "Temperature [\u2103]");
+        addPlot(g1, "div1_g", data1, "Temperature [\u2103]");
 
     if (document.getElementById("div2_g"))
-        addPlot(g2, "div2_g", data2, [0, 100], "Humidity [%]");
+        addPlot(g2, "div2_g", data2, "Humidity [%]");
 
     if (document.getElementById("div3_g"))
-        addPlot(g3, "div3_g", data3, [0, 1000], "Ambient Light [lux]");
+        addPlot(g3, "div3_g", data3, "Ambient Light [lux]");
 
     if (document.getElementById("div4_g"))
-        addPlot(g4, "div4_g", data4, [900, 1100], "Pressure [hPa]");
+        addPlot(g4, "div4_g", data4, "Pressure [hPa]");
 
     if (document.getElementById("div5_g"))
-        addPlot(g5, "div5_g", data5, [0, 100], "Sound Level [%]");
+        addPlot(g5, "div5_g", data5, "Sound Level [%]");
 
     if (document.getElementById("div6_g"))
-        addPlot(g6, "div6_g", data6, [0, 5], "Gasses [ppm]", [
+        addPlot(g6, "div6_g", data6, "Gasses [ppm]", [
             "Time",
             "NH3",
             "NO2",
