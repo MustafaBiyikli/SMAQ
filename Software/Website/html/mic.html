@@ -15,40 +15,42 @@
         <title>SMAQ | Sound Level</title>
     </head>
     <body>
-        <script type="text/javascript" src="../plot.js"></script>
-        <nav id="navbar">
-            <div class="container">
-                <a href="https://github.com/MustafaBiyikli/SMAQ">
-                    <img id="navbar-logo" src="../img/logo.png"
-                /></a>
-                <a href="/dashboard">Dashboard</a>
-                <a href="/alerts">Alerts</a>
-                <a href="/about">About</a>
-                <a href="/contact">Contact</a>
-                <a href="/api" target="_blank">Api</a>
-            </div>
-        </nav>
-
-        <div id="content-wrapper">
-            <h1 class="plot-title">Sound Level</h1>
-            <div class="container-graph">
-                <div id="div5_g" style="width: 95%; height: 95%;"></div>
-            </div>
-            <nav class="button-container">
-                <h4>auto-zoom:</h4>
-                <input id="auto-zoom" type="checkbox" />
-                <button class="btn" id="1week" href="#">1 Week</button>
-                <button class="btn" id="5days" href="#">5 Days</button>
-                <button class="btn" id="3days" href="#">3 Days</button>
-                <button class="btn" id="24hours" href="#">24 Hours</button>
-                <button class="btn" id="12hours" href="#">12 Hours</button>
-                <button class="btn" id="6hours" href="#">6 Hours</button>
-                <button class="btn" id="1hour" href="#">1 Hour</button>
+        <div id="page-container">
+            <script type="text/javascript" src="../plot.js"></script>
+            <nav id="navbar">
+                <div class="container">
+                    <a href="https://github.com/MustafaBiyikli/SMAQ">
+                        <img id="navbar-logo" src="../img/logo.png"
+                    /></a>
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/alerts">Alerts</a>
+                    <a href="/about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/api" target="_blank">Api</a>
+                </div>
             </nav>
-        </div>
 
-        <footer id="main-footer">
-            <p>Copyright &copy; 2020 Team-7 Development</p>
-        </footer>
+            <div id="content-wrapper">
+                <h1 class="plot-title">Sound Level</h1>
+                <div class="container-graph">
+                    <div id="div5_g" style="width: 95%; height: 95%;"></div>
+                </div>
+                <nav class="button-container">
+                    <h4>auto-zoom:</h4>
+                    <input id="auto-zoom" type="checkbox" />
+                    <button class="btn" id="1week" href="#">1 Week</button>
+                    <button class="btn" id="5days" href="#">5 Days</button>
+                    <button class="btn" id="3days" href="#">3 Days</button>
+                    <button class="btn" id="24hours" href="#">24 Hours</button>
+                    <button class="btn" id="12hours" href="#">12 Hours</button>
+                    <button class="btn" id="6hours" href="#">6 Hours</button>
+                    <button class="btn" id="1hour" href="#">1 Hour</button>
+                </nav>
+            </div>
+
+            <footer id="main-footer">
+                <p>Copyright &copy; 2020 Team-7 Development</p>
+            </footer>
+        </div>
     </body>
 </html>
