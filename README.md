@@ -1,7 +1,7 @@
 ## Smart monitoring of air quality with SMAQ
 <p align="center">
     <a href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q">
-        <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/SMAQLogoOld.png" width="300"/>
+        <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/SMAQLogoVectorTp.png" width="300"/>
     </a>
 </p>
 
