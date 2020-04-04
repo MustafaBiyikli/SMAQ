@@ -2,6 +2,7 @@ const fs = require("fs");
 
 // shift data within the timeframe (if within timeframe)
 exports.updateCSV = (url, maxLength, counter) => {
+    var HTML = "";
     for (var i = 0; i < url.length; i++) {
         var data = fs.readFileSync(url[i], "utf-8");
         counter = 0;
@@ -9,8 +10,23 @@ exports.updateCSV = (url, maxLength, counter) => {
             var rows = data.split("\n");
             var lastTimeStamp = rows[rows.length - 2].split(",")[0];
             var delay = new Date().getTime() - lastTimeStamp;
-            if (delay > (maxLength / 2) * 1000) {
-                fs.writeFileSync(url[i], "", "utf-8");
+            if (delay > (maxLength / 2) * 1000 || rows.length < 100) {
+                fs.writeFile(url[i], "", (err) => {
+                    if (err) throw err.message;
+                });
+                if (i === 0) {
+                    var data = fs.readFileSync("./html/alerts.html", "utf-8");
+                    var [header, alerts, footer] = data.split("<!--SPLIT-->");
+                    HTML = HTML.concat(
+                        header,
+                        "<!--SPLIT-->",
+                        "\n\t\t\t\t<!--SPLIT-->",
+                        footer
+                    );
+                    fs.writeFile("./html/alerts.html", HTML, (err) => {
+                        if (err) throw err.message;
+                    });
+                }
                 counter = 0;
             } else {
                 counter += rows.length - 2 + Math.round(delay / 1000) * 2;
@@ -27,7 +43,7 @@ exports.updateCSV = (url, maxLength, counter) => {
 };
 
 exports.writeFormatData = (url, data, maxLength, counter) => {
-    fs.appendFile(url, `${new Date().getTime()},${data}\n`, err => {
+    fs.appendFile(url, `${new Date().getTime()},${data}\n`, (err) => {
         if (err) throw err;
     });
 
