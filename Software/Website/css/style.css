@@ -293,13 +293,14 @@ section a {
     margin-right: 20px;
     position: relative;
     bottom: 30px;
-    transition: 0.5s;
 }
 
 #navbar a:hover:not(:first-child) {
-    color: #aaa;
+    color: #fff;
+    border-bottom: 4px solid red;
     position: relative;
     bottom: 33px;
+    transition: 0.2s;
 }
 
 #main {
