@@ -5,7 +5,7 @@ var alertedLow = [0, 0, 0, 0, 0, 0];
 var alertedHighTime = [0, 0, 0, 0, 0, 0];
 var alertedLowTime = [0, 0, 0, 0, 0, 0];
 
-var errorAlert = [0, 0];
+var errorAlert = [0];
 var errorAlertTime = [0, 0];
 
 var refreshTime = 3600;
@@ -80,7 +80,6 @@ function removeAlert() {
     // Get existing HTML
     var [header, alerts, footer] = fs
         .readFileSync("./html/alerts.html", "utf-8")
-        .toString()
         .split("<!--SPLIT-->");
 
     var HTML = "";
@@ -88,13 +87,13 @@ function removeAlert() {
 
     var contentAlerts = alerts.split("<div");
     for (i = 0; i < contentAlerts.length; i++) {
-        if (contentAlerts[i].length > 14) {
+        if (contentAlerts[i].length > 17) {
             var part = contentAlerts[i].split("a>")[1];
             var [date, rest] = part.split(" |");
             var hour = rest.split("</")[0];
 
             var fullDate = date.concat(hour);
-            var oldTimeStamp = Date.parse(fullDate);
+            var oldTimeStamp = parseInt(Date.parse(fullDate));
             var currentTime = new Date().getTime();
 
             if (currentTime - oldTimeStamp > resetTime * 1000) {
@@ -104,7 +103,7 @@ function removeAlert() {
             if (contentAlerts[i] === "") {
                 HTML = HTML.concat(contentAlerts[i]);
             } else {
-                HTML = HTML.concat("\n\t\t\t<div", contentAlerts[i]);
+                HTML = HTML.concat("\n\t\t\t\t<div", contentAlerts[i]);
             }
         } else if (alerts.length === 14) {
             writeAlert(
@@ -120,7 +119,7 @@ function removeAlert() {
         var fullHTML = header.concat(
             "<!--SPLIT-->",
             HTML,
-            "\n\t\t\t<!--SPLIT-->",
+            "\n\t\t\t\t<!--SPLIT-->",
             footer
         );
 
@@ -171,20 +170,20 @@ function writeAlert(status, message, tStamp) {
 
     // Create html content to add
     var HTML = `<div class="alerts" id="${id}">
-                <img src="../img/${id}.png" style="width: 35px;" />
-                <a>${date}</a>
-                <h3>${title}</h3>
-                <p>
-                    ${message}
-                </p>
-            </div>`;
+                    <img src="../img/${id}.png" style="width: 35px;" />
+                    <a>${date}</a>
+                    <h3>${title}</h3>
+                    <p>
+                        ${message}
+                    </p>
+                </div>`;
 
     // Merge html
     var fullHTML = header.concat(
         "<!--SPLIT-->",
         alerts,
         HTML,
-        "\n\t\t\t<!--SPLIT-->",
+        "\n\t\t\t\t<!--SPLIT-->",
         footer
     );
 

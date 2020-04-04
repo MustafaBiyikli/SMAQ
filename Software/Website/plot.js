@@ -22,10 +22,8 @@ $(document).ready(function() {
      * @param {string} divIDplot div_id of plot from HTML
      * @param {string} CSVdata path to CSV data
      * @param {string} labelY i.e: "Temperature [\u2103]"
-     * @param {string} highlight region to highlight on x-axis i.e: "[x1, x2]"
      */
-
-    function addPlot(graphID, divIDplot, CSVdata, labelY, highlight = [0, 0]) {
+    function addPlot(graphID, divIDplot, CSVdata, labelY) {
         var seriesName = ["Time", labelY];
         graphID = new Dygraph(document.getElementById(divIDplot), CSVdata, {
             axes: {
@@ -51,36 +49,8 @@ $(document).ready(function() {
             legend: "follow",
             xlabel: "Time [UTC]",
             ylabel: labelY,
-            fillGraph: true,
-            underlayCallback: function(canvas, area, graphID) {
-                highlight = getHighlight(
-                    graphID.getValue(graphID.numRows() - 1, 1),
-                    graphID.getValue(graphID.numRows() - 1, 0),
-                    graphID.getValue(graphID.numRows() - 2, 0)
-                );
-                var bottom_left = graphID.toDomCoords(highlight[0], -20);
-                var top_right = graphID.toDomCoords(highlight[1], 20);
-                var left = bottom_left[0];
-                var right = top_right[0];
-
-                canvas.fillStyle = "rgba(255, 255, 0, 0.2)";
-                canvas.fillRect(left, area.y, right - left, area.h);
-            }
+            fillGraph: true
         });
-
-        /** 
-        highlight = [
-            graphID.getValue(graphID.numRows() - 11, 0),
-            graphID.getValue(graphID.numRows() - 1, 0)
-        ];*/
-
-        function getHighlight(value, newPoint, prevPoint) {
-            if (value > 25.5) {
-                highlight = [newPoint, prevPoint];
-            }
-
-            return highlight;
-        }
 
         window.intervalId = setInterval(function() {
             graphID.updateOptions({ file: CSVdata });
@@ -119,23 +89,6 @@ $(document).ready(function() {
             }
         }, 1000);
     }
-    /*
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
-            if (checkBox.checked === true) {
-                var current = document.getElementsByClassName("active");
-                if (current.length > 0)
-                    current[0].className = current[0].className.replace(
-                        "active",
-                        ""
-                    );
-                this.className += " active";
-            } else {
-                alert("Please enable auto-zoom");
-            }
-        });
-    }
-    */
 
     document.getElementById("1hour").onclick = function() {
         if (checkBox.checked === true) timeWindow = 3600;
