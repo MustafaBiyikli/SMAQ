@@ -1,4 +1,4 @@
-# --WORK IN PROGRESS--
+
 
 # Hardware Section
 #### From this list you can navigate through different files needed for the reproduction SMAQ Board
