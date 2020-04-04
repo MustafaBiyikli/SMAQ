@@ -13,7 +13,7 @@ var csvFiles = [
     "./csv/hum.csv",
     "./csv/mic.csv",
     "./csv/press.csv",
-    "./csv/temp.csv"
+    "./csv/temp.csv",
 ];
 
 // !!! This code will clear your previous data
@@ -21,7 +21,7 @@ for (var i = 0; i < csvFiles.length; i++) {
     fs.writeFileSync(csvFiles[i], "", "utf-8");
 }
 
-setInterval(function() {
+setInterval(function () {
     var tStamp = new Date().getTime();
     var temp = Math.random() * 2 + 24;
     var press = Math.random() * 2 + 1039;
@@ -33,7 +33,7 @@ setInterval(function() {
     var gas = [
         Math.random() * 0.1,
         Math.random() * 0.1 + 0.5,
-        Math.random() * 0.1 + 0.6
+        Math.random() * 0.1 + 0.6,
     ];
     var api = `${tStamp},${ambient},${prox},${temp},${press},${humid},${alt},${mic},${gas[0]},${gas[1]},${gas[2]}`;
 
@@ -54,7 +54,7 @@ setInterval(function() {
     writetoCSV.writeFormatData("./csv/mic.csv", mic, maxCSVLength, counter);
     writetoCSV.writeFormatData("./csv/press.csv", press, maxCSVLength, counter);
     writetoCSV.writeFormatData("./csv/temp.csv", temp, maxCSVLength, counter);
-    fs.writeFile("./csv/api.csv", api, err => {
+    fs.writeFile("./csv/api.csv", api, (err) => {
         if (err) throw err.message;
     });
 
