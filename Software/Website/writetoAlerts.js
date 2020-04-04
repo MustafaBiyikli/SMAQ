@@ -9,17 +9,23 @@ var alertedLowTime = [0, 0, 0, 0, 0, 0];
 var errorAlert = [0];
 var errorAlertTime = [0, 0];
 
+var successAlert = 0;
+var infoAlert = 0;
+
 var refreshTime = 3600;
 var email = "user@email.com";
 
-sendWarningEmail = async (req, res, next) => {
+/**
+ * @param {String} template
+ * @param {String} subject
+ */
+async function sendEmail(template, subject) {
     try {
-        await new Email(email).send("email", "Warning from SMAQ");
-        console.log("Email send successfully");
+        await new Email(email).send(template, subject);
     } catch (err) {
         console.log(err.message);
     }
-};
+}
 
 /**
  * @param {Number} id id of parameter, assign from 0 in ascending order (different id for each parameter)
@@ -33,7 +39,7 @@ function checkWarning(id, parameter, value, message, tStamp) {
     if (parameter > value[1]) {
         if (alertedHigh[id] === 0) {
             writeAlert(0, message[1], tStamp);
-            sendWarningEmail();
+            sendEmail("warning", "Warning from SMAQ");
             alertedHigh[id] = 1;
             alertedHighTime[id] = new Date().getTime();
         }
@@ -55,9 +61,10 @@ function checkSuccess(tStamp) {
     // Check if there was a hardware error and connection is back
     tStamp = parseInt(tStamp);
     var currentTime = new Date().getTime();
-    if (errorAlert[0] === 1 && currentTime - tStamp < 2000) {
+    if (successAlert === 0 && currentTime - tStamp < 1500) {
         writeAlert(3, "Connection established!", tStamp);
-        errorAlert[0] = 0;
+        sendEmail("success", "Your SMAQ is working!");
+        successAlert = 1;
     }
 }
 
@@ -71,6 +78,7 @@ function checkError(id, tStamp) {
     var currentTime = new Date().getTime();
     if (currentTime - tStamp > 2000 && errorAlert === 0) {
         writeAlert(1, "Hardware error, try restarting SMAQ", currentTime);
+        sendEmail("error", "SMAQ Error!");
         errorAlert[id] = 1;
         errorAlertTime[id] = currentTime;
     }
@@ -80,7 +88,12 @@ function checkError(id, tStamp) {
         errorAlert[id] = 0;
 }
 
-function checkUserUpdate() {
+// TODO
+function checkInfo(tStamp) {
+    if (infoAlert === 0) {
+        writeAlert(2, "Your SMAQ is up to date!", tStamp);
+        infoAlert = 1;
+    }
     // Cannot update user profile
     // Check if settings were updated successfully
 }
@@ -117,12 +130,6 @@ function removeAlert() {
             } else {
                 HTML = HTML.concat("\n\t\t\t\t<div", contentAlerts[i]);
             }
-        } else if (alerts.length === 14) {
-            writeAlert(
-                2,
-                "You are fine. There are no warnings to be concerned about.",
-                new Date().getTime()
-            );
         }
     }
 
@@ -207,6 +214,7 @@ exports.alertHandler = function (tStamp, T, P, H, NH3, NO2, CO) {
     // Check for hardware error
     checkError(0, tStamp);
     checkSuccess(tStamp);
+    checkInfo(tStamp);
 
     // Check for data warnings
     checkWarning(
@@ -220,7 +228,6 @@ exports.alertHandler = function (tStamp, T, P, H, NH3, NO2, CO) {
         1,
         P,
         [990, 1060],
-        0,
         ["Pressure is below 990hPa.", "Pressure is above 1060hPa"],
         tStamp
     );
