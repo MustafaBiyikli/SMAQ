@@ -125,7 +125,7 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
         <img src="https://www.aps.edu/sapr/images/pnglot.comtwitterbirdlogopng139932.png/image" height="40"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
-    <a href="">
+    <a href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_of_YouTube_%282015-2017%29.svg/1200px-Logo_of_YouTube_%282015-2017%29.svg.png" height="40" />
     </a>
 </p>
