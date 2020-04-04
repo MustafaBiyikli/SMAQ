@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Email = require("./email");
 
 var alertedHigh = [0, 0, 0, 0, 0, 0];
 var alertedLow = [0, 0, 0, 0, 0, 0];
@@ -9,6 +10,16 @@ var errorAlert = [0];
 var errorAlertTime = [0, 0];
 
 var refreshTime = 3600;
+var email = "user@email.com";
+
+sendWarningEmail = async (req, res, next) => {
+    try {
+        await new Email(email).send("email", "Warning from SMAQ");
+        console.log("Email send successfully");
+    } catch (err) {
+        console.log(err.message);
+    }
+};
 
 /**
  * @param {Number} id id of parameter, assign from 0 in ascending order (different id for each parameter)
@@ -22,6 +33,7 @@ function checkWarning(id, parameter, value, message, tStamp) {
     if (parameter > value[1]) {
         if (alertedHigh[id] === 0) {
             writeAlert(0, message[1], tStamp);
+            sendWarningEmail();
             alertedHigh[id] = 1;
             alertedHighTime[id] = new Date().getTime();
         }
@@ -191,7 +203,7 @@ function writeAlert(status, message, tStamp) {
     fs.writeFileSync("./html/alerts.html", fullHTML, "utf-8");
 }
 
-exports.alertHandler = function(tStamp, T, P, H, NH3, NO2, CO) {
+exports.alertHandler = function (tStamp, T, P, H, NH3, NO2, CO) {
     // Check for hardware error
     checkError(0, tStamp);
     checkSuccess(tStamp);
@@ -218,7 +230,7 @@ exports.alertHandler = function(tStamp, T, P, H, NH3, NO2, CO) {
         [40, 50],
         [
             "Low humidity, may cause dry skin.",
-            "High humidity, may cause mould."
+            "High humidity, may cause mould.",
         ],
         tStamp
     );
