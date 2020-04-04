@@ -1,6 +1,9 @@
 const nodemailer = require("nodemailer");
 const htmlToText = require("html-to-text");
 const fs = require("fs");
+const dotenv = require("dotenv");
+
+dotenv.config({ path: "./config.env" });
 
 module.exports = class Email {
     constructor(email) {
@@ -31,13 +34,7 @@ module.exports = class Email {
 
     async send(template, subject) {
         // HTML path
-        const html = fs.readFile(
-            `./html/emails/${template}.html`,
-            "utf-8",
-            (err, data) => {
-                if (err) console.log(err.message);
-            }
-        );
+        var html = fs.readFileSync(`./html/emails/${template}.html`, "utf-8");
 
         // Define email options
         const mailOptions = {

@@ -6,8 +6,6 @@ dotenv.config({ path: "./config.env" });
 
 const app = express();
 
-app.use(morgan("dev"));
-
 app.use(express.static(__dirname));
 
 //add the router

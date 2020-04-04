@@ -99,7 +99,7 @@ function removeAlert() {
 
     var contentAlerts = alerts.split("<div");
     for (i = 0; i < contentAlerts.length; i++) {
-        if (contentAlerts[i].length > 17) {
+        if (contentAlerts[i].length > 200) {
             var part = contentAlerts[i].split("a>")[1];
             var [date, rest] = part.split(" |");
             var hour = rest.split("</")[0];
