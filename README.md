@@ -117,7 +117,7 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
         <img src="https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png?w=512&h=512" height="40"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
-    <a href="">
+    <a href="https://www.instagram.com/smaq_smart/">
         <img src="https://i.pinimg.com/originals/4f/01/49/4f0149647a160a47217615866f5469c4.png" height="40"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
