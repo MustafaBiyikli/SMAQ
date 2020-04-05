@@ -1,5 +1,6 @@
 # --WORK IN PROGRESS--
 
+
 # Hardware Section
 #### From this list you can navigate through different files needed for the reproduction SMAQ Board
 * [3D Files](https://github.com/MustafaBiyikli/SMAQ/tree/master/Hardware/3D%20Files) 
@@ -31,6 +32,11 @@ Here is the PCB layout sent to the services to be printed.
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/UofG-Board-etching-FRONT.png" width="350"/> <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/UofG-Board-etching-BACK.png" width="350"/> 
 </p>
 
+And a photorealistic model of the final board.
+
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/SmaqExplanation.png"/>
+</p>
 
 After ordering the components a small prototype was made with some components to test them. Due to the nature of the small packages that were chosen  a full scale protoype was not applicable.
 
@@ -62,4 +68,11 @@ In order to protect the board from oxidation and help the component soldering a 
 <p align="center">
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/MakingProcess.gif"/>
 </p>
+
+To fully ensure the protection of the board and the etched logo a coat of tin (5μm) was applied on top of the exposed copper.
+This was done through electroless tinning. 
+
+All processed were done in cotrolled and well ventilated areas using appropriate PPE.
+
+The soldering process involved the use of a micro-soldering iron, hot air station, microscope and no-clean flux. 
 
