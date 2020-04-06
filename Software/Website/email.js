@@ -48,4 +48,15 @@ module.exports = class Email {
         // Create a transport and send email
         await this.newTransport().sendMail(mailOptions);
     }
+
+    async sendContactForm(fname, lname, email, category, message) {
+        const mailOptions = {
+            from: email,
+            to: this.from,
+            subject: `user: ${fname} ${lname} query: ${category}`,
+            text: message,
+        };
+
+        await this.newTransport().sendMail(mailOptions);
+    }
 };
