@@ -77,8 +77,13 @@ This was done through electroless tinning.
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/TinningBath.gif" height="300"/> 
 </p>
 
+<p>
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/Soldering.gif" height="400" align="right"/> 
+</p>
 
 All processed were done in cotrolled and well ventilated areas using appropriate PPE.
 
 The soldering process involved the use of a micro-soldering iron, hot air station, microscope and no-clean flux. 
+
+ESD safe procedures were followed using appropriate equipment and proper grounding. To clean the board a 99.9% Isopropyl Alcohol was used. The solder used is 0.25mm Leaded 60/40 Rosin-free while a straight and chisel tip was used on different areas. 
 
