@@ -12,23 +12,58 @@
     </head>
     <body>
         <div id="page-container">
-            <nav id="navbar">
-                <div class="container">
-                    <a href="https://github.com/MustafaBiyikli/SMAQ">
-                        <img id="navbar-logo" src="../img/logo.png"
-                    /></a>
-                    <a href="/dashboard">Dashboard</a>
-                    <a href="/alerts">Alerts</a>
-                    <a href="/about">About</a>
-                    <a href="/contact">Contact</a>
-                    <a href="/api" target="_blank">Api</a>
-                    <a href="#"
-                        ><img src="../img/settings.png" style="width: 50px;"
-                    /></a>
-                </div>
-            </nav>
+            <div id="content-wrapper">
+                <nav id="navbar">
+                    <div class="container">
+                        <a href="https://github.com/MustafaBiyikli/SMAQ">
+                            <img id="navbar-logo" src="../img/logo.png"
+                        /></a>
+                        <a href="/dashboard">Dashboard</a>
+                        <a href="/alerts">Alerts</a>
+                        <a href="/about">About</a>
+                        <a href="/contact">Contact</a>
+                        <a href="/api" target="_blank">Api</a>
+                        <a href="/settings" id="nav-active"
+                            ><img
+                                src="../img/settings.png"
+                                style="width: 50px;"
+                        /></a>
+                    </div>
+                </nav>
 
-            <div id="content-wrapper"></div>
+                <div class="container">
+                    <h2>Users</h2>
+                    <p>
+                        Add emails on which you want to receive warnings and
+                        notifications from SMAQ.
+                    </p>
+                </div>
+
+                <div class="settings-form-container">
+                    <form class="user-form">
+                        <label for="name">Name *</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="firstname"
+                            placeholder="Your name.."
+                            required
+                        />
+
+                        <label for="email">Email *</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Your email.."
+                            required
+                        />
+                        <input type="save" value="Add User" />
+                    </form>
+                </div>
+
+                <div class="existing-users"></div>
+            </div>
 
             <footer id="main-footer">
                 <p>Copyright &copy; 2020 Team-7 Development</p>
