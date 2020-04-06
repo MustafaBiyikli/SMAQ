@@ -72,7 +72,18 @@ In order to protect the board from oxidation and help the component soldering a 
 To fully ensure the protection of the board and the etched logo a coat of tin (5μm) was applied on top of the exposed copper.
 This was done through electroless tinning. 
 
+<p align="center">
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/Tinning.gif" height="300"/> 
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/TinningBath.gif" height="300"/> 
+</p>
+
+<p>
+<img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/Soldering.gif" height="400" align="right"/> 
+</p>
+
 All processed were done in cotrolled and well ventilated areas using appropriate PPE.
 
 The soldering process involved the use of a micro-soldering iron, hot air station, microscope and no-clean flux. 
+
+ESD safe procedures were followed using appropriate equipment and proper grounding. To clean the board a 99.9% Isopropyl Alcohol was used. The solder used is 0.25mm Leaded 60/40 Rosin-free while a straight and chisel tip was used on different areas. 
 
