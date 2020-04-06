@@ -5,6 +5,7 @@
             type="text/javascript"
             src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
         ></script>
+        <script type="text/javascript" src="../contact.js"></script>
 
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
 
@@ -38,7 +39,7 @@
                 </nav>
 
                 <div class="contact-form-container">
-                    <form action="#">
+                    <form class="contact-form">
                         <label for="fname">First Name *</label>
                         <input
                             type="text"
@@ -66,13 +67,13 @@
                             required
                         />
 
-                        <label for="country">Category</label>
-                        <select id="country" name="country">
-                            <option value="australia">Hardware</option>
-                            <option value="canada">Software</option>
-                            <option value="canada">WebApp</option>
-                            <option value="canada">MobileApp</option>
-                            <option value="usa">Other</option>
+                        <label for="category">Category</label>
+                        <select id="category" name="category">
+                            <option value="Hardware">Hardware</option>
+                            <option value="Software">Software</option>
+                            <option value="WebApp">WebApp</option>
+                            <option value="MobileApp">MobileApp</option>
+                            <option value="Other">Other</option>
                         </select>
 
                         <label for="subject">Message *</label>
@@ -83,7 +84,7 @@
                             style="height: 100px;"
                         ></textarea>
 
-                        <input type="submit" value="Submit" />
+                        <input id="submit" type="submit" value="Submit" />
                     </form>
                 </div>
                 <div class="section-map">
