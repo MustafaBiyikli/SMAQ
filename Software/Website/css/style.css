@@ -45,6 +45,12 @@ section a {
 }
 
 .plot-title {
+    background-color: #f2f2f2;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 4px 10px #00000055;
+    color: #00000088;
     text-align: center;
     margin-top: 30px;
     margin-bottom: 5vh;
@@ -52,9 +58,19 @@ section a {
     margin-right: auto;
     width: 75%;
     font-size: 25px;
-    background-color: rgba(217, 114, 114, 0.2);
-    padding: 1%;
-    border-radius: 10px;
+}
+
+.plot-title img {
+    position: relative;
+    top: 5px;
+    margin-left: 20px;
+    opacity: 0.6;
+    filter: drop-shadow(1px 1px 1px #00000066);
+}
+
+.plot-title #air-quality {
+    filter: none;
+    opacity: 1;
 }
 
 .button-container {
@@ -171,6 +187,16 @@ section a {
     border-top-right-radius: 20px;
     text-align: center;
     color: #fff;
+}
+
+.gauge-title-container img {
+    float: left;
+    opacity: 0.8;
+    filter: drop-shadow(1px 1px 1px #aaa);
+}
+
+.gauge-title-container h4 {
+    margin-right: 30px;
 }
 
 .chart-container {
