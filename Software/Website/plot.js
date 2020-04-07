@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var data1 = "./csv/temp.csv";
     var data2 = "./csv/hum.csv";
     var data3 = "./csv/ambient.csv";
@@ -22,13 +22,19 @@ $(document).ready(function() {
      * @param {string} divIDplot div_id of plot from HTML
      * @param {string} CSVdata path to CSV data
      * @param {string} labelY i.e: "Temperature [\u2103]"
+     * @param {String} seriesName series names for the legend i.e: ["Time", "param1", "param2" ..]
      */
-    function addPlot(graphID, divIDplot, CSVdata, labelY) {
-        var seriesName = ["Time", labelY];
+    function addPlot(
+        graphID,
+        divIDplot,
+        CSVdata,
+        labelY,
+        seriesName = ["Time", labelY]
+    ) {
         graphID = new Dygraph(document.getElementById(divIDplot), CSVdata, {
             axes: {
                 x: {
-                    valueFormatter: function(ms) {
+                    valueFormatter: function (ms) {
                         var currentTime = new Date(ms)
                             .toString()
                             .split(" ")
@@ -36,23 +42,23 @@ $(document).ready(function() {
                             .join(" ");
                         return `${currentTime} `;
                     },
-                    axisLabelFormatter: function(ms) {
+                    axisLabelFormatter: function (ms) {
                         var currentTime = `${
                             new Date(ms).toString().split(" ")[4]
                         }`;
                         return currentTime;
-                    }
-                }
+                    },
+                },
             },
             animatedZooms: true,
             labels: seriesName,
             legend: "follow",
             xlabel: "Time [UTC]",
             ylabel: labelY,
-            fillGraph: true
+            fillGraph: true,
         });
 
-        window.intervalId = setInterval(function() {
+        window.intervalId = setInterval(function () {
             graphID.updateOptions({ file: CSVdata });
             if (checkBox.checked === true) {
                 switch (timeWindow) {
@@ -81,8 +87,8 @@ $(document).ready(function() {
                 graphID.updateOptions({
                     dateWindow: [
                         new Date().getTime() - timeWindow * 1000,
-                        new Date().getTime()
-                    ]
+                        new Date().getTime(),
+                    ],
                 });
             } else {
                 formatButton();
@@ -90,31 +96,31 @@ $(document).ready(function() {
         }, 1000);
     }
 
-    document.getElementById("1hour").onclick = function() {
+    document.getElementById("1hour").onclick = function () {
         if (checkBox.checked === true) timeWindow = 3600;
     };
 
-    document.getElementById("6hours").onclick = function() {
+    document.getElementById("6hours").onclick = function () {
         if (checkBox.checked === true) timeWindow = 3600 * 6;
     };
 
-    document.getElementById("12hours").onclick = function() {
+    document.getElementById("12hours").onclick = function () {
         if (checkBox.checked === true) timeWindow = 3600 * 12;
     };
 
-    document.getElementById("24hours").onclick = function() {
+    document.getElementById("24hours").onclick = function () {
         if (checkBox.checked === true) timeWindow = 3600 * 24;
     };
 
-    document.getElementById("3days").onclick = function() {
+    document.getElementById("3days").onclick = function () {
         if (checkBox.checked === true) timeWindow = 3600 * 24 * 3;
     };
 
-    document.getElementById("5days").onclick = function() {
+    document.getElementById("5days").onclick = function () {
         if (checkBox.checked === true) timeWindow = 3600 * 24 * 5;
     };
 
-    document.getElementById("1week").onclick = function() {
+    document.getElementById("1week").onclick = function () {
         if (checkBox.checked === true) timeWindow = 3600 * 24 * 7;
     };
 
@@ -139,6 +145,6 @@ $(document).ready(function() {
             "Time",
             "NH3",
             "NO2",
-            "CO"
+            "CO",
         ]);
 });
