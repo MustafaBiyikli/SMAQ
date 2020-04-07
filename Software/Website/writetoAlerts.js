@@ -13,7 +13,6 @@ var successAlert = 0;
 var infoAlert = 0;
 
 var refreshTime = 3600;
-var email = "user@email.com";
 
 /**
  * @param {String} template
@@ -21,7 +20,16 @@ var email = "user@email.com";
  */
 async function sendEmail(template, subject) {
     try {
-        await new Email(email).send(template, subject);
+        var data = fs.readFileSync("./html/settings.html", "utf-8");
+        var users = data.toString().split("<!--SPLIT-->")[1].split("\n");
+        users = users.slice(1, users.length - 1);
+        var newEmail = "";
+        var emailList = [];
+        for (var i = 0; i < users.length; i++) {
+            newEmail = users[i].split(" | ")[1].split("</")[0];
+            emailList.push(newEmail);
+        }
+        await new Email(emailList).send(template, subject);
     } catch (err) {
         console.log(err.message);
     }
