@@ -12,24 +12,27 @@ module.exports = class Email {
     }
 
     newTransport() {
-        if (process.env.NODE_ENV === "production") {
-            return nodemailer.createTransport({
-                service: "SendGrid",
-                auth: {
-                    user: process.env.SENDGRID_USERNAME,
-                    pass: process.env.SENDGRID_PASSWORD,
-                },
-            });
+        switch (process.env.NODE_ENV) {
+            case "development":
+                return nodemailer.createTransport({
+                    host: process.env.EMAIL_HOST,
+                    port: process.env.EMAIL_PORT,
+                    auth: {
+                        user: process.env.EMAIL_USERNAME,
+                        pass: process.env.EMAIL_PASSWORD,
+                    },
+                });
+            case "production":
+                return nodemailer.createTransport({
+                    service: "SendGrid",
+                    auth: {
+                        user: process.env.SENDGRID_USERNAME,
+                        pass: process.env.SENDGRID_PASSWORD,
+                    },
+                });
+            default:
+                return 1;
         }
-
-        return nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: process.env.EMAIL_PORT,
-            auth: {
-                user: process.env.EMAIL_USERNAME,
-                pass: process.env.EMAIL_PASSWORD,
-            },
-        });
     }
 
     async send(template, subject) {
@@ -53,7 +56,7 @@ module.exports = class Email {
         const mailOptions = {
             from: email,
             to: this.from,
-            subject: `user: ${fname} ${lname} query: ${category}`,
+            subject: `User: ${fname} ${lname} Query: ${category}`,
             text: message,
         };
 
