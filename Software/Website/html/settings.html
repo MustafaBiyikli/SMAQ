@@ -6,6 +6,8 @@
             src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
         ></script>
 
+        <script type="text/javascript" src="../settings.js"></script>
+
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
 
         <title>SMAQ | Settings</title>
@@ -31,20 +33,16 @@
                     </div>
                 </nav>
 
-                <div class="container">
-                    <h2>Users</h2>
+                <div class="settings-form-container">
                     <p>
                         Add emails on which you want to receive warnings and
-                        notifications from SMAQ.
+                        notifications from your SMAQ.
                     </p>
-                </div>
-
-                <div class="settings-form-container">
                     <form class="user-form">
-                        <label for="name">Name *</label>
+                        <label for="username">Username *</label>
                         <input
                             type="text"
-                            id="name"
+                            id="username"
                             name="firstname"
                             placeholder="Your name.."
                             required
@@ -58,11 +56,17 @@
                             placeholder="Your email.."
                             required
                         />
-                        <input type="submit" value="Add User" />
+                        <input id="submit" type="submit" value="Add User" />
                     </form>
                 </div>
 
-                <div class="existing-users"></div>
+                <div class="existing-users-container">
+                    <h3 style="text-align: center;">Existing Users</h3>
+                    <ul id="existing-users">
+                        <!--SPLIT-->
+						<!--SPLIT-->
+                    </ul>
+                </div>
             </div>
 
             <footer id="main-footer">
