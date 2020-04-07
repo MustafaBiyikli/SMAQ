@@ -1,9 +1,6 @@
 const express = require("express");
 const router = require("./router");
-const Email = require("./email");
-const dotenv = require("dotenv");
-
-dotenv.config({ path: "./config.env" });
+const postHandler = require("./postHandler");
 
 switch (process.env.NODE_ENV) {
     case "development":
@@ -22,28 +19,18 @@ app.use(express.static(__dirname));
 
 //add the router
 app.use("/", router);
+
 app.use(
     express.urlencoded({
         extended: false,
     })
 );
+
 app.use(express.json());
 
-app.post("/contact", async (req, res) => {
-    const { fname, lname, email, category, message } = req.body;
-    try {
-        await new Email(email).sendContactForm(
-            fname,
-            lname,
-            email,
-            category,
-            message
-        );
-    } catch (err) {
-        throw err.message;
-    }
-    res.json({ message });
-});
+app.post("/contact", postHandler.contactForm);
+app.post("/settingsAdd", postHandler.userFormAdd);
+app.post("/settingsRemove", postHandler.userFormRemove);
 
 const port = 8000;
 app.listen(port, () => {
