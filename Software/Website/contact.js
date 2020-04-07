@@ -23,7 +23,6 @@ $(document).ready(function () {
                 })
                 .fail(function () {
                     showAlert("error", "There was an error. Please try again.");
-                    contactForm.reset();
                 });
         });
     }
