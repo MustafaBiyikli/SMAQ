@@ -450,9 +450,17 @@ input[type="submit"]:hover {
 }
 
 #navbar-logo {
+    -webkit-filter: drop-shadow(2px 2px 5px #ffffff88);
+    filter: drop-shadow(2px 2px 2px #ffffff88);
     height: 80px;
     margin: 0;
     margin-right: 20px;
+    transition: 0.2s;
+}
+
+#navbar-logo:hover {
+    -webkit-filter: drop-shadow(5px 5px 5px #ffffff88);
+    filter: drop-shadow(5px 5px 5px #ffffff88);
 }
 
 #navbar a:not(:first-child) {

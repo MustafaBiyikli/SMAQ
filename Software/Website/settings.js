@@ -13,6 +13,9 @@ $(document).ready(function () {
                     .done(function () {
                         appendList(username, email);
                         showAlert("success", "New user added");
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 3000);
                     })
                     .fail(function () {
                         showAlert("error", "New user could not be added");
@@ -54,7 +57,7 @@ const showAlert = (type, msg) => {
     hideAlert();
     const markup = `<div class="alert alert-${type}">${msg}</div>`;
     document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-    window.setTimeout(hideAlert, 5000);
+    window.setTimeout(hideAlert, 3000);
 };
 
 const confirmDelete = (msg, callback) => {
