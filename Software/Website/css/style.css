@@ -239,6 +239,23 @@ section a {
 .alert-error {
     background-color: #eb4d4b;
 }
+.alert-confirm {
+    color: #555;
+    background-color: #fff;
+}
+.alert-confirm img {
+    position: relative;
+    top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 30px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.alert-confirm img:hover {
+    opacity: 1;
+    -webkit-transform: scale(1.1);
+}
 
 .alerts {
     width: 80%;
@@ -338,9 +355,42 @@ input[type="submit"]:hover {
 
 .settings-form-container {
     box-sizing: border-box;
-    width: 45%;
+    width: 42.5%;
     float: left;
     margin-left: 5%;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 40px;
+    box-shadow: 2px 4px 10px #00000055;
+}
+
+#existing-users li {
+    opacity: 0.6;
+    width: 90%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid #555;
+    text-align: center;
+    list-style: none;
+    cursor: pointer;
+}
+
+#existing-users li:hover {
+    opacity: 1;
+}
+
+#existing-users li:hover:after {
+    content: "DELETE";
+    float: right;
+    color: red;
+}
+
+.existing-users-container {
+    box-sizing: border-box;
+    width: 42.5%;
+    float: right;
+    margin-right: 5%;
     border-radius: 10px;
     background-color: #f2f2f2;
     padding: 20px;
@@ -422,14 +472,13 @@ input[type="submit"]:hover {
     opacity: 0.6;
     padding-left: 5px;
     padding-top: 5px;
-    transition: 0.2s;
 }
 
 #navbar a:last-child:hover {
-    -ms-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    -o-transform: scale(1.2);
+    -ms-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -o-transform: scale(1.1);
     opacity: 1;
 }
 
