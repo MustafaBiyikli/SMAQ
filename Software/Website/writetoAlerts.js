@@ -21,19 +21,24 @@ var refreshTime = 3600;
  */
 async function sendEmail(template, subject) {
     try {
-        var data = fs.readFileSync("./html/settings.html", "utf-8");
-        var users = data.toString().split("<!--SPLIT-->")[1].split("\n");
-        users = users.slice(1, users.length - 1);
-        var newEmail = "";
-        var emailList = [];
-        for (var i = 0; i < users.length; i++) {
-            newEmail = users[i].split(" | ")[1].split("</")[0];
-            emailList.push(newEmail);
-        }
+        var emailList = getEmailList();
         await new Email(emailList).send(template, subject);
     } catch (err) {
         console.log(err.message);
     }
+}
+
+function getEmailList() {
+    var data = fs.readFileSync("./html/settings.html", "utf-8");
+    var users = data.toString().split("<!--SPLIT-->")[1].split("\n");
+    users = users.slice(1, users.length - 1);
+    var newEmail = "";
+    var emailList = [];
+    for (var i = 0; i < users.length; i++) {
+        newEmail = users[i].split(" | ")[1].split("</")[0];
+        emailList.push(newEmail);
+    }
+    return emailList;
 }
 
 /**
@@ -56,6 +61,7 @@ function checkWarning(id, parameter, value, message, tStamp) {
     } else if (parameter < value[0]) {
         if (alertedLow[id] === 0) {
             writeAlert(0, message[0], tStamp);
+            sendEmail("warning", "Warning from SMAQ");
             alertedLow[id] = 1;
             alertedLowTime[id] = new Date().getTime();
         }
@@ -103,14 +109,50 @@ function checkError(id, tStamp) {
         errorAlert[id] = 0;
 }
 
-// TODO
+/**
+ * Sends an alert if there is no emails added
+ * @param {String} tStamp time stamp from api
+ */
 function checkInfo(tStamp) {
-    if (infoAlert === 0) {
-        writeAlert(2, "Your SMAQ is up to date!", tStamp);
+    var emailList = getEmailList();
+    if (emailList.length === 0 && infoAlert === 0) {
+        writeAlert(
+            2,
+            "Add your email address in Settings to receive warnings!",
+            tStamp
+        );
         infoAlert = 1;
+    } else if (emailList.length > 0 && infoAlert === 1) {
+        // Remove this alert
+        var [header, alerts, footer] = fs
+            .readFileSync("./html/alerts.html", "utf-8")
+            .split("<!--SPLIT-->");
+
+        var HTML = "";
+
+        var contentAlerts = alerts.split("<div");
+        for (i = 0; i < contentAlerts.length; i++) {
+            if (contentAlerts[i].length > 200) {
+                if (contentAlerts[i].includes('id="info"') === true) {
+                    contentAlerts[i] = "";
+                } else {
+                    HTML = HTML.concat("<div", contentAlerts[i]);
+                }
+            }
+        }
+
+        // Merge html
+        var fullHTML = header.concat(
+            "<!--SPLIT-->\n\t\t\t\t",
+            HTML,
+            "<!--SPLIT-->",
+            footer
+        );
+
+        // Write html
+        fs.writeFileSync("./html/alerts.html", fullHTML, "utf-8");
+        infoAlert = 0;
     }
-    // Cannot update user profile
-    // Check if settings were updated successfully
 }
 
 /**
