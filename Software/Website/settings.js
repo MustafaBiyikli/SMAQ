@@ -9,6 +9,7 @@ $(document).ready(function () {
             const email = document.getElementById("email").value;
             var data = { username, email };
             if (list.children.length < maxUsers) {
+                // Post the data to backend
                 $.post("/settingsAdd", data)
                     .done(function () {
                         appendList(username, email);
@@ -34,6 +35,7 @@ $(document).ready(function () {
             confirmDelete(
                 "Are you sure you want to delete this user?",
                 function () {
+                    // Post the data to backend
                     $.post("/settingsRemove", data)
                         .done(function () {
                             showAlert("success", "User removed");
@@ -53,6 +55,11 @@ const hideAlert = () => {
     if (el) el.parentElement.removeChild(el);
 };
 
+/**
+ * Shows an alert
+ * @param {String} type "success" or "error", this is used for css
+ * @param {String} msg This message will be shown in the alert
+ */
 const showAlert = (type, msg) => {
     hideAlert();
     const markup = `<div class="alert alert-${type}">${msg}</div>`;
@@ -60,6 +67,11 @@ const showAlert = (type, msg) => {
     window.setTimeout(hideAlert, 3000);
 };
 
+/**
+ * Creates an alert to confirm deletion
+ * @param {String} msg this message will show in the alert
+ * @param {Function} callback function statement on confirmation
+ */
 const confirmDelete = (msg, callback) => {
     hideAlert();
     const markup = `<div class="alert alert-confirm">${msg}<br/>
@@ -76,6 +88,11 @@ const confirmDelete = (msg, callback) => {
     });
 };
 
+/**
+ * This function temporarly appends new user into the website
+ * @param {String} username
+ * @param {String} email
+ */
 function appendList(username, email) {
     var listNode = document.createElement("li");
     var listItem = document.createTextNode(`${username} | ${email}`);

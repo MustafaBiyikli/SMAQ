@@ -1,6 +1,9 @@
+/** These functions handle POST requests received at app.js */
+
 const fs = require("fs");
 const Email = require("./email");
 
+/** Send the contact form to SMAQ email, posted from contact.js */
 exports.contactForm = async (req, res) => {
     const { fname, lname, email, category, message } = req.body;
     try {
@@ -17,6 +20,7 @@ exports.contactForm = async (req, res) => {
     res.json({ message });
 };
 
+/** Add username and email into settings.html, posted from settings.js */
 exports.userFormAdd = (req, res) => {
     const { username, email } = req.body;
     fs.readFile("./html/settings.html", (err, data) => {
@@ -37,6 +41,7 @@ exports.userFormAdd = (req, res) => {
     res.end();
 };
 
+/** Remove username and email from settings.html, posted from settings.js */
 exports.userFormRemove = (req, res) => {
     const { index } = req.body;
 

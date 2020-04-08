@@ -18,10 +18,11 @@ $(document).ready(function () {
     }
 
     /**
+     * Creates a custom Dygraphs plot
      * @param graphID graphID of master plot
-     * @param {string} divIDplot div_id of plot from HTML
-     * @param {string} CSVdata path to CSV data
-     * @param {string} labelY i.e: "Temperature [\u2103]"
+     * @param {String} divIDplot div_id of plot from HTML
+     * @param {String} CSVdata path to CSV data
+     * @param {String} labelY i.e: "Temperature [\u2103]"
      * @param {String} seriesName series names for the legend i.e: ["Time", "param1", "param2" ..]
      */
     function addPlot(
@@ -96,6 +97,7 @@ $(document).ready(function () {
         }, 1000);
     }
 
+    // Change the timeWindow according to button pressed
     document.getElementById("1hour").onclick = function () {
         if (checkBox.checked === true) timeWindow = 3600;
     };
@@ -124,6 +126,7 @@ $(document).ready(function () {
         if (checkBox.checked === true) timeWindow = 3600 * 24 * 7;
     };
 
+    // Define the plots
     var g1, g2, g3, g4, g5, g6;
     if (document.getElementById("div1_g"))
         addPlot(g1, "div1_g", data1, "Temperature [\u2103]");

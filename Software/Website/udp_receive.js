@@ -33,7 +33,7 @@ var counter = writetoCSV.updateCSV(
     count
 );
 
-server.on("message", function (message, remote) {
+server.on("message", function (message) {
     var smaqData = ab2str(message);
     let [tStamp, ALS, PR, T, P, H, A, MIC, NH3, NO2, CO] = smaqData.split(",");
 

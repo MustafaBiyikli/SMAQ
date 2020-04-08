@@ -15,8 +15,9 @@ var infoAlert = 0;
 var refreshTime = 3600;
 
 /**
- * @param {String} template
- * @param {String} subject
+ * Sends a html email from SMAQ to emails added in the settings
+ * @param {String} template name of html file which will show in the email
+ * @param {String} subject subject of the email
  */
 async function sendEmail(template, subject) {
     try {
@@ -36,11 +37,12 @@ async function sendEmail(template, subject) {
 }
 
 /**
+ * Checks if parameters are out of bounds, if yes - sends warning alerts and emails
  * @param {Number} id id of parameter, assign from 0 in ascending order (different id for each parameter)
  * @param {Number} parameter parameter to check from api
  * @param {Number} value value of parameter as an array [low, high]
  * @param {String} message message to display array [low message, high message]
- * @param {String} tStamp timeStamp from api
+ * @param {String} tStamp time stamp from api
  */
 function checkWarning(id, parameter, value, message, tStamp) {
     parameter = parseFloat(parameter);
@@ -65,6 +67,10 @@ function checkWarning(id, parameter, value, message, tStamp) {
         alertedLow[id] = 0;
 }
 
+/**
+ * Checks for reestablished connection and sends a success warning
+ * @param {String} tStamp time stamp from api
+ */
 function checkSuccess(tStamp) {
     // Check if there was a hardware error and connection is back
     tStamp = parseInt(tStamp);
@@ -77,6 +83,7 @@ function checkSuccess(tStamp) {
 }
 
 /**
+ * Checks data flow stopped and sends an error alert
  * @param {Number} id id of the alert
  * @param {String} tStamp time stamp from api
  */
@@ -106,6 +113,9 @@ function checkInfo(tStamp) {
     // Check if settings were updated successfully
 }
 
+/**
+ * Automatically removes outdates alerts
+ */
 function removeAlert() {
     // Set reset time in seconds
     var resetTime = 3600 * 24 * 7;
@@ -156,9 +166,10 @@ function removeAlert() {
 }
 
 /**
+ * Writes an alert and saves it on the alerts.html
  * @param {Number} status 0:Warning, 1:Error, 2:Info or 3:Success
- * @param {String} message Warning message
- * @param {String} tStamp Date of the event in time stamp
+ * @param {String} message message to be shown in the alert
+ * @param {String} tStamp date of the event in time stamp
  */
 function writeAlert(status, message, tStamp) {
     tStamp = parseInt(tStamp);
@@ -242,7 +253,7 @@ exports.alertHandler = function (tStamp, T, P, H, NH3, NO2, CO) {
     checkWarning(
         2,
         H,
-        [40, 50],
+        [30, 55],
         [
             "Low humidity, may cause dry skin.",
             "High humidity, may cause mould.",

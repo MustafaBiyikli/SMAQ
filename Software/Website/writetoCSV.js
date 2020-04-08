@@ -1,6 +1,11 @@
 const fs = require("fs");
 
-// shift data within the timeframe (if within timeframe)
+/**
+ * Cleans or shifts the data in case of any delay
+ * @param {String} url Array of addresses to csv files
+ * @param {Number} maxLength maximum allowed csv length
+ * @param {Number} counter 0, used to return the current length of the csv
+ */
 exports.updateCSV = (url, maxLength, counter) => {
     var HTML = "";
     for (var i = 0; i < url.length; i++) {
@@ -42,6 +47,13 @@ exports.updateCSV = (url, maxLength, counter) => {
     return counter;
 };
 
+/**
+ * Writes the data into the csv file with a current time stamp, and shifts the data to always have maximum length
+ * @param {String} url address to the csv file
+ * @param {String} data data to be written to the csv (only the parameter, no need for time)
+ * @param {Number} maxLength maximum allowed csv length
+ * @param {Number} counter the current length of the csv
+ */
 exports.writeFormatData = (url, data, maxLength, counter) => {
     fs.appendFile(url, `${new Date().getTime()},${data}\n`, (err) => {
         if (err) throw err;

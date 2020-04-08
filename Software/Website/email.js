@@ -7,8 +7,8 @@ dotenv.config({ path: "./config.env" });
 
 module.exports = class Email {
     constructor(email) {
-        this.to = email;
         this.from = `SMAQ Team <${process.env.EMAIL_FROM}>`;
+        this.to = email;
     }
 
     newTransport() {
@@ -35,6 +35,11 @@ module.exports = class Email {
         }
     }
 
+    /**
+     * Sends a html email from SMAQ to email specified in the constructor
+     * @param {String} template name of html file which will show in the email
+     * @param {String} subject subject of the email
+     */
     async send(template, subject) {
         // HTML path
         var html = fs.readFileSync(`./html/emails/${template}.html`, "utf-8");
@@ -52,7 +57,16 @@ module.exports = class Email {
         await this.newTransport().sendMail(mailOptions);
     }
 
+    /**
+     * Sends a text email taken from the contact form to SMAQ
+     * @param {String} fname first name from the contact form
+     * @param {String} lname last name from the contact form
+     * @param {String} email email from the contact form
+     * @param {String} category category chosen in the contact form
+     * @param {String} message message from the contact form
+     */
     async sendContactForm(fname, lname, email, category, message) {
+        // Define email options for the contact form
         const mailOptions = {
             from: email,
             to: this.from,
@@ -60,6 +74,7 @@ module.exports = class Email {
             text: message,
         };
 
+        // Create a transport and send email
         await this.newTransport().sendMail(mailOptions);
     }
 };

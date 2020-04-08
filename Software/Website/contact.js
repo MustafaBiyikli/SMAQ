@@ -16,6 +16,7 @@ $(document).ready(function () {
                 message,
             };
 
+            // Post the data to backend
             $.post("/contact", data)
                 .done(function () {
                     showAlert("success", "Success! We've got your email!");
@@ -33,6 +34,11 @@ const hideAlert = () => {
     if (el) el.parentElement.removeChild(el);
 };
 
+/**
+ * Shows an alert
+ * @param {String} type "success" or "error", this is used for css
+ * @param {String} msg This message will be shown in the alert
+ */
 const showAlert = (type, msg) => {
     hideAlert();
     const markup = `<div class="alert alert-${type}">${msg}</div>`;
