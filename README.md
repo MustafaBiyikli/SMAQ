@@ -33,6 +33,17 @@ The design files are in sub-directory ```./Hardware```
     <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/A2_Full_Schematic3.png" width="800"/>
 </p>
 
+## Pre-requisites
+These are the packages required by SMAQ software, you need to have them installed on your raspberry Pi. They can be installed by running ```sudo apt-get install <package_name>```
+```
+gcc g++
+cmake
+git
+npm
+nodejs
+```
+Additionally, for receiving your alerts via email, you will need a <b>mailtrap</b> account for development and a <b>SendGrid</b> account for production. You will need to create your own ```config.env``` file and provide your keys. See ```./Software/Website/example-config.env.txt``` for a template.
+
 ## Building and running a demo
 Clone and build the project with CMake
 ```
@@ -107,8 +118,11 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 ## Developers
 
 -   [Alexandros Charitonidis](https://github.com/Alexandros-Charitonidis)
+    - Electronics / PCB Schematics / Manufacturing / Marketing / Social Media / Hardware Instructions
 -   [Mustafa Biyikli](https://github.com/MustafaBiyikli)
+    - Real-Time Software / WebApp Backend & Frontend / AndroidApp / Casing Drawings & Renders / Software Instructions
 -   [Katarzyna Lenard](https://github.com/KasiaLenard)
+    - Real-Time Software / WebApp Backend & Frontend / AndroidApp / Social Media / Software Instructions
 
 ## Follow us on Social Media
 
