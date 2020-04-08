@@ -42,6 +42,7 @@ git
 npm
 nodejs
 ```
+Additionally, for receiving your alerts via email, you will need a <b>mailtrap</b> account for development and a <b>SendGrid</b> account for production. You will need to create your own ```config.env``` file and provide your keys. See ```./Software/Website/example-config.env.txt``` for a template.
 
 ## Building and running a demo
 Clone and build the project with CMake
