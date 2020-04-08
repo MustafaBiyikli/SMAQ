@@ -21,7 +21,7 @@
 ## The design of the PCB
 The Pcb design process is discussed below in summary explaining vital choices that are made and the component selection process.
 Since the idea of constructing an Air Quality Monitoring was established a thorough search on available technologies was conducted in order to find the most compatible sensors available. The main focus was on finding robust accurate and up to date Environmental sensors with regards to Temperature sensing and Hazardous gas detection.
-Sensors from high-end companies like Bosch and Sensortech were chosen. To add extra capabilities to our product a proximity and light intensity sensor from VISHAY was chosen. All Sensors except the Gas Sensor are digital and accomodate the I2C protocol. Lasyl, an OLED screen, an class D audio amplifier and an analogue microphone circuitry was realised to accomodate user interaction facilities.
+Sensors from high-end companies like Bosch and Sensortech were chosen. To add extra capabilities to our product a proximity and light intensity sensor from VISHAY was chosen. All Sensors except the Gas Sensor are digital and accomodate the I2C protocol. Lastly, an OLED screen, an class D audio amplifier and an analogue microphone circuitry was realised to accomodate user interaction facilities.
 
 The library for the parts used in the SMAQ are custom made to fit the needs of our product. All parts were carefully chosen according to recommendations from the sensor companies and to the highest possible quality. Companies like Panasonic, Kemet, TDK and Texas Instruments were considered in our design.
 
