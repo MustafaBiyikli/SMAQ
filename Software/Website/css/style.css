@@ -192,7 +192,6 @@ section a {
 .gauge-title-container img {
     float: left;
     opacity: 0.8;
-    filter: drop-shadow(1px 1px 1px #aaa);
 }
 
 .gauge-title-container h4 {
