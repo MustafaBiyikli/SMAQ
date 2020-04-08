@@ -13,25 +13,25 @@ switch (process.env.NODE_ENV) {
         break;
 }
 
+// Start express app
 const app = express();
 
+// Serving static files
 app.use(express.static(__dirname));
 
-//add the router
+// Add the router
 app.use("/", router);
 
-app.use(
-    express.urlencoded({
-        extended: false,
-    })
-);
-
+// Body parser, reading data from body into req.body
 app.use(express.json());
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
+// Handle post requests
 app.post("/contact", postHandler.contactForm);
 app.post("/settingsAdd", postHandler.userFormAdd);
 app.post("/settingsRemove", postHandler.userFormRemove);
 
+// Start the server
 const port = 8000;
 app.listen(port, () => {
     console.log(`App running on: ${port}`);
