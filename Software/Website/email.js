@@ -23,6 +23,7 @@ module.exports = class Email {
                     },
                 });
             case "production":
+            case "hosting":
                 return nodemailer.createTransport({
                     service: "SendGrid",
                     auth: {

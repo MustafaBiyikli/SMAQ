@@ -9,6 +9,9 @@ switch (process.env.NODE_ENV) {
     case "production":
         require("./udp_receive");
         break;
+    case "hosting":
+        require("./fakeDataGenerator");
+        break;
     default:
         break;
 }
