@@ -33,7 +33,7 @@ setInterval(function () {
     var gas = [
         Math.random() * 0.1,
         Math.random() * 0.1 + 0.5,
-        Math.random() * 0.1 + 0.6,
+        Math.random() * 0.1 + 0.8,
     ];
     var api = `${tStamp},${ambient},${prox},${temp},${press},${humid},${alt},${mic},${gas[0]},${gas[1]},${gas[2]}`;
 

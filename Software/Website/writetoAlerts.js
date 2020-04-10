@@ -306,7 +306,7 @@ exports.alertHandler = function (tStamp, T, P, H, NH3, NO2, CO) {
     checkWarning(
         4,
         NO2,
-        [-1, 0.1],
+        [-1, 1],
         ["", "High Nitrogen Dioxide[NO2], may cause respiratory discomfort."],
         tStamp
     );
