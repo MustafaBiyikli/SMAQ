@@ -2,8 +2,8 @@ const fs = require("fs");
 const writetoCSV = require("./writetoCSV");
 const writetoAlerts = require("./writetoAlerts");
 
-// 1 minute worth of data
-const maxCSVLength = 60;
+// 1 hour worth of data
+const maxCSVLength = 3600;
 var counter = 0;
 
 var csvFiles = [
