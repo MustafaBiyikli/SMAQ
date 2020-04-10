@@ -70,7 +70,11 @@ Then cd into ```../Website``` and run:
 npm install
 ```
 
-This will install the necessary NodeJS packages for the WebApp. Then, run udp_receive.js and app.js as background processes:
+This will install the necessary NodeJS packages for the WebApp. Then, udp_receive.js and app.js needs to run as background processes. To do so, run the app in <b>production mode</b>:
+```
+npm run start:prod &
+```
+or:
 ```
 node udp_receive.js &
 node app.js &
@@ -89,7 +93,13 @@ kill -HUP <PID>
 ```
 
 ## Viewing the WebApp without SMAQ
-You can still view the WebApp without building the harware (using fake data), having cloned SMAQ into your local directory, run:
+You can still view the WebApp without building the harware (using fake data), having cloned SMAQ into your local directory, you will need to start the app in <b>development mode</b>:
+```
+cd SMAQ/Software/Website
+npm install
+npm run start:dev &
+```
+or:
 ```
 cd SMAQ/Software/Website
 npm install
@@ -123,6 +133,11 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
     - Real-Time Software / WebApp Backend & Frontend / AndroidApp / Casing Drawings & Renders / Software Instructions
 -   [Katarzyna Lenard](https://github.com/KasiaLenard)
     - Real-Time Software / WebApp Backend & Frontend / AndroidApp / Social Media / Software Instructions
+    
+## Hosted Website
+
+Vist SMAQ WebApp on: <b>http://ec2-3-133-80-126.us-east-2.compute.amazonaws.com:8000/</b>
+Data you see here is randomly generated up to 1 hour as it is in development, however, the working principle is the same. You can have an idea of how SMAQ works without having to clone our repository.
 
 ## Follow us on Social Media
 
