@@ -39,7 +39,7 @@ section a {
     border-radius: 10px;
     box-shadow: 4px 8px 4px #888;
     padding: 5px;
-    background-color: rgba(111, 168, 215, 0.2);
+    background-color: #f2f2f2;
     width: 220px;
     float: right;
 }
