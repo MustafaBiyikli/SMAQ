@@ -127,13 +127,21 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 
 ## Developers
 
--   [Alexandros Charitonidis](https://github.com/Alexandros-Charitonidis)
-    - Electronics / PCB Schematics / Manufacturing / Marketing / Social Media / Hardware Instructions
--   [Mustafa Biyikli](https://github.com/MustafaBiyikli)
-    - Real-Time Software / WebApp Backend & Frontend / AndroidApp / Casing Drawings & Renders / Software Instructions
--   [Katarzyna Lenard](https://github.com/KasiaLenard)
-    - Real-Time Software / WebApp Backend & Frontend / AndroidApp / Social Media / Software Instructions
-    
+<p align="center">
+    <a href="https://www.facebook.com/SMAQ-Smart-Monitoring-of-Air-Quality-101030311565670">
+        <img src="./Resources/AlexLatest.jpg" width="250"/>
+    </a>
+    &nbsp;  &nbsp;  &nbsp;  
+    <a href="https://www.instagram.com/smaq_smart/">
+        <img src="./Resources/MusLatest.jpg" width="250"/>
+    </a>
+    &nbsp;  &nbsp;  &nbsp;  
+    <a href="">
+        <img src="./Resources/KasiaLatest.jpg" width="250"/>
+    </a>
+
+</p>
+
 ## Hosted Website
 
 Vist SMAQ WebApp on: <b>http://ec2-3-133-80-126.us-east-2.compute.amazonaws.com:8000/</b> or <b>http://3.133.80.126:8000/</b>
