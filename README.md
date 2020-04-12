@@ -128,18 +128,17 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 ## Developers
 
 <p align="center">
-    <a href="https://www.facebook.com/SMAQ-Smart-Monitoring-of-Air-Quality-101030311565670">
+    <a href="https://github.com/Alexandros-Charitonidis">
         <img src="./Resources/AlexLatest.jpg" width="250"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
-    <a href="https://www.instagram.com/smaq_smart/">
+    <a href="https://github.com/MustafaBiyikli">
         <img src="./Resources/MusLatest.jpg" width="250"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
-    <a href="">
+    <a href="https://github.com/KasiaLenard">
         <img src="./Resources/KasiaLatest.jpg" width="250"/>
     </a>
-
 </p>
 
 ## Hosted Website
