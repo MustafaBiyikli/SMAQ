@@ -23,6 +23,7 @@ exports.contactForm = async (req, res) => {
 /** Add username and email into settings.html, posted from settings.js */
 exports.userFormAdd = (req, res) => {
     const { username, email } = req.body;
+
     fs.readFile("./html/settings.html", (err, data) => {
         if (err) throw err.message;
         var [header, users, footer] = data.toString().split("<!--SPLIT-->");
@@ -38,6 +39,24 @@ exports.userFormAdd = (req, res) => {
             if (err) throw err.message;
         });
     });
+
+    // For the app
+    fs.readFile("./html/app/settings.html", (err, data) => {
+        if (err) throw err.message;
+        var [header, users, footer] = data.toString().split("<!--SPLIT-->");
+        var newUser = `<li>${username} | ${email}</li>`;
+        var fullHTML = header.concat(
+            "<!--SPLIT-->",
+            users,
+            newUser,
+            "\n\t\t\t\t<!--SPLIT-->",
+            footer
+        );
+        fs.writeFile("./html/app/settings.html", fullHTML, (err) => {
+            if (err) throw err.message;
+        });
+    });
+
     res.end();
 };
 
@@ -62,5 +81,25 @@ exports.userFormRemove = (req, res) => {
             if (err) throw err.message;
         });
     });
+
+    // For the app
+    fs.readFile("./html/app/settings.html", (err, data) => {
+        if (err) throw err.message;
+        var [header, users, footer] = data.toString().split("<!--SPLIT-->");
+        var userSplit = users.split("\n");
+        userSplit = userSplit.slice(1, userSplit.length - 1);
+        userSplit.splice(index, 1);
+        users = userSplit.join("\n");
+        var fullHTML = header.concat(
+            "<!--SPLIT-->",
+            users,
+            "\n\t\t\t\t<!--SPLIT-->",
+            footer
+        );
+        fs.writeFile("./html/app/settings.html", fullHTML, (err) => {
+            if (err) throw err.message;
+        });
+    });
+
     res.end();
 };

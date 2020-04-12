@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+        ></script>
+        <script type="text/javascript" src="../../contact.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+
+        <title>SMAQ | Contact</title>
+
+        <script src="https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
+        <link
+            href="https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="app-container">
+            <form class="contact-form">
+                <label for="fname">First Name *</label>
+                <input
+                    type="text"
+                    id="fname"
+                    name="firstname"
+                    placeholder="Your name.."
+                    required
+                />
+
+                <label for="lname">Last Name *</label>
+                <input
+                    type="text"
+                    id="lname"
+                    name="lastname"
+                    placeholder="Your last name.."
+                    required
+                />
+
+                <label for="email">Email *</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Your email.."
+                    required
+                />
+
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="Hardware">Hardware</option>
+                    <option value="Software">Software</option>
+                    <option value="WebApp">WebApp</option>
+                    <option value="MobileApp">MobileApp</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="subject">Message *</label>
+                <textarea
+                    id="subject"
+                    name="subject"
+                    placeholder="Write something.."
+                    style="height: 100px;"
+                ></textarea>
+
+                <input id="submit" type="submit" value="Submit" />
+            </form>
+        </div>
+
+        <div class="app-container" id="map-app">
+            <script>
+                mapboxgl.accessToken =
+                    "pk.eyJ1IjoibXVzdGFmYWJpeWlrbGkiLCJhIjoiY2s4bHphcGM1MDZxMjNrbzIybjljYTNzdCJ9.l-RzpPoZkVPr8ztBfLOP7g";
+
+                const geojson = {
+                    type: "FeatureCollection",
+                    features: [
+                        {
+                            type: "Feature",
+                            geometry: {
+                                type: "Point",
+                                coordinates: [-4.285679, 55.872616],
+                            },
+                            properties: {
+                                title: "Rankine Building",
+                                description: "Oakfield Ave, Glasgow G12 8LT",
+                            },
+                        },
+                    ],
+                };
+
+                const map = new mapboxgl.Map({
+                    container: "map-app",
+                    style:
+                        "mapbox://styles/mustafabiyikli/ck8m0mq8c0gcv1ipbol3x0yyh",
+                    scrollZoom: false,
+                    center: [-4.285679, 55.872616],
+                    zoom: 16,
+                    pitch: 60,
+                });
+
+                map.addControl(new mapboxgl.NavigationControl());
+                map.addControl(
+                    new mapboxgl.GeolocateControl({
+                        positionOptions: {
+                            enableHighAccuracy: true,
+                        },
+                        trackUserLocation: true,
+                    })
+                );
+
+                // add markers to map
+                geojson.features.forEach(function (marker) {
+                    var el = document.createElement("div");
+                    el.className = "marker";
+
+                    // make a marker for each feature and add to the map
+                    new mapboxgl.Marker(el)
+                        .setLngLat(marker.geometry.coordinates)
+                        .addTo(map);
+                });
+
+                geojson.features.forEach(function (marker) {
+                    // create a HTML element for each feature
+                    var el = document.createElement("div");
+                    el.className = "marker";
+
+                    var popup = new mapboxgl.Popup({
+                        offset: 25,
+                    }).setHTML(
+                        `<h3>${marker.properties.title}</h3><p>${marker.properties.description}</p><p>coord: ${marker.geometry.coordinates}</p>`
+                    );
+                    // make a marker for each feature and add to the map
+                    new mapboxgl.Marker(el)
+                        .setLngLat(marker.geometry.coordinates)
+                        .setPopup(popup)
+                        .addTo(map);
+                });
+            </script>
+        </div>
+
+        <div class="app-container follow">
+            <p>Email <a id="email">info@smaq.com</a></p>
+            <a href="#"
+                ><img src="../../img/twitter.png" style="height: 30px;"
+            /></a>
+            <a
+                href="https://www.youtube.com/channel/UCAZxVj2a3wnd6SI2-zsWK3Q"
+                target="_blank"
+                ><img src="../../img/youtube.png" style="height: 30px;"
+            /></a>
+            <a
+                href="https://www.facebook.com/SMAQ-Smart-Monitoring-of-Air-Quality-101030311565670"
+                target="_blank"
+                ><img src="../../img/facebook.png" style="height: 30px;"
+            /></a>
+            <a href="https://www.instagram.com/smaq_smart/" target="_blank"
+                ><img src="../../img/instagram.png" style="height: 30px;"
+            /></a>
+            <a href="https://github.com/MustafaBiyikli/SMAQ" target="_blank"
+                ><img src="../../img/github.png" style="height: 30px;"
+            /></a>
+        </div>
+    </body>
+</html>

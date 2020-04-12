@@ -8,6 +8,7 @@ const fs = require("fs");
  */
 exports.updateCSV = (url, maxLength, counter) => {
     var HTML = "";
+    var HTMLApp = "";
     for (var i = 0; i < url.length; i++) {
         var data = fs.readFileSync(url[i], "utf-8");
         counter = 0;
@@ -29,6 +30,24 @@ exports.updateCSV = (url, maxLength, counter) => {
                         footer
                     );
                     fs.writeFile("./html/alerts.html", HTML, (err) => {
+                        if (err) throw err.message;
+                    });
+
+                    // Clear app alerts too
+                    var dataApp = fs.readFileSync(
+                        "./html/app/alerts.html",
+                        "utf-8"
+                    );
+                    var [headerApp, alerts, footerApp] = dataApp.split(
+                        "<!--SPLIT-->"
+                    );
+                    HTMLApp = HTMLApp.concat(
+                        headerApp,
+                        "<!--SPLIT-->",
+                        "\n\t\t<!--SPLIT-->",
+                        footerApp
+                    );
+                    fs.writeFile("./html/app/alerts.html", HTMLApp, (err) => {
                         if (err) throw err.message;
                     });
                 }

@@ -151,6 +151,21 @@ function checkInfo(tStamp) {
 
         // Write html
         fs.writeFileSync("./html/alerts.html", fullHTML, "utf-8");
+
+        var [headerApp, alerts, footerApp] = fs
+            .readFileSync("./html/app/alerts.html", "utf-8")
+            .split("<!--SPLIT-->");
+
+        [part1, part2] = HTML.split('src="');
+        HTMLApp = part1.concat('src="../', part2);
+
+        var fullHTMLApp = headerApp.concat(
+            "<!--SPLIT-->\n\t\t",
+            HTMLApp,
+            "<!--SPLIT-->",
+            footerApp
+        );
+        fs.writeFileSync("./html/app/alerts.html", fullHTMLApp, "utf-8");
         infoAlert = 0;
     }
 }
@@ -204,6 +219,21 @@ function removeAlert() {
 
         // Write html
         fs.writeFileSync("./html/alerts.html", fullHTML, "utf-8");
+
+        var [headerApp, alerts, footerApp] = fs
+            .readFileSync("./html/app/alerts.html", "utf-8")
+            .split("<!--SPLIT-->");
+
+        [part1, part2] = HTML.split('src="');
+        HTMLApp = part1.concat('src="../', part2);
+
+        var fullHTMLApp = headerApp.concat(
+            "<!--SPLIT-->",
+            HTMLApp,
+            "\n\t\t<!--SPLIT-->",
+            footerApp
+        );
+        fs.writeFileSync("./html/app/alerts.html", fullHTMLApp, "utf-8");
     }
 }
 
@@ -269,6 +299,22 @@ function writeAlert(status, message, tStamp) {
 
     // Write html
     fs.writeFileSync("./html/alerts.html", fullHTML, "utf-8");
+
+    var [headerApp, alertsApp, footerApp] = fs
+        .readFileSync("./html/app/alerts.html", "utf-8")
+        .split("<!--SPLIT-->");
+
+    [part1, part2] = HTML.split('src="');
+    HTMLApp = part1.concat('src="../', part2);
+
+    var fullHTMLApp = headerApp.concat(
+        "<!--SPLIT-->",
+        alertsApp,
+        HTMLApp,
+        "\n\t\t<!--SPLIT-->",
+        footerApp
+    );
+    fs.writeFileSync("./html/app/alerts.html", fullHTMLApp, "utf-8");
 }
 
 exports.alertHandler = function (tStamp, T, P, H, NH3, NO2, CO) {
