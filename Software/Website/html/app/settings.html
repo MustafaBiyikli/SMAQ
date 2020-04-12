@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+        ></script>
+
+        <script type="text/javascript" src="../../settings.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+
+        <title>SMAQ | Settings</title>
+    </head>
+    <body>
+        <div class="app-container">
+            <p>
+                Add emails on which you want to receive warnings and
+                notifications from your SMAQ.
+            </p>
+            <form class="user-form">
+                <label for="username">Username *</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="firstname"
+                    placeholder="Your name.."
+                    required
+                />
+
+                <label for="email">Email *</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Your email.."
+                    required
+                />
+                <input id="submit" type="submit" value="Add User" />
+            </form>
+        </div>
+
+        <div class="app-container">
+            <h3 style="text-align: center;">Existing Users</h3>
+            <ul id="existing-users">
+                <!--SPLIT-->
+				<!--SPLIT-->
+            </ul>
+        </div>
+    </body>
+</html>

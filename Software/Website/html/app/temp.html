@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../node_modules/dygraphs/dist/dygraph.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+        ></script>
+
+        <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+
+        <title>SMAQ | Temperature</title>
+    </head>
+    <body>
+        <script type="text/javascript" src="../../plot.js"></script>
+
+        <h1 class="plot-title">
+            Temperature
+            <img src="../../img/temp.png" style="height: 30px;" />
+        </h1>
+        <div class="container-graph" id="container-graph">
+            <div id="div1_g" style="width: 95%; height: 95%;"></div>
+        </div>
+        <nav class="button-container">
+            <h4>auto-zoom:</h4>
+            <input id="auto-zoom" type="checkbox" />
+            <button class="btn" id="1week" href="#">1 Week</button>
+            <button class="btn" id="5days" href="#">5 Days</button>
+            <button class="btn" id="3days" href="#">3 Days</button>
+            <button class="btn" id="24hours" href="#">24 Hours</button>
+            <button class="btn" id="12hours" href="#">12 Hours</button>
+            <button class="btn" id="6hours" href="#">6 Hours</button>
+            <button class="btn" id="1hour" href="#">1 Hour</button>
+        </nav>
+    </body>
+</html>

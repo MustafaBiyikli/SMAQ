@@ -75,8 +75,8 @@ const showAlert = (type, msg) => {
 const confirmDelete = (msg, callback) => {
     hideAlert();
     const markup = `<div class="alert alert-confirm">${msg}<br/>
-                    <img id="confirm" src="../img/confirm.png">
-                    <img id="cancel" src="../img/cancel.png">
+                    <img id="confirm" src="../../img/confirm.png">
+                    <img id="cancel" src="../../img/cancel.png">
                     </div>`;
     document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
     $("#confirm").click(function () {
