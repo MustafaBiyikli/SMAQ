@@ -10,6 +10,9 @@ $(document).ready(function () {
      * @param {String} valueUnit unit to display i.e: "\u2103" for degrees celcius
      * @param {Number} apiIndex value index from api.csv
      * @param {Number} rounding number of decimal places
+     * @param {String} formatHTML HTML string used for formatting the labels
+     * @param {Number} marginHeight
+     * @param {Number} yHeight
      * @param {String} radiusInOut percentage inner outer ["60%", "100%"]
      * @param {String} backgroundColor hex color i.e: "#FFF"
      * @param {String} colorRange string buffer of 3 colors for min max i.e: ["#1601D4", "#FFD000", "#DF5353"]
@@ -22,6 +25,9 @@ $(document).ready(function () {
         valueUnit,
         apiIndex,
         rounding,
+        formatHTML,
+        marginHeight,
+        yHeight,
         radiusInOut = ["60%", "100%"],
         backgroundColor = "#FFF",
         colorRange = ["#1601D4", "#FFD000", "#FF0000"]
@@ -29,8 +35,8 @@ $(document).ready(function () {
         var gaugeOptions = {
             chart: {
                 type: "solidgauge",
-                height: "350px",
-                margin: 20,
+                height: "75%",
+                margin: marginHeight,
                 backgroundColor: "#FFF",
             },
             title: "null",
@@ -69,7 +75,7 @@ $(document).ready(function () {
             plotOptions: {
                 solidgauge: {
                     dataLabels: {
-                        y: -60,
+                        y: yHeight,
                         borderWidth: 0,
                         useHTML: true,
                     },
@@ -97,10 +103,7 @@ $(document).ready(function () {
                         innerRadius: radiusInOut[0],
                         dataLabels: {
                             format:
-                                `<div style="text-align:center">` +
-                                `<span style="font-size:25px">{y}</span><br/>` +
-                                `<span style="font-size:20px;opacity:0.4">${valueUnit}</span>` +
-                                `</div>`,
+                                formatHTML + `${valueUnit}</span>` + `</div>`,
                         },
                         tooltip: {
                             valueSuffix: ` ${valueUnit}`,
@@ -127,6 +130,24 @@ $(document).ready(function () {
         }, 1000);
     }
 
+    if (document.getElementById("appGauge")) {
+        formatHTML =
+            `<div style="text-align:center">` +
+            `<span style="font-size:1.4em;opacity:0.6">{y} ` +
+            ``;
+        marginHeight = 0;
+        yHeight = -25;
+        yHeightMic = -40;
+    } else {
+        formatHTML =
+            `<div style="text-align:center">` +
+            `<span style="font-size:25px">{y}</span><br/>` +
+            `<span style="font-size:20px;opacity:0.4">`;
+        marginHeight = 20;
+        yHeight = -60;
+        yHeightMic = -60;
+    }
+
     addGauge(
         "container-temperature",
         [0, 40],
@@ -134,10 +155,24 @@ $(document).ready(function () {
         [-90, 90],
         "\u2103",
         3,
-        2
+        2,
+        formatHTML,
+        marginHeight,
+        yHeight
     );
 
-    addGauge("container-humidity", [0, 100], "Humidity", [-90, 90], "%", 5, 2);
+    addGauge(
+        "container-humidity",
+        [0, 100],
+        "Humidity",
+        [-90, 90],
+        "%",
+        5,
+        2,
+        formatHTML,
+        marginHeight,
+        yHeight
+    );
 
     addGauge(
         "container-ambient-light",
@@ -146,7 +181,10 @@ $(document).ready(function () {
         [-90, 90],
         "lux",
         1,
-        0
+        0,
+        formatHTML,
+        marginHeight,
+        yHeight
     );
 
     addGauge(
@@ -156,7 +194,10 @@ $(document).ready(function () {
         [-90, 90],
         "hPa",
         4,
-        0
+        0,
+        formatHTML,
+        marginHeight,
+        yHeight
     );
 
     addGauge(
@@ -167,6 +208,9 @@ $(document).ready(function () {
         "%",
         7,
         0,
+        formatHTML,
+        marginHeight,
+        yHeightMic,
         ["80%", "100%"]
     );
 
@@ -174,7 +218,7 @@ $(document).ready(function () {
     var gasGaugeOptions = {
         chart: {
             type: "solidgauge",
-            height: "350px",
+            height: "75%",
             margin: 40,
             backgroundColor: "#FFF",
         },
@@ -234,7 +278,7 @@ $(document).ready(function () {
             },
             valueSuffix: "ppm",
             pointFormat:
-                '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}</span>',
+                '{series.name}<br><span style="font-size:1.5em; color: {point.color}; font-weight: bold">{point.y:.3f}</span>',
             positioner: function (labelWidth) {
                 return {
                     x: (this.chart.chartWidth - labelWidth) / 2,
@@ -260,11 +304,89 @@ $(document).ready(function () {
             solidgauge: {
                 dataLabels: {
                     enabled: false,
+                    allowOverlap: false,
                 },
                 rounded: true,
             },
         },
+        series: [
+            {
+                name: "NH3",
+                data: [
+                    {
+                        color: Highcharts.getOptions().colors[0],
+                        radius: "100%",
+                        innerRadius: "85%",
+                        y: 4,
+                    },
+                ],
+                dataLabels: {
+                    y: -30,
+                    x: 8,
+                    formatter: function () {
+                        return (
+                            'NH3 <span style="color:#339">' +
+                            Highcharts.numberFormat(this.y, 3) +
+                            ` ppm</span><br/>`
+                        );
+                    },
+                },
+            },
+            {
+                name: "NO2",
+                data: [
+                    {
+                        color: Highcharts.getOptions().colors[1],
+                        radius: "84%",
+                        innerRadius: "70%",
+                        y: 4,
+                    },
+                ],
+                dataLabels: {
+                    y: -15,
+                    x: 8,
+                    formatter: function () {
+                        return (
+                            'NO2 <span style="color:#339">' +
+                            Highcharts.numberFormat(this.y, 3) +
+                            ` ppm</span><br/>`
+                        );
+                    },
+                },
+            },
+            {
+                name: "CO",
+                data: [
+                    {
+                        color: Highcharts.getOptions().colors[2],
+                        radius: "69%",
+                        innerRadius: "55%",
+                        y: 4,
+                    },
+                ],
+                dataLabels: {
+                    y: -1,
+                    x: 8,
+                    formatter: function () {
+                        return (
+                            `CO <span style="color:#339">` +
+                            Highcharts.numberFormat(this.y, 3) +
+                            ` ppm</span><br/>`
+                        );
+                    },
+                },
+            },
+        ],
     };
+
+    if (document.getElementById("appGauge")) {
+        gasGaugeOptions.title = null;
+        gasGaugeOptions.chart.margin = 10;
+        gasGaugeOptions.plotOptions.solidgauge.dataLabels.enabled = true;
+        gasGaugeOptions.plotOptions.solidgauge.dataLabels.borderWidth = 0;
+        gasGaugeOptions.pane.startAngle = -110;
+        gasGaugeOptions.pane.endAngle = 110;
+    }
 
     var myGasGauge = Highcharts.chart(
         "container-air-quality",
@@ -276,41 +398,6 @@ $(document).ready(function () {
             credits: {
                 enabled: false,
             },
-            series: [
-                {
-                    name: "NH3",
-                    data: [
-                        {
-                            color: Highcharts.getOptions().colors[0],
-                            radius: "100%",
-                            innerRadius: "85%",
-                            y: 4,
-                        },
-                    ],
-                },
-                {
-                    name: "NO2",
-                    data: [
-                        {
-                            color: Highcharts.getOptions().colors[1],
-                            radius: "84%",
-                            innerRadius: "70%",
-                            y: 4,
-                        },
-                    ],
-                },
-                {
-                    name: "CO",
-                    data: [
-                        {
-                            color: Highcharts.getOptions().colors[2],
-                            radius: "69%",
-                            innerRadius: "55%",
-                            y: 4,
-                        },
-                    ],
-                },
-            ],
         })
     );
     setInterval(function () {
@@ -323,11 +410,11 @@ $(document).ready(function () {
                 var apiDataNO2 = parseFloat(dataRead.split(",")[9]);
                 var apiDataCO = parseFloat(dataRead.split(",")[10]);
                 var pointNH3 = myGasGauge.series[0].points[0];
-                pointNH3.update(Math.round(apiDataNH3 * 1000) / 1000);
+                pointNH3.update(apiDataNH3);
                 var pointNO2 = myGasGauge.series[1].points[0];
-                pointNO2.update(Math.round(apiDataNO2 * 1000) / 1000);
+                pointNO2.update(apiDataNO2);
                 var pointCO = myGasGauge.series[2].points[0];
-                pointCO.update(Math.round(apiDataCO * 1000) / 1000);
+                pointCO.update(apiDataCO);
             },
         });
     }, 1000);

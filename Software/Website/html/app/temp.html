@@ -10,7 +10,7 @@
             src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
         ></script>
 
-        <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/styleApp.css" />
 
         <title>SMAQ | Temperature</title>
     </head>
@@ -26,14 +26,33 @@
         </div>
         <nav class="button-container">
             <h4>auto-zoom:</h4>
-            <input id="auto-zoom" type="checkbox" />
-            <button class="btn" id="1week" href="#">1 Week</button>
-            <button class="btn" id="5days" href="#">5 Days</button>
-            <button class="btn" id="3days" href="#">3 Days</button>
-            <button class="btn" id="24hours" href="#">24 Hours</button>
-            <button class="btn" id="12hours" href="#">12 Hours</button>
-            <button class="btn" id="6hours" href="#">6 Hours</button>
-            <button class="btn" id="1hour" href="#">1 Hour</button>
+            <input id="auto-zoom" type="checkbox" /> <br />
+            <button class="btn" id="1week">1 Week</button>
+            <button class="btn" id="5days" style="display: none;">
+                5 Days
+            </button>
+            <button class="btn" id="3days" style="display: none;">
+                3 Days
+            </button>
+            <button class="btn" id="24hours">24 Hours</button>
+            <button class="btn" id="12hours" style="display: none;">
+                12 Hours
+            </button>
+            <button class="btn" id="6hours">6 Hours</button>
+            <button class="btn" id="1hour">1 Hour</button>
         </nav>
+
+        <div class="right">
+            <a class="next" href="/app&press">
+                <img src="../../img/next.png" alt="next" width="25px" />
+            </a>
+            <p>Pressure</p>
+        </div>
+        <div class="left">
+            <a class="prev" href="/app&gas">
+                <img src="../../img/prev.png" alt="previous" width="25px" />
+            </a>
+            <p>Gasses</p>
+        </div>
     </body>
 </html>

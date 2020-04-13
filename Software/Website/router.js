@@ -87,6 +87,10 @@ router.get("/api", function (req, res) {
 });
 
 /** Routes for the Android native app */
+router.get("/app&dashboard", function (req, res) {
+    res.sendFile(path.join(__dirname + "/html/app/dashboard.html"));
+});
+
 router.get("/app/v1/contact", function (req, res) {
     res.sendFile(path.join(__dirname + "/html/app/contact.html"));
 });

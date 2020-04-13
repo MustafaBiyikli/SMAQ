@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="./../node_modules/dygraphs/dist/dygraph.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+        ></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="../../css/styleApp.css" />
+
+        <title>SMAQ | Your SMAQ</title>
+    </head>
+
+    <body>
+        <script type="text/javascript" src="../../gauge.js"></script>
+
+        <div id="appGauge">
+            <section class="left">
+                <a href="/app&temp">
+                    <div class="cardApp">
+                        <div class="gauge-title-container">
+                            <h4>
+                                <b
+                                    >Temperature
+                                    <img
+                                        src="../../img/temp.png"
+                                        style="height: 20px;"
+                                /></b>
+                            </h4>
+                        </div>
+                        <figure
+                            id="container-temperature"
+                            class="chart-container"
+                        ></figure>
+                    </div>
+                </a>
+                <a href="/app&ambient">
+                    <div class="cardApp">
+                        <div class="gauge-title-container">
+                            <h4>
+                                <b
+                                    >Ambient Light
+                                    <img
+                                        src="../../img/ambient.png"
+                                        style="height: 20px;"
+                                /></b>
+                            </h4>
+                        </div>
+                        <figure
+                            id="container-ambient-light"
+                            class="chart-container"
+                        ></figure>
+                    </div>
+                </a>
+                <a href="/app&mic">
+                    <div class="cardApp">
+                        <div class="gauge-title-container">
+                            <h4>
+                                <b
+                                    >Sound Level
+                                    <img
+                                        src="../../img/mic.png"
+                                        style="height: 20px;"
+                                /></b>
+                            </h4>
+                        </div>
+                        <figure
+                            id="container-sound-level"
+                            class="chart-container"
+                        ></figure>
+                    </div>
+                </a>
+            </section>
+
+            <section class="right">
+                <a href="/app&press">
+                    <div class="cardApp">
+                        <div class="gauge-title-container">
+                            <h4>
+                                <b
+                                    >Pressure
+                                    <img
+                                        src="../../img/pressure.png"
+                                        style="height: 20px;"
+                                /></b>
+                            </h4>
+                        </div>
+                        <figure
+                            id="container-pressure"
+                            class="chart-container"
+                        ></figure>
+                    </div>
+                </a>
+                <a href="/app&hum">
+                    <div class="cardApp">
+                        <div class="gauge-title-container">
+                            <h4>
+                                <b
+                                    >Humidity
+                                    <img
+                                        src="../../img/humid.png"
+                                        style="height: 20px;"
+                                /></b>
+                            </h4>
+                        </div>
+                        <figure
+                            id="container-humidity"
+                            class="chart-container"
+                        ></figure>
+                    </div>
+                </a>
+                <a href="/app&gas">
+                    <div class="cardApp">
+                        <div class="gauge-title-container">
+                            <h4>
+                                <b
+                                    >Air Quality
+                                    <img
+                                        src="../../img/gas.png"
+                                        style="height: 20px;"
+                                /></b>
+                            </h4>
+                        </div>
+                        <figure
+                            id="container-air-quality"
+                            class="chart-container"
+                        ></figure>
+                    </div>
+                </a>
+            </section>
+        </div>
+    </body>
+</html>
