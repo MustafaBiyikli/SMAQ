@@ -366,16 +366,6 @@ input[type="submit"]:hover {
     opacity: 1;
 }
 
-.app-container {
-    margin-top: 20px;
-    margin-right: 5%;
-    margin-left: 5%;
-    border-radius: 10px;
-    background-color: #f2f2f2;
-    padding: 20px;
-    box-shadow: 2px 4px 10px #00000055;
-}
-
 .follow {
     text-align: center;
     padding-bottom: 10px;
@@ -493,10 +483,6 @@ input[type="submit"]:hover {
     box-shadow: 2px 4px 10px #00000055;
 }
 
-#map-app {
-    height: 450px;
-}
-
 #navbar {
     background-image: linear-gradient(
         to bottom right,
@@ -575,8 +561,7 @@ input[type="submit"]:hover {
     box-sizing: border-box;
 }
 
-#main a,
-.app-container a {
+#main a {
     padding: 5px;
     background-color: #ccc;
     border-radius: 5px;

@@ -157,7 +157,8 @@ function checkInfo(tStamp) {
             .split("<!--SPLIT-->");
 
         [part1, part2] = HTML.split('src="');
-        HTMLApp = part1.concat('src="../', part2);
+        [before, after] = part2.split("width: 35px");
+        HTMLApp = part1.concat('src="../', before, "width: 25px", after);
 
         var fullHTMLApp = headerApp.concat(
             "<!--SPLIT-->\n\t\t",
@@ -225,7 +226,8 @@ function removeAlert() {
             .split("<!--SPLIT-->");
 
         [part1, part2] = HTML.split('src="');
-        HTMLApp = part1.concat('src="../', part2);
+        [before, after] = part2.split("width: 35px");
+        HTMLApp = part1.concat('src="../', before, "width: 25px", after);
 
         var fullHTMLApp = headerApp.concat(
             "<!--SPLIT-->",
@@ -305,7 +307,8 @@ function writeAlert(status, message, tStamp) {
         .split("<!--SPLIT-->");
 
     [part1, part2] = HTML.split('src="');
-    HTMLApp = part1.concat('src="../', part2);
+    [before, after] = part2.split("width: 35px");
+    HTMLApp = part1.concat('src="../', before, "width: 25px", after);
 
     var fullHTMLApp = headerApp.concat(
         "<!--SPLIT-->",
