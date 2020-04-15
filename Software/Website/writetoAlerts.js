@@ -156,9 +156,9 @@ function checkInfo(tStamp) {
             .readFileSync("./html/app/alerts.html", "utf-8")
             .split("<!--SPLIT-->");
 
-        [part1, part2] = HTML.split('src="');
-        [before, after] = part2.split("width: 35px");
-        HTMLApp = part1.concat('src="../', before, "width: 25px", after);
+        var [part1, part2] = HTML.split('src="');
+        var [before, after] = part2.split("width: 35px");
+        var HTMLApp = part1.concat('src="../', before, "width: 25px", after);
 
         var fullHTMLApp = headerApp.concat(
             "<!--SPLIT-->\n\t\t",
@@ -225,9 +225,9 @@ function removeAlert() {
             .readFileSync("./html/app/alerts.html", "utf-8")
             .split("<!--SPLIT-->");
 
-        [part1, part2] = HTML.split('src="');
-        [before, after] = part2.split("width: 35px");
-        HTMLApp = part1.concat('src="../', before, "width: 25px", after);
+        var [part1, part2] = HTML.split('src="');
+        var [before, after] = part2.split("width: 35px");
+        var HTMLApp = part1.concat('src="../', before, "width: 25px", after);
 
         var fullHTMLApp = headerApp.concat(
             "<!--SPLIT-->",
@@ -306,9 +306,9 @@ function writeAlert(status, message, tStamp) {
         .readFileSync("./html/app/alerts.html", "utf-8")
         .split("<!--SPLIT-->");
 
-    [part1, part2] = HTML.split('src="');
-    [before, after] = part2.split("width: 35px");
-    HTMLApp = part1.concat('src="../', before, "width: 25px", after);
+    var [part1, part2] = HTML.split('src="');
+    var [before, after] = part2.split("width: 35px");
+    var HTMLApp = part1.concat('src="../', before, "width: 25px", after);
 
     var fullHTMLApp = headerApp.concat(
         "<!--SPLIT-->",
