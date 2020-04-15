@@ -176,7 +176,7 @@ $(document).ready(function () {
 
     addGauge(
         "container-ambient-light",
-        [0, 1000],
+        [0, 3000],
         "ambientLight",
         [-90, 90],
         "lux",
