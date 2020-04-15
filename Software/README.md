@@ -1,7 +1,7 @@
 Software related to:
-- Real-Time & Sampling: for details see ```./Real-Time```
-- WebApp & Server: for details see ```./Website```
-- Android native app: for details see ```./Android-App```
+- Real-Time & Sampling: see ```./Real-Time```
+- WebApp & Server: see ```./Website```
+- Android native app: see ```./Android-App```
 
 ## How it works
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/softwareFlow.png"/>
