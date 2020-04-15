@@ -102,4 +102,14 @@ ESD safe procedures were followed using appropriate equipment and proper groundi
 <br/>
 <br/>
 
+## Casing
+All printer ready CAD files and pdf drawings can be found under ```./Casing``` directory. We were unable to manufacture the casing due to unforseen events (COVID-19). Therefore, its ergonomics in real life are yet to be tested.
+<p align="center">
+  <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/ENG5220-SMAQ-A01.PNG" width="600"/>
+  <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/EN5220-SMAQ-01.PNG" width="600"/>
+  <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/EN5220-SMAQ-02.PNG" width="600"/>
+  <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/ENG5220-SMAQ-03.PNG" width="600"/>
+  <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Resources/EN5220-SMAQ-04.PNG" width="600"/>
+</p>
+
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
