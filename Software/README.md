@@ -65,3 +65,7 @@ cd ../Website
 npm install
 npm run start:prod
 ```
+
+## How to run your Android Native App
+In order to enhance user experience on mobile devices (Android platform) we have developed a native mobile app. Pairing the app with your SMAQ is done by providing the app with the ip address of your Raspberry Pi. <This may be automated in future realeases>
+
