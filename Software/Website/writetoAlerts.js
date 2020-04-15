@@ -128,7 +128,12 @@ function checkInfo(tStamp) {
             .readFileSync("./html/alerts.html", "utf-8")
             .split("<!--SPLIT-->");
 
+        var [headerApp, alerts, footerApp] = fs
+            .readFileSync("./html/app/alerts.html", "utf-8")
+            .split("<!--SPLIT-->");
+
         var HTML = "";
+        var HTMLApp = "";
 
         var contentAlerts = alerts.split("<div");
         for (i = 0; i < contentAlerts.length; i++) {
@@ -137,6 +142,16 @@ function checkInfo(tStamp) {
                     contentAlerts[i] = "";
                 } else {
                     HTML = HTML.concat("<div", contentAlerts[i]);
+
+                    var [part1, part2] = contentAlerts[i].split('src="');
+                    var [before, after] = part2.split("width: 35px");
+                    var appAlert = part1.concat(
+                        'src="../',
+                        before,
+                        "width: 25px",
+                        after
+                    );
+                    HTMLApp = HTMLApp.concat("<div", appAlert);
                 }
             }
         }
@@ -152,14 +167,7 @@ function checkInfo(tStamp) {
         // Write html
         fs.writeFileSync("./html/alerts.html", fullHTML, "utf-8");
 
-        var [headerApp, alerts, footerApp] = fs
-            .readFileSync("./html/app/alerts.html", "utf-8")
-            .split("<!--SPLIT-->");
-
-        var [part1, part2] = HTML.split('src="');
-        var [before, after] = part2.split("width: 35px");
-        var HTMLApp = part1.concat('src="../', before, "width: 25px", after);
-
+        // Add the alerts to the Android App
         var fullHTMLApp = headerApp.concat(
             "<!--SPLIT-->\n\t\t",
             HTMLApp,
@@ -183,7 +191,12 @@ function removeAlert() {
         .readFileSync("./html/alerts.html", "utf-8")
         .split("<!--SPLIT-->");
 
+    var [headerApp, alerts, footerApp] = fs
+        .readFileSync("./html/app/alerts.html", "utf-8")
+        .split("<!--SPLIT-->");
+
     var HTML = "";
+    var HTMLApp = "";
     var toDelete = 0;
 
     var contentAlerts = alerts.split("<div");
@@ -205,6 +218,16 @@ function removeAlert() {
                 HTML = HTML.concat(contentAlerts[i]);
             } else {
                 HTML = HTML.concat("\n\t\t\t\t<div", contentAlerts[i]);
+
+                var [part1, part2] = contentAlerts[i].split('src="');
+                var [before, after] = part2.split("width: 35px");
+                var appAlert = part1.concat(
+                    'src="../',
+                    before,
+                    "width: 25px",
+                    after
+                );
+                HTMLApp = HTMLApp.concat("<div", appAlert);
             }
         }
     }
@@ -221,14 +244,7 @@ function removeAlert() {
         // Write html
         fs.writeFileSync("./html/alerts.html", fullHTML, "utf-8");
 
-        var [headerApp, alerts, footerApp] = fs
-            .readFileSync("./html/app/alerts.html", "utf-8")
-            .split("<!--SPLIT-->");
-
-        var [part1, part2] = HTML.split('src="');
-        var [before, after] = part2.split("width: 35px");
-        var HTMLApp = part1.concat('src="../', before, "width: 25px", after);
-
+        // For the App
         var fullHTMLApp = headerApp.concat(
             "<!--SPLIT-->",
             HTMLApp,
