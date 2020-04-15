@@ -157,7 +157,7 @@ Data you see here is randomly generated up to 1 minute as it is in development, 
         <img src="./Software/Website/img/instagram.png" height="40"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
-    <a href="">
+    <a href="https://twitter.com/SMAQ82411071">
         <img src="./Software/Website/img/twitter.png" height="40"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
