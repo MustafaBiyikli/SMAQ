@@ -2,7 +2,7 @@ const fs = require("fs");
 const dgram = require("dgram");
 const writetoCSV = require("./writetoCSV");
 const ab2str = require("arraybuffer-to-string");
-const writetoAlert = require("./writetoAlerts");
+const writetoAlerts = require("./writetoAlerts");
 
 var server = dgram.createSocket("udp4");
 
@@ -35,7 +35,7 @@ var counter = writetoCSV.updateCSV(
 
 server.on("message", function (message) {
     var smaqData = ab2str(message);
-    let [tStamp, ALS, PR, T, P, H, A, MIC, NH3, NO2, CO] = smaqData.split(",");
+    var [tStamp, ALS, PR, T, P, H, A, MIC, NH3, NO2, CO] = smaqData.split(",");
 
     // Append data to CSV as received
     writetoCSV.writeFormatData("./csv/ambient.csv", ALS, maxCSVLength, counter);
@@ -54,7 +54,15 @@ server.on("message", function (message) {
     });
 
     // Check for alerts
-    writetoAlert.alertHandler(tStamp, T, P, H, NH3, NO2, CO);
+    writetoAlerts.alertHandler(
+        parseInt(tStamp) * 1000,
+        parseFloat(T),
+        parseFloat(P),
+        parseFloat(H),
+        parseFloat(NH3),
+        parseFloat(NO2),
+        parseFloat(CO)
+    );
 
     if (counter < maxCSVLength + 1) counter++;
 });

@@ -129,15 +129,15 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 
 <p align="center">
     <a href="https://github.com/Alexandros-Charitonidis">
-        <img src="./Resources/AlexLatest.jpg" width="250"/>
+        <img src="./Resources/AlexLatest.jpg" width="150"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
     <a href="https://github.com/MustafaBiyikli">
-        <img src="./Resources/MusLatest.jpg" width="250"/>
+        <img src="./Resources/MusLatest.jpg" width="150"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
     <a href="https://github.com/KasiaLenard">
-        <img src="./Resources/KasiaLatest.jpg" width="250"/>
+        <img src="./Resources/KasiaLatest.jpg" width="150"/>
     </a>
 </p>
 
@@ -157,7 +157,7 @@ Data you see here is randomly generated up to 1 minute as it is in development, 
         <img src="./Software/Website/img/instagram.png" height="40"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
-    <a href="">
+    <a href="https://twitter.com/SMAQ82411071">
         <img src="./Software/Website/img/twitter.png" height="40"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
