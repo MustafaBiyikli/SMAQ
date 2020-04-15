@@ -129,15 +129,15 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 
 <p align="center">
     <a href="https://github.com/Alexandros-Charitonidis">
-        <img src="./Resources/AlexLatest.jpg" width="250"/>
+        <img src="./Resources/AlexLatest.jpg" width="150"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
     <a href="https://github.com/MustafaBiyikli">
-        <img src="./Resources/MusLatest.jpg" width="250"/>
+        <img src="./Resources/MusLatest.jpg" width="150"/>
     </a>
     &nbsp;  &nbsp;  &nbsp;  
     <a href="https://github.com/KasiaLenard">
-        <img src="./Resources/KasiaLatest.jpg" width="250"/>
+        <img src="./Resources/KasiaLatest.jpg" width="150"/>
     </a>
 </p>
 
