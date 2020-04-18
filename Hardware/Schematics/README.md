@@ -6,3 +6,10 @@ You can dynamically search and acquire all necessary information about component
         <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/DynamicPDFExplanation.gif" />
     </a>
 </p>
+
+And a small explanation of how our PDFs can be used to troubleshoot the board and identify components from the board.
+
+<p align="center">
+        <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/TroubleshootWithOurPDFs.gif" />
+    </a>
+</p>
