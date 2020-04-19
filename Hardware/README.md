@@ -1,7 +1,3 @@
-# --WORK IN PROGRESS--
-
-
-
 # Hardware Section
 #### From this list you can navigate through different files needed for the reproduction SMAQ Board
 * [3D Files](https://github.com/MustafaBiyikli/SMAQ/tree/master/Hardware/3D%20Files) 
@@ -73,7 +69,7 @@ In order to protect the board from oxidation and help the component soldering a 
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/MakingProcess.gif"/>
 </p>
 
-To fully ensure the protection of the board and the etched logo, a coat of tin (5μm) was applied on top of the exposed copper.
+To fully ensure the protection of the board, exposed pads and of the etched logo, a coat of tin (5μm) was applied on top of the exposed copper.
 This was done through electroless tinning. 
 
 <p align="center">
@@ -85,7 +81,7 @@ This was done through electroless tinning.
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/Soldering.gif" height="400" align="right"/> 
 </p>
 
-All processed were done in controlled and well-ventilated areas using appropriate PPE.
+All processes were done in controlled and well-ventilated areas using appropriate PPE.
 
 The soldering process involved the use of a micro-soldering iron, hot air station, microscope and no-clean flux. 
 
@@ -103,7 +99,7 @@ ESD safe procedures were followed using appropriate equipment and proper groundi
 <br/>
 
 ---
-#### The board after the manuifacturing procedure with the screen assembled on 3mm standoffs fitted on top of the Raspberry Pi.
+#### The board after the manufacturing procedure with the screen assembled on 3mm standoffs fitted on top of the Raspberry Pi.
 <p align="center">
 <img src="https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/FinalBoard.png" width="500"/> 
 </p>
