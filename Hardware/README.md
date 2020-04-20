@@ -13,7 +13,7 @@
 * [Schematics](https://github.com/MustafaBiyikli/SMAQ/tree/master/Hardware/Schematics)
 |A4 and A2 Schematics in Dynamic PDF Format are included here.
 
-### You can have a look at the files above or follow the [full board design]() documentation where all the above information is gathered in one place
+### You can have a look at the files above or follow the [full board design](https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/Hardware-Documentation.pdf) documentation where all the above information is gathered in one place
 
 
 ## The design of the PCB
@@ -23,7 +23,7 @@ Sensors from high-end companies like Bosch and Sensortech were chosen. To add ex
 
 The library for the parts used in the SMAQ are Custom made to fit the needs of our product. All parts were carefully chosen according to recommendations from the sensor companies and to the highest possible quality. Companies like Panasonic, Kemet, TDK and Texas Instruments were considered in our design.
 
-A list of all components can be found [here](). The function of our board is to regularly scan the environmental conditions of a room (Temperature, Pressure, Humidity, various Gases etc.) and output them to a website and when prompted — to the screen. Therefore, a single double-sided PCB was accomplished, and schematics were made with appropriate connections and protection circuits. The software used for the design process is Altium Designer.
+A list of all components can be found [here](https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/Board%20Assembly/SMAQ-Board_DesignBOM.pdf). The function of our board is to regularly scan the environmental conditions of a room (Temperature, Pressure, Humidity, various Gases etc.) and output them to a website and when prompted — to the screen. Therefore, a single double-sided PCB was accomplished, and schematics were made with appropriate connections and protection circuits. The software used for the design process is Altium Designer.
 
 Here is the [PCB layout](https://github.com/MustafaBiyikli/SMAQ/blob/master/Hardware/HW_Resources/UofG-Board-etching-SMAQ.pdf) sent to the services to be printed.
 <p align="center">
