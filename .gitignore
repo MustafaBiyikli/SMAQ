@@ -1,6 +1,8 @@
 *
 !*.*
 !*/
+
+AWS/
 node_modules/
 
 CMakeFiles
