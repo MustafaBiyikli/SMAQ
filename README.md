@@ -143,7 +143,7 @@ See ```./Resources``` for packaging ideas and ```./Hardware``` for full details.
 
 ## Hosted Website
 
-Vist SMAQ WebApp on: <b>www.team7smaq.github.io</b>
+Vist SMAQ WebApp on: <b>https://team7smaq.github.io</b>
 * Data you see here is randomly generated up to 1 minute as it is in development, however, the working principle is the same. You can have an idea of how SMAQ works without having to clone our repository.
 
 ## Introduction Video
